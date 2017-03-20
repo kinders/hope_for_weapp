@@ -1,0 +1,53 @@
+<!--pages/todo/todo.wxml-->
+<view class="todo">
+  <view>
+    <text style="font-weight: bold; margin: 0 1rem 0 0;">时间</text><text>{{todo.created_at}}</text>
+    <button type="warn" bindtap="rehelp" size="mini" wx:if="{{todo.user_id == current_user_id && todo.is_finish == 't'}}" style="float: right;width:20%;">开启</button>
+    <button type="warn" bindtap="close_help" size="mini" wx:if="{{todo.user_id == current_user_id && todo.is_finish == 'f'}}" style="float: right;width:20%;">关闭</button>
+  </view>
+  <!--<navigator url="../friend/friend?id={{todo.user_id}}" open-type="redirect">-->
+  <view>
+    <text style="font-weight: bold; margin: 0 1rem 0 0;">发起</text><text>{{todo.user_nickname}}</text>
+  </view>
+  <!--</navigator>-->
+  <!--<navigator url="../friend/friend?id={{todo.receiver_id}}" open-type="redirect">-->
+  <view>
+    <text style="font-weight: bold; margin: 0 1rem 0 0;">接收</text><text>{{todo.receiver_nickname}}</text>
+  </view>
+  <!--</navigator>-->
+  <view>
+    <text style="font-weight: bold; margin: 0 1rem 0 0;">内容</text><text>{{todo.content}}</text>
+  </view>
+</view>
+<view class="send">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view style="display: flex;">
+       <textarea placeholder="在此输入留言" auto-focus="true" style="width: 83%;  height: 4rem;  border: 1px solid green; border-radius: 5px; margin: 0 0 0 0.2rem; padding: 20rpx;"/>
+       <button formType="submit" type="primary" size="mini" style="float: right;width:13%;">留言</button>
+     </view>
+  </form>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{discussions_user_nicknames}}">
+  <view class="picker">
+      筛选：{{discussions_user_nicknames[index]}}
+      <text style="float: right;">({{discussions_length}})</text>
+    </view>
+  </picker>
+</view>
+<scroll-view scroll-y="true"  style="height: 360px;" class="list">
+  <block wx:for="{{discussions}}" wx:key="id" wx:for-item="discussion">
+  <view class="{{is_hidden[index]}}">
+     <view class="item-key">
+       <text>{{index + 1}}    </text>
+       <text>{{discussion.created_at}}</text>
+     </view>
+     <view class="item-value">
+       <!--<navigator url="../friend/friend?id={{discussion.user_id}}" open-type="redirect" class="friend">-->
+       <text class="friend">{{discussion.nickname}}</text>
+       <!--</navigator>-->
+       <text>{{ discussion.content}}</text>
+     </view>
+  </view>
+  </block>
+</scroll-view>

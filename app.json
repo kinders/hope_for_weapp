@@ -1,0 +1,48 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/todos/todos",
+    "pages/other_todos/other_todos",
+    "pages/dones/dones",
+    "pages/helps/helps",
+    "pages/helpeds/helpeds",
+    "pages/friends/friends",
+    "pages/friend/friend",
+    "pages/friend_helps/friend_helps",
+    "pages/groups/groups",
+    "pages/groups_helps/groups_helps",
+    "pages/group/group",
+    "pages/group_helps/group_helps",
+    "pages/group_helpeds/group_helpeds",
+    "pages/helps_in_grouptodo/helps_in_grouptodo",
+    "pages/new_nickname/new_nickname",
+    "pages/new_friend/new_friend",
+    "pages/new_group/new_group",
+    "pages/new_groupname/new_groupname",
+    "pages/new_help_to_friend/new_help_to_friend",
+    "pages/new_help_to_group/new_help_to_group",
+    "pages/todo/todo"
+  ],
+  "window":{
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "希望",
+    "navigationBarTextStyle":"white",
+    "backgroundColor": "#d3d3d3",
+    "backgroundTextStyle":"light"
+  },
+  "tabBar": {
+    "color": "white",
+    "backgroundColor": "black",
+    "list": [{
+      "pagePath": "pages/todos/todos",
+      "text": "任务"
+    },{
+      "pagePath": "pages/helps/helps",
+      "text": "请求"
+    }, {
+      "pagePath": "pages/friends/friends",
+      "text": "朋友"
+    }]
+  }
+
+}

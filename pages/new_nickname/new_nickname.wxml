@@ -1,0 +1,19 @@
+<!--pages/new_nickname/new_nickname.wxml-->
+<view  class="topbar" style="background-color:gray;">
+<text>原来的昵称：</text>
+<text style="margin: auto;">{{friend_nickname}}</text>
+</view>
+<view class="container">
+<form bindsubmit="formSubmit"  bindreset="formReset">
+  <view class="section">
+    <view class="section-title">设置新的昵称：</view>
+    <view class="section-input">
+        <input name="name" type="text" placeholder="在此输入" />
+    </view>
+  </view>
+  <view class="btn-area">
+    <button formType="submit" type="primary">提交昵称</button>
+    <button formType="reset" type="default">取消添加</button>
+  </view>
+</form>
+</view>

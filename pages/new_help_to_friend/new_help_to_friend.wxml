@@ -1,0 +1,16 @@
+<!--pages/new_help_to_friend/new_help_to_friend.wxml-->
+<view  class="topbar">
+  <text>添加请求</text>
+  <navigator wx:if="{{friend.friend_id != current_user_id}}"url="../friend/friend?friend_id={{friend.friend_id}}&nickname={{friend.nickname}}" open-type="redirect">查看对方的任务</navigator >
+</view>
+<view  class="topbar" style="background-color:gray;">
+<text>昵称：</text>
+<text style="margin: auto;">{{friend.nickname}}</text>
+</view>
+<view style="padding: 10rpx;">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <textarea name="content" placeholder="请在此输入详细的请求" auto-focus="true" style="height: 20rem; width: 90%; border: 1px solid green; border-radius: 5px; padding: 20rpx; margin: 10rpx;"/>
+    <button formType="submit" type="primary" style="padding: 10rpx; margin: 10rpx;">提交请求</button>
+    <button formType="reset" type="default" style="padding: 10rpx; margin: 10rpx;">取消请求</button>
+  </form>
+</view>

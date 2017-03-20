@@ -1,0 +1,19 @@
+<!--pages/new_help_to_group/new_help_to_group.wxml-->
+<view  class="topbar">
+  <text>发布群请求</text>
+  <navigator url="../group/group?group_id={{group.group_id}}&name={{group.name}}" open-type="redirect">群成员</navigator >
+</view>
+<view class="topbar" style="background-color:gray;">
+<text>群称：</text>
+<text style="margin: auto;">{{group.name}}</text>
+</view>
+<view class="{{is_pulled}}">
+  <text>{{msg}}</text>
+</view>
+<view style="padding: 10rpx;">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <textarea name="content" placeholder="请在此输入详细的请求" auto-focus="true" style="height: 20rem; width: 90%; border: 1px solid green; border-radius: 5px; padding: 20rpx; margin: 10rpx;"/>
+    <button formType="submit" type="primary" style="padding: 10rpx; margin: 10rpx;">提交请求</button>
+    <button formType="reset" type="default" style="padding: 10rpx; margin: 10rpx;">取消请求</button>
+  </form>
+</view>

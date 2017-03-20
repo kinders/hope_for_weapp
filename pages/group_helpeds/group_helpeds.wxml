@@ -1,0 +1,21 @@
+<!--pages/group_helpeds/group_helpeds.wxml-->
+<view  class="topbar">
+  <text>列表({{group_helpeds_length}})</text >
+  <navigator url="../group_helps/group_helps?group_id={{group.group_id}}&name={{group.name}}" open-type="redirect">未满足请求</navigator >
+  <navigator url="../group/group?group_id={{group.group_id}}&name={{group.name}}" open-type="redirect">群成员</navigator >
+</view>
+<view class="topbar" style="background-color:gray;">
+<text>群称：</text>
+<text style="margin: auto;">{{group.name|| "测试群"}}</text>
+</view>
+<view class="list">
+  <block wx:for="{{group_helpeds}}" wx:key="id" wx:for-item="group_helped">
+    <view class="item-key">
+      <text>{{index + 1}}    </text>
+      <text>{{group_helped.created_at}}</text>
+    </view>
+    <view class="item-value">
+      <navigator url="../helps_in_grouptodo/helps_in_grouptodo?id={{group_helped.id}}&time={{group_helped.created_at}}&content={{group_helped.content}}&is_finish=t&group_id={{group.group_id}}&name={{group.name}}" open-type="redirect">{{ group_helped.content}}</navigator>
+    </view>
+  </block>
+</view>

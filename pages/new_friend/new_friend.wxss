@@ -1,0 +1,23 @@
+/* pages/new_friend/new_friend.wxss */
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.section-title {
+    font-weight: bold;
+    padding: 10rpx;
+    /*background-color: darkgray;*/
+}
+
+.section-input {
+    padding: 10rpx;
+    margin: 10rpx;
+    border-bottom: 0.1px solid green;
+}
+.btn-area {
+    margin: 10rpx;
+    padding: 0rpx 20rpx;
+}

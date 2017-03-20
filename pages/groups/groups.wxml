@@ -1,0 +1,21 @@
+<!--pages/groups/groups.wxml-->
+<view  class="topbar">
+  <text>列表{{groups_length}}</text>
+  <navigator url="../friends/friends" open-type="switchTab">返回朋友</navigator >
+  <navigator url="../new_group/new_group">新建群组</navigator >
+</view>
+<view class="list">
+  <block wx:for="{{groups}}" wx:key="id" wx:for-item="group">
+    <view style="display: flex;">
+    <navigator url="../group/group?group_id={{group.id}}&name={{group.name}}" class="item-value" style="width: 50%;">
+      <text>{{group.name}}</text>
+    </navigator>
+    <navigator url="../new_groupname/new_groupname?group_id={{group.id}}&name={{group.name}}" class="item-value" style="width: 25%;">
+      <text style="float: right;">->改名</text>
+    </navigator>
+    <navigator url="../new_help_to_group/new_help_to_group?group_id={{group.id}}&name={{group.name}}" class="item-value" style="width: 25%;">
+      <text style="float: right;">->请求</text>
+    </navigator>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,23 @@
+<!--pages/new_group/new_group.wxml-->
+<form bindsubmit="formSubmit"  bindreset="formReset">
+  <view class="section">
+    <view class="section-title">群名称：</view>
+    <view class="section-input">
+        <input name="name" type="text" placeholder="在此输入" />
+    </view>
+  </view>
+  <scroll-view class="scroll-select">
+    <view class="section-title">选择朋友：</view>
+    <checkbox-group name="checkbox">
+      <block wx:for="{{friendships}}" wx:key="id">
+        <view class="section-checkbox">
+          <label><checkbox value="{{item.friend_id}}" style="float: right;"/>{{item.nickname}}</label>
+        </view>
+      </block>
+    </checkbox-group>
+  </scroll-view>
+  <view class="btn-area">
+    <button formType="submit" type="primary">创建群组</button>
+    <button formType="reset" type="default" >取消建群</button>
+  </view>
+</form>

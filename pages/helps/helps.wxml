@@ -1,0 +1,33 @@
+<!--pages/helps/helps.wxml-->
+<view  class="topbar">
+  <text>列表({{helps_length}})</text>
+  <navigator url="../helpeds/helpeds">已满足请求</navigator >
+  <navigator url="../groups_helps/groups_helps" >群请求</navigator> 
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{helps_receiver_nicknames}}">
+  <view class="picker">
+      筛选：{{helps_receiver_nicknames[index]}}
+    </view>
+  </picker>
+</view>
+<view class="list">
+  <block wx:for="{{helps}}" wx:key="id" wx:for-item="help">
+  <view class="{{is_hidden[index]}}">
+     <view class="item-key">
+       <text>{{index + 1}}    </text>
+       <text>{{help.created_at}}</text>
+     </view>
+     <view class="friend" style="padding: 0.25rem;">
+       <text wx:if="{{help.receiver_id == current_user.id}}" style="color: gray;">{{help.nickname}}</text>
+       <!--
+       <navigator url="../friend/friend?friend_id={{help.receiver_id}}" wx:else>{{help.nickname}}</navigator>
+       -->
+       <text wx:else>{{help.nickname}}</text>
+     </view>
+     <view class="item-value">
+       <navigator url="../todo/todo?todo_id={{help.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{help.created_at}}&is_finish=f&content={{help.content}}">{{ help.content}}</navigator>
+     </view>
+  </view>
+  </block>
+</view>

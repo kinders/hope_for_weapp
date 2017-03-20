@@ -1,0 +1,31 @@
+<!--pages/dones/dones.wxml-->
+<view  class="topbar">
+  <text>列表({{dones_length}})</text>
+  <navigator url="../todos/todos" open-type="switchTab" >返回未完成任务</navigator >
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{dones_user_nicknames}}">
+  <view class="picker">
+      筛选：{{dones_user_nicknames[index]}}
+    </view>
+  </picker>
+</view>
+<view class="list">
+  <block wx:for="{{dones}}" wx:key="index" wx:for-item="done">
+  <view class="{{is_hidden[index]}}">
+     <view  class="item-key">
+       <text>{{index + 1}}  </text>
+       <text>{{done.created_at}}</text>
+     </view>
+     <view class="friend" style="padding: 0.25rem;">
+       <text wx:if="{{done.user_id == current_user_id}}" style="color: gray;">{{done.nickname}}</text>
+       <!--
+       <navigator url="../friend/friend?id={{done.user_id}}"  class="friend" open-type="redirect" wx:else>{{done.nickname}}</navigator>-->
+       <text wx:else>{{done.nickname}}</text>
+     </view>
+     <view class="item-value">
+       <navigator url="../todo/todo?todo_id={{done.id}}&user_nickname={{done.nickname}}&receiver_nickname={{current_user.nickname}}&created_at={{done.created_at}}&is_finish=t&content={{done.content}}">{{ done.content }}</navigator>
+     </view>
+  </view>     
+  </block>
+</view>

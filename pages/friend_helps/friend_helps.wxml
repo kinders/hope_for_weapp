@@ -1,0 +1,35 @@
+<!--pages/friend_helps/friend_helps.wxml-->
+<view  class="topbar">
+  <text>请求({{friend_helps_length}})</text>
+  <navigator url="../friend/friend?friend_id={{friend.friend_id}}&nickname={{friend.nickname}}" open-type="redirect">查看任务</navigator >
+   <navigator url="../new_help_to_friend/new_help_to_friend?friend_id={{friend.friend_id}}&nickname={{friend.nickname}}" open-type="redirect" wx:if="{{is_friendship == 't'}}">添加请求</navigator > 
+   <navigator url="../new_help_to_friend/new_help_to_friend?friend_id={{friend.friend_id}}&nickname={{friend.nickname}}" open-type="redirect" wx:else>加为好友</navigator > 
+</view>
+<view  class="topbar" style="background-color:gray;">
+<text>昵称：</text>
+<text style="margin: auto;">{{friend.nickname}}</text>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{friend_helps_receiver_nicknames}}">
+  <view class="picker">
+      筛选：{{friend_helps_receiver_nicknames[index]}}
+    </view>
+  </picker>
+</view>
+<view class="list">
+  <block wx:for="{{friend_helps}}" wx:key="id" wx:for-item="help">
+  <view class="{{is_hidden[index]}}">
+     <view class="item-key">
+       <text>{{index + 1}}    </text>
+       <text>{{help.created_at}}</text>
+     </view>
+     <view class="friend" style="padding: 0.25rem;">
+       <text wx:if="{{help.receiver_id == current_user_id}}" style="color: gray;">{{help.nickname}}</text>
+       <navigator url="../friend/friend?friend_id={{help.receiver_id}}&nickname={{help.nickname}}" open-type="redirect" wx:else>{{help.nickname}}</navigator>
+     </view>
+     <view class="item-value">
+       <navigator url="../todo/todo?todo_id={{help.id}}&user_nickname={{friend.nickname}}&receiver_nickname={{help.nickname}}&created_at={{help.created_at}}&is_finish=f&content={{help.content}}">{{ help.content}}</navigator>
+     </view>
+  </view>
+  </block>
+</view>

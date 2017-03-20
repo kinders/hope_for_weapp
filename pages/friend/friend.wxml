@@ -1,0 +1,38 @@
+<!--pages/friend/friend.wxml-->
+<view  class="topbar">
+  <text>任务({{friend_todos_length}})</text>
+  <navigator url="../friend_helps/friend_helps?friend_id={{friend.friend_id}}&nickname={{friend.nickname}}" open-type="redirect">查看请求</navigator >
+   <navigator url="../new_help_to_friend/new_help_to_friend?friend_id={{friend.friend_id}}&nickname={{friend.nickname}}" open-type="redirect" wx:if="{{is_friendship == 't'}}">添加请求</navigator > 
+   <navigator url="../new_friend/new_friend?friend_id={{friend.friend_id}}&nickname={{friend.nickname}}" open-type="redirect" wx:else>加为好友</navigator > 
+</view>
+<view  class="topbar" style="background-color:gray;">
+<text>昵称：</text>
+<text style="margin: auto;">{{friend.nickname}}</text>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{friend_todos_user_nicknames}}">
+  <view class="picker">
+      筛选：{{friend_todos_user_nicknames[index]}}
+    </view>
+  </picker>
+</view>
+<view class="list">
+  <block wx:for="{{friend_todos}}" wx:key="id" wx:for-item="friend_todo">
+  <view class="{{is_hidden[index]}}">
+     <view class="item-key">
+       <text>{{index + 1}}    </text>
+       <text>{{friend_todo.created_at}}</text>
+     </view>
+     <view class="friend" style="padding: 0.25rem;">
+       <text wx:if="{{friend_todo.user_id == current_user_id}}" style="color: gray;">{{friend_todo.nickname}}</text>
+       <navigator url="../friend/friend?friend_id={{friend_todo.user_id}}&nickname={{friend_todo.nickname}}" open-type="redirect" wx:else>{{friend_todo.nickname}}</navigator>
+       <!--
+       <text wx:else>{{friend_todo.nickname}}</text>
+       -->
+       </view>
+       <view class="item-value">
+       <navigator url="../todo/todo?todo_id={{friend_todo.id}}&user_nickname={{friend_todo.nickname}}&receiver_nickname={{friend.nickname}}&created_at={{friend_todo.created_at}}&is_finish=f&content={{friend_todo.content}}">{{ friend_todo.content}}</navigator>
+     </view>
+  </view>
+  </block>
+</view>

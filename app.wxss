@@ -1,0 +1,45 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+.topbar {
+  font-size: 0.8rem;
+  color: white;
+  background-color: black;
+  display: flex;
+  padding: 0.5rem;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 80rpx;
+}
+
+.list {
+  padding: 0.5rem;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.item-key {
+  color: limegreen;
+  padding: 0.25rem;
+}
+
+.item-value {
+  color: black;
+  padding: 0.5rem 1rem;
+  border-bottom: 0.1px inset;
+}
+
+.friend {
+  color: blue;
+  display: inline-block; 
+  padding: 0 1rem 0 0;
+}
+
+.hidden {display: none;}

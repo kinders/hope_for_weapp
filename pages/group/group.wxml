@@ -1,0 +1,20 @@
+<!--pages/group/group.wxml-->
+<view  class="topbar">
+  <text>成员({{group_friends_length}})</text>
+  <navigator  open-type="redirect" url="../group_helps/group_helps?group_id={{group.group_id}}&name={{group.name}}" >已有群请求</navigator >
+  <navigator  open-type="redirect" url="../new_help_to_group/new_help_to_group?group_id={{group.id}}&name={{group.name}}" >发布群请求</navigator >
+</view>
+<view class="topbar" style="background-color:gray;">
+<text>群组名称：</text>
+<text style="margin: auto;">{{group.name}}</text>
+</view>
+<view class="list">
+  <block wx:for="{{group_friends}}" wx:key="id" wx:for-item="friend">
+    <view wx:if="{{friend.user_id == current_user_id}}"  class="item-value" >
+      <text style="color: gray;">{{friend.nickname}}</text>
+    </view>
+    <navigator wx:else url="../friend/friend?friend_id={{friend.user_id}}&nickname={{friend.nickname}}" open-type="redirect" class="item-value">
+      <text>{{friend.nickname}}</text>
+    </navigator>
+  </block>
+</view>
