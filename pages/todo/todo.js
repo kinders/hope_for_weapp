@@ -107,6 +107,11 @@ Page({
   },
   formSubmit: function(e){
     // 用户提交留言
-
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '这件事，你看怎么办才好？',
+      path: "/todo/todotodo_id={{todo.id}}&user_nickname={{todo.nickname}}&receiver_nickname={{todo.receiver_nickname}}&created_at={{todo.created_at}}&is_finish=t&content={{todo.content}}"
+    }
   }
 })

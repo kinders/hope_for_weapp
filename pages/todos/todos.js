@@ -57,4 +57,10 @@ Page({
       todos_length: todos_length
     })
   },
+  onShareAppMessage: function () {
+    return {
+      title: '你认识我吗？',
+      path: "/friend/friend?friend_id={{current_user.id}}&nickname={{current_user.nickname}}"
+    }
+  }
 })

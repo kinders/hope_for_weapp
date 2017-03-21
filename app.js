@@ -16,11 +16,11 @@ App({
     })
     wx.setStorage({
       key: "todos",
-      data: [{ id: 1, content: '第一个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20 09:50:14', is_top: false }, { id: 2, content: '用户二给用户一的第一个任务', user_id: 2, nickname: '用户二', created_at: '2017-02-20 09:50:14', is_top: false }, { id: 3, content: '用户二给用户一的第一个任务', user_id: 2, nickname: '用户二', created_at: '2017-02-20 09:50:14', is_top: false }]
+      data: [{ id: 1, content: '第一个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20 09:50:14' }, { id: 2, content: '用户二给用户一的第一个任务', user_id: 2, nickname: '用户二', created_at: '2017-02-20 09:50:14'}, { id: 3, content: '用户二给用户一的第一个任务', user_id: 2, nickname: '用户二', created_at: '2017-02-20 09:50:14' }]
     })
     wx.setStorage({
       key: "other_todos",
-      data: [{ id: 1, content: '第一个任务', user_id: 4, nickname: '用户4', created_at: '2017-02-20 09:50:14', is_top: false }, { id: 2, content: '用户5给用户一的第一个任务', user_id: 5, nickname: '用户5', created_at: '2017-02-20 09:50:14', is_top: false }, { id: 3, content: '用户5给用户一的第一个任务', user_id: 5, nickname: '用户5', created_at: '2017-02-20 09:50:14', is_top: false }]
+      data: [{ id: 1, content: '第一个任务', user_id: 4, nickname: '用户4', created_at: '2017-02-20 09:50:14', discussions_count: 5 }, { id: 2, content: '用户5给用户一的第一个任务', user_id: 5, nickname: '用户5', created_at: '2017-02-20 09:50:14', discussions_count: 4 }, { id: 3, content: '用户5给用户一的第一个任务', user_id: 5, nickname: '用户5', created_at: '2017-02-20 09:50:14', discussions_count: 3 }]
     })
     wx.setStorage({
         key: "dones",
@@ -44,11 +44,11 @@ App({
     })
     wx.setStorage({
       key: "friend_2_todos",
-      data: [ { id: 1, content: '第一个任务第一个任务第一个任务第一个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14', is_top: false }, { id: 2, content: '第二个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14', is_top: false }, { id: 3, content: '第三个任务', user_id: 4, nickname: '用户四', created_at: '2017-02-20T09:50:14', is_top: false } ]
+      data: [ { id: 1, content: '第一个任务第一个任务第一个任务第一个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 2, content: '第二个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 3, content: '第三个任务', user_id: 4, nickname: '用户四', created_at: '2017-02-20T09:50:14' } ]
     })
     wx.setStorage({
       key: "friend_2_helps",
-      data: [ { id: 1, content: '第一个任务第一个任务第一个任务第一个任务', receiver_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14', is_top: false }, { id: 2, content: '第二个任务', receiver_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14', is_top: false }, { id: 3, content: '第三个任务', receiver_id: 3, nickname: '用户三', created_at: '2017-02-20T09:50:14', is_top: false } ]
+      data: [ { id: 1, content: '第一个任务第一个任务第一个任务第一个任务', receiver_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 2, content: '第二个任务', receiver_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 3, content: '第三个任务', receiver_id: 3, nickname: '用户三', created_at: '2017-02-20T09:50:14' } ]
     })
     wx.setStorage({
       key: "groups",
