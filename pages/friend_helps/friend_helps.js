@@ -15,7 +15,7 @@ Page({
     var is_friendship = ''
     var that = this
     wx.request({
-      url: 'https://test.com/friend_helps',
+      url: 'https://www.hopee.xyz/friend_helps',
       data: { token: token, friend_id: friend_id },
       method: 'GET',
       success: function(res){

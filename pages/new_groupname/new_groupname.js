@@ -44,7 +44,7 @@ Page({
         success: function(res) {
           if (res.confirm) {
             wx.request({
-              url: 'https://test.com/new_groupname',
+              url: 'https://www.hopee.xyz/new_groupname',
               data: {token: token, nickname: e.detail.value.name, group_id: group_id},
               method: 'POST',
               success: function(res){

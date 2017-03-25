@@ -21,7 +21,8 @@
     "pages/new_groupname/new_groupname",
     "pages/new_help_to_friend/new_help_to_friend",
     "pages/new_help_to_group/new_help_to_group",
-    "pages/todo/todo"
+    "pages/todo/todo",
+    "pages/strangers/strangers"
   ],
   "window":{
     "navigationBarBackgroundColor": "#000",

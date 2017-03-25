@@ -26,7 +26,7 @@
        <text wx:else>{{helped.nickname}}</text>
      </view>
      <view class="item-value">
-       <navigator url="../todo/todo?todo_id={{helped.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{helped.nickname}}&created_at={{helped.created_at}}&is_finish=t&content={{helped.content}}">{{ helped.content}}</navigator>
+       <navigator url="../todo/todo?todo_id={{helped.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{helped.nickname}}&created_at={{helped.created_at}}&is_finish=t&content={{helped.content}}">{{ helped.content}}</navigator>
      </view>
   </view>
   </block>

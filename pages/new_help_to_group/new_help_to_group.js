@@ -39,7 +39,7 @@ Page({
         success: function(res) {
           if (res.confirm) {
             wx.request({
-              url: 'https://test.com/new_help_to_group',
+              url: 'https://www.hopee.xyz/new_help_to_group',
               data: {token: token, group_id: group_id, content: e.detail.value.content},
               method: 'POST',
               success: function(res){

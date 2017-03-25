@@ -10,7 +10,7 @@ Page({
     // 到网站请求最新信息
     var group_helps = "group_" + group_id + "_helps"
     wx.request({
-      url: 'https://test.com/group_helps',
+      url: 'https://www.hopee.xyz/group_helps',
       data: { token: token, group_id: group_id },
       method: 'GET',
       success: function(res){

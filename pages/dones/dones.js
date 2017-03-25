@@ -11,7 +11,7 @@ Page({
     // 到网站请求最新信息
     var that = this
     wx.request({
-      url: 'https://test.com/dones',
+      url: 'https://www.hopee.xyz/dones',
       data: { token: token },
       method: 'GET',
       success: function(res){

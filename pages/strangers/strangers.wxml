@@ -1,0 +1,18 @@
+<!--pages/strangers/strangers.wxml-->
+<view  class="topbar">
+  <text>列表({{strangers_length}})</text>
+  <navigator url="../friends/friends" open-type="switchTab">返回朋友</navigator >
+</view>
+<view class="list">
+  <block wx:for="{{strangers}}" wx:key="id" wx:for-item="friendship">
+    <view style="display: flex;">
+    <text wx:if="{{friendship.friend_id == current_user_id}}"  class="item-value" style="color: gray;width: 50%;">{{friendship.nickname}}</text>
+    <navigator wx:else url="../friend/friend?friend_id={{friendship.friend_id}}&nickname={{friendship.nickname}}" class="item-value" style="width: 50%;">
+      <text>{{friendship.nickname}}</text>
+    </navigator>
+    <navigator url="../new_help_to_friend/new_help_to_friend?friend_id={{friendship.friend_id}}&nickname={{friendship.nickname}}" class="item-value" style="width: 50%;">
+      <text style="float: right;">->请求</text>
+    </navigator>
+    </view>
+  </block>
+</view>

@@ -8,7 +8,7 @@ Page({
   onLoad: function () {
     // 请求网络数据
     wx.request({
-      url: 'https://test.com/other_todos',
+      url: 'https://www.hopee.xyz/other_todos',
       data: { token: token },
       method: 'GET',
       success: function(res){

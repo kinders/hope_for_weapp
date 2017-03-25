@@ -9,7 +9,7 @@ Page({
     // 到网站请求最新信息
     var that = this
     wx.request({
-      url: 'https://test.com/helpeds',
+      url: 'https://www.hopee.xyz/helpeds',
       data: { token: token },
       method: 'GET',
       success: function(res){

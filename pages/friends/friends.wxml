@@ -1,21 +1,14 @@
 <!--pages/friends/friends.wxml-->
 <view  class="topbar">
   <text>列表({{friendships_length}})</text>
+  <navigator url="../strangers/strangers" open-type="redirect">陌生人</navigator >
   <navigator url="../groups/groups" open-type="redirect">群组</navigator >
 </view>
 <view class="list">
   <block wx:for="{{friendships}}" wx:key="id" wx:for-item="friendship">
-    <view style="display: flex;">
-    <text wx:if="{{friendship.friend_id == current_user_id}}"  class="item-value" style="color: gray;width: 50%;">{{friendship.nickname}}</text>
-    <navigator wx:else url="../friend/friend?friend_id={{friendship.friend_id}}&nickname={{friendship.nickname}}" class="item-value" style="width: 50%;">
-      <text>{{friendship.nickname}}</text>
-    </navigator>
-    <navigator url="../new_nickname/new_nickname?friend_id={{friendship.friend_id}}&nickname={{friendship.nickname}}" class="item-value" style="width: 25%;">
-      <text style="float: right;">->改名</text>
-    </navigator>
-    <navigator url="../new_help_to_friend/new_help_to_friend?friend_id={{friendship.friend_id}}&nickname={{friendship.nickname}}" class="item-value" style="width: 25%;">
-      <text style="float: right;">->请求</text>
-    </navigator>
+    <view class="item-value" bindtap="showActionSheet" data-friend_id="{{friendship.friend_id}}" data-nickname="{{friendship.nickname}}">
+    <text wx:if="{{friendship.friend_id == current_user_id}}"  style="color: gray;">{{friendship.nickname}}</text>
+    <text wx:else>{{friendship.nickname}}</text>
     </view>
   </block>
 </view>

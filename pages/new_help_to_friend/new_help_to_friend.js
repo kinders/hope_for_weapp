@@ -42,7 +42,7 @@ Page({
         success: function(res) {
           if (res.confirm) {
             wx.request({
-              url: 'https://test.com/new_help_to_friend',
+              url: 'https://www.hopee.xyz/new_help_to_friend',
               data: {token: token, friend_id: friend_id, content: content},
               method: 'POST',
               success: function(res){
@@ -52,19 +52,7 @@ Page({
                   var new_help = {id: res.id, content: e.detail.value.content, receiver: nickname, created_at: time}
                   helps = wx.getStorageSync('helps') || []
                   helps = helps.push(new_help)
-                  wx.setStorage({
-                    key: 'helps',
-                    data: helps,
-                    success: function(res){
-                      // success
-                    },
-                    fail: function() {
-                      // fail
-                    },
-                    complete: function() {
-                      // complete
-                    }
-                  })
+                  wx.setStoragesync('helps',helps)
                   wx.showToast({
                     title: '成功提交请求',
                     icon: 'success',

@@ -41,27 +41,15 @@ Page({
         success: function(res) {
           if (res.confirm) {
             wx.request({
-              url: 'https://test.com/new_group',
-              data: {token: getApp().globalData.token, name: e.detail.value.name, friends_id: e.detail.value.checkbox.join('_')},
+              url: 'https://www.hopee.xyz/new_group',
+              data: {token: token, name: e.detail.value.name, friends_id: e.detail.value.checkbox.join('_')},
               method: 'POST',
               success: function(res){
                 if(res.id >= 0){
                   var new_group = {id: res.id, name: e.detail.value.name}
                   groups = wx.getStorageSync('groups') || []
                   groups = groups.unshift(new_group)
-                  wx.setStorage({
-                    key: 'groups',
-                    data: groups,
-                    success: function(res){
-                      // success
-                    },
-                    fail: function() {
-                      // fail
-                    },
-                    complete: function() {
-                      // complete
-                    }
-                  })
+                  wx.setStoragesync('groups', groups)
                   // 本来可以接着存储群里的用户信息的。不过群里朋友名字的传递是个问题。以后再说。
                   wx.showToast({
                     title: '成功建立新群',

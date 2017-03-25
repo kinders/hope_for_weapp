@@ -59,7 +59,7 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: '你认识我吗？',
+      title: '认识我吗？',
       path: "/friend/friend?friend_id={{current_user.id}}&nickname={{current_user.nickname}}"
     }
   }

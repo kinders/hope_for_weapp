@@ -20,7 +20,7 @@ Page({
     if(is_use == true){
     // 请求网络数据
     wx.request({
-      url: 'https://test.com/home',
+      url: 'https://www.hopee.xyz/home',
       data: { token: token },
       method: 'GET',
       success: function(res){
@@ -54,7 +54,7 @@ Page({
   },
   pay: function(){
     wx.request({
-      url: 'https://text.com/wechat_pay',
+      url: 'https://www.hopee.xyz/wechat_pay',
       data: {token: token},
       method: 'POST',
       success: function(res){

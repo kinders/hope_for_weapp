@@ -1,33 +1,29 @@
-// pages/group/group.js
+// pages/strangers/strangers.js
 var token = wx.getStorageSync('token');
 var current_user = wx.getStorageSync('current_user');
 Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    var group_id = options.group_id
-    var name = options.name
     // 到网站请求最新信息
-    var group = "group_" + group_id
+    var that = this
     wx.request({
-      url: 'https://www.hopee.xyz/group',
-      data: { token: token, group_id: group_id },
+      url: 'https://www.hopee.xyz/strangers',
+      data: { token: token },
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
-        // [group: {user_id: , nickname: group.nickname}]
-        if (res.data.group) {
-          wx.setStorage({key: group, data: res.data.group})
+        if (res.data.strangers) {
+          wx.setStorage({key: 'strangers', data: res.data.strangers})
         }
       },
       fail: function() {},
       complete: function() {}
-    }),
+    })
     // 取出缓存信息
     this.setData({
-      group: {group_id: group_id, name: name},
-      group_friends: (wx.getStorageSync(group) || []),
-      group_friends_length:(wx.getStorageSync(group) || []).length,
+      strangers: (wx.getStorageSync('strangers') || []),
+      strangers_length: (wx.getStorageSync('strangers') || []).length,
       current_user_id: current_user.id
     })
   },

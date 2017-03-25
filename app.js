@@ -43,12 +43,16 @@ App({
       data: [ { friend_id: 1, nickname: '一号' },      { friend_id: 2, nickname: '二号朋友' },  { friend_id: 3, nickname: '三号朋友' } ]
     })
     wx.setStorage({
+      key: "strangers",
+      data: [ { friend_id: 10, nickname: '10号' },      { friend_id: 11, nickname: '11号朋友' },  { friend_id: 12, nickname: '12号朋友' } ]
+    })
+    wx.setStorage({
       key: "friend_2_todos",
       data: [ { id: 1, content: '第一个任务第一个任务第一个任务第一个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 2, content: '第二个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 3, content: '第三个任务', user_id: 4, nickname: '用户四', created_at: '2017-02-20T09:50:14' } ]
     })
     wx.setStorage({
       key: "friend_2_helps",
-      data: [ { id: 1, content: '第一个任务第一个任务第一个任务第一个任务', receiver_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 2, content: '第二个任务', receiver_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 3, content: '第三个任务', receiver_id: 3, nickname: '用户三', created_at: '2017-02-20T09:50:14' } ]
+      data: [ { id: 1, user_id: 2, content: '第一个任务第一个任务第一个任务第一个任务', receiver_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 2,user_id: 2, content: '第二个任务', receiver_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 3,user_id: 2, content: '第三个任务', receiver_id: 3, nickname: '用户三', created_at: '2017-02-20T09:50:14' } ]
     })
     wx.setStorage({
       key: "groups",
@@ -87,7 +91,7 @@ App({
           if (res.code) {
             //发起网络请求
             wx.request({
-              url: 'https://test.com/login',
+              url: 'https://www.hopee.xyz/login',
               data: { code: res.code },
               success: function(res){
                 if(res.result_code = "t"){

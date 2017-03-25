@@ -45,7 +45,7 @@ Page({
         success: function(res) {
           if (res.confirm) {
             wx.request({
-              url: 'https://test.com/new_nickname',
+              url: 'https://www.hopee.xyz/new_nickname',
               data: {token: token, nickname: e.detail.value.name, friend_id: friend_id},
               method: 'POST',
               success: function(res){

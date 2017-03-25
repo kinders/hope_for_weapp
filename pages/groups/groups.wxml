@@ -6,16 +6,8 @@
 </view>
 <view class="list">
   <block wx:for="{{groups}}" wx:key="id" wx:for-item="group">
-    <view style="display: flex;">
-    <navigator url="../group/group?group_id={{group.id}}&name={{group.name}}" class="item-value" style="width: 50%;">
+    <view  class="item-value" bindtap="showActionSheet" data-group_id="{{group.group_id}}" data-name="{{group.name}}">
       <text>{{group.name}}</text>
-    </navigator>
-    <navigator url="../new_groupname/new_groupname?group_id={{group.id}}&name={{group.name}}" class="item-value" style="width: 25%;">
-      <text style="float: right;">->改名</text>
-    </navigator>
-    <navigator url="../new_help_to_group/new_help_to_group?group_id={{group.id}}&name={{group.name}}" class="item-value" style="width: 25%;">
-      <text style="float: right;">->请求</text>
-    </navigator>
     </view>
   </block>
 </view>
