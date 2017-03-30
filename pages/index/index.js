@@ -53,6 +53,7 @@ Page({
     }
   },
   pay: function(){
+    var token = wx.getStorageSync("token")
     wx.request({
       url: 'https://www.hopee.xyz/wechat_pay',
       data: {token: token},

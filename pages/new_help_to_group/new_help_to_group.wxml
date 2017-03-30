@@ -10,9 +10,13 @@
 <view class="{{is_pulled}}">
   <text>{{msg}}</text>
 </view>
+<view class="todo">
+<text  style="font-weight: bold; margin: 0 1rem 0 0;">注意</text>
+<text style="font-size: 0.8rem;">如果群成员没有将您添加为朋友，则您的请求将被列入对方的“陌生人请求”列表，该请求有可能因为讨论数量太少导致对方没有看到！</text>
+</view>
 <view style="padding: 10rpx;">
   <form bindsubmit="formSubmit" bindreset="formReset">
-    <textarea name="content" placeholder="请在此输入详细的请求" auto-focus="true" style="height: 20rem; width: 90%; border: 1px solid green; border-radius: 5px; padding: 20rpx; margin: 10rpx;"/>
+    <textarea name="content" placeholder="请在此输入详细的请求" auto-focus="true" style="height: 15rem; width: 90%; border: 1px solid green; border-radius: 5px; padding: 20rpx; margin: 10rpx;"/>
     <button formType="submit" type="primary" style="padding: 10rpx; margin: 10rpx;">提交请求</button>
     <button formType="reset" type="default" style="padding: 10rpx; margin: 10rpx;">取消请求</button>
   </form>

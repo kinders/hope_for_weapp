@@ -1,6 +1,8 @@
 //app.js
 App({
   onLaunch: function () {
+    // 先清理缓存
+    wx.clearStorageSync()
     // 模拟本地缓存数据
     wx.setStorage({
       key: "token",
@@ -92,7 +94,7 @@ App({
             //发起网络请求
             wx.request({
               url: 'https://www.hopee.xyz/login',
-              data: { code: res.code },
+              data: { js_code: res.code },
               success: function(res){
                 if(res.result_code = "t"){
                   wx.setStorageSync('token', res.token)

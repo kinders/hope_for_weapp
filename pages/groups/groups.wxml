@@ -6,7 +6,7 @@
 </view>
 <view class="list">
   <block wx:for="{{groups}}" wx:key="id" wx:for-item="group">
-    <view  class="item-value" bindtap="showActionSheet" data-group_id="{{group.group_id}}" data-name="{{group.name}}">
+    <view  class="item-value" bindtap="showActionSheet" data-group_id="{{group.id}}" data-name="{{group.name}}">
       <text>{{group.name}}</text>
     </view>
   </block>

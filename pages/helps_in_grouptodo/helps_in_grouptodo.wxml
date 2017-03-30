@@ -22,7 +22,7 @@
      <view class="item-value">
        <text>{{index + 1}}    </text>
        <text wx:if="{{help.receiver_id == current_user_id}}" style="color: gray;">{{help.nickname}}</text>
-       <navigator wx:else url="../todo/todo?id={{help.receiver_id}}" style="display: inline-block">{{help.nickname}}</navigator>
+       <navigator wx:else url="../todo/todotodo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{help.created_at}}&is_finish={{help.is_finish}}&content={{help.content}}" style="display: inline-block">{{help.nickname}}</navigator>
        <text wx:if="{{help.is_finish == 't'}}" style="padding: 0 0.5rem 0 0;">   √</text> 
      </view>
   </block>
