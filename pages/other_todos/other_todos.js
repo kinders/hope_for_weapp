@@ -1,7 +1,5 @@
 //other_todos.js
 var todos_user_ids = [0];
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
 Page({
   data: {},
   //事件处理函数
@@ -9,7 +7,7 @@ Page({
     // 请求网络数据
     wx.request({
       url: 'https://www.hopee.xyz/other_todos',
-      data: { token: token },
+      data: { token: wx.getStorageSync('token') },
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
@@ -24,7 +22,7 @@ Page({
     this.setData({
       todos: (wx.getStorageSync('other_todos') || []),
       todos_length: (wx.getStorageSync('other_todos') || []).length,
-      current_user: current_user
+      current_user: wx.getStorageSync('current_user')
     })
     // 生成可供筛选的选项
     var todos_user_nicknames = ["全部"];

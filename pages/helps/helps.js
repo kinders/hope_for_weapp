@@ -1,6 +1,5 @@
 // pages/helps/helps.js
 var helps_receiver_ids = [0];
-var current_user = wx.getStorageSync('current_user');
 Page({
   data:{},
   onLoad:function(options){
@@ -9,7 +8,7 @@ Page({
     this.setData({
       helps: (wx.getStorageSync('helps') || []),
       helps_length: (wx.getStorageSync('helps') || []).length,
-      current_user: current_user
+      current_user: wx.getStorageSync('current_user')
     })
     // 生成可供筛选的选项
     var helps_receiver_nicknames = ["全部"];

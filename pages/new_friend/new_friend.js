@@ -1,7 +1,6 @@
 // pages/new_friend/new_friend.js
 var nickname;
 var friend_id;
-var token = wx.getStorageSync('token');
 Page({
   data:{},
   onLoad:function(options){
@@ -32,7 +31,7 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_friend',
-              data: {token: token, nickname: (e.detail.value.name || nickname), friend_id: friend_id},
+              data: {token: wx.getStorageSync('token'), nickname: (e.detail.value.name || nickname), friend_id: friend_id},
               method: 'POST',
               success: function(res){
                 if(res.id >= 0){

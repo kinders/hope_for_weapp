@@ -1,7 +1,5 @@
 // pages/dones/dones.js
 var dones_user_ids = [0];
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
 Page({
   data:{
     dones: [],
@@ -12,7 +10,7 @@ Page({
     var that = this
     wx.request({
       url: 'https://www.hopee.xyz/dones',
-      data: { token: token },
+      data: { token: wx.getStorageSync('token') },
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
@@ -27,7 +25,7 @@ Page({
     this.setData({
       dones: (wx.getStorageSync('dones') || []),
       dones_length: (wx.getStorageSync('dones') || []).length,
-      current_user: current_user
+      current_user: wx.getStorageSync('current_user')
     })
     // 生成可供筛选的选项
     var dones_user_nicknames = ["全部"];

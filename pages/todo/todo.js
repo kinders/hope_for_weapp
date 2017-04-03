@@ -8,8 +8,6 @@ var is_finish;
 var todo;
 var discussions;
 var discussions_user_ids = [0];
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
 var just_finished;
 Page({
   data:{},
@@ -37,7 +35,7 @@ Page({
     // 到网站请求最新信息
     wx.request({
       url: 'https://www.hopee.xyz/discussions',
-      data: { token: token, todo_id: todo_id },
+      data: { token: wx.getStorageSync('token'), todo_id: todo_id },
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
@@ -52,7 +50,7 @@ Page({
     this.setData({
       discussions: (wx.getStorageSync(discussions) || []),
       discussions_length: (wx.getStorageSync(discussions) || []).length,
-      current_user: current_user
+      current_user: wx.getStorageSync('current_user')
     })
     // 生成可供筛选的选项
     var discussions_user_nicknames = ["全部"];
@@ -119,7 +117,7 @@ Page({
         if (res.confirm){
           wx.request({
             url: 'https://www.hopee.xyz/close_help',
-            data: {token: token, todo_id: todo_id},
+            data: {token: wx.getStorageSync('token'), todo_id: todo_id},
             method: 'POST',
             success: function(res){
               // success
@@ -159,7 +157,7 @@ Page({
         if (res.confirm){
           wx.request({
             url: 'https://www.hopee.xyz/rehelp',
-            data: {token: token, todo_id: todo_id},
+            data: {token: wx.getStorageSync('token'), todo_id: todo_id},
             method: 'POST',
             success: function(res){
               // success
@@ -210,12 +208,12 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_discussion',
-              data: {token: token, todo_id: todo_id, content: e.detail.value.content},
+              data: {token: wx.getStorageSync('token'), todo_id: todo_id, content: e.detail.value.content},
               method: 'POST',
               success: function(res){
                 if(res.id >= 0){
                   var nowtime = new Date();
-                  var new_discussion = {todo_id: todo.id, user_id: current_user.id, content: e.detail.value.content, created_at: nowtime.toLocaleString()};
+                  var new_discussion = {todo_id: todo.id, user_id: wx.getStorageSync('current_user').id, content: e.detail.value.content, created_at: nowtime.toLocaleString()};
                   discussions = discussions.unshift(new_discussion)
                   wx.setStorageSync(discussions, iscussions)
                   this.setData({

@@ -1,9 +1,6 @@
 // pages/friend/friend.js
 var friend_id;
 var friend_todos_user_ids = [0];
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
-
 Page({
   data:{},
   onLoad:function(options){
@@ -17,7 +14,7 @@ Page({
     var is_friendship = ''
     wx.request({
       url: 'https://www.hopee.xyz/friend',
-      data: { token: token, friend_id: friend_id },
+      data: { token: wx.getStorageSync('token'), friend_id: friend_id },
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
@@ -39,7 +36,7 @@ Page({
       friend_todos_length:(wx.getStorageSync(friend_todos) || []).length,
       is_friendship: is_friendship,
       friend: {friend_id: friend_id, nickname: friend_nickname},
-      current_user_id: current_user.id
+      current_user_id: wx.getStorageSync('current_user').id
     })
     // 生成可供筛选的选项
     var friend_todos_user_nicknames = ["全部"];

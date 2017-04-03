@@ -1,6 +1,4 @@
 // pages/strangers/strangers.js
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
 Page({
   data:{},
   onLoad:function(options){
@@ -9,7 +7,7 @@ Page({
     var that = this
     wx.request({
       url: 'https://www.hopee.xyz/strangers',
-      data: { token: token },
+      data: { token: wx.getStorageSync('token') },
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
@@ -24,7 +22,7 @@ Page({
     this.setData({
       strangers: (wx.getStorageSync('strangers') || []),
       strangers_length: (wx.getStorageSync('strangers') || []).length,
-      current_user_id: current_user.id
+      current_user_id: wx.getStorageSync('current_user').id
     })
   },
   onReady:function(){

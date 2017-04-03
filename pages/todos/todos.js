@@ -1,8 +1,6 @@
 //todos.js
 //获取应用实例
 var todos_user_ids = [0];
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
 Page({
   data: {},
   //事件处理函数
@@ -11,7 +9,7 @@ Page({
     this.setData({
       todos: (wx.getStorageSync('todos') || []),
       todos_length: (wx.getStorageSync('todos') || []).length,
-      current_user: current_user
+      current_user: wx.getStorageSync('current_user'),
     })
     // 生成可供筛选的选项
     var todos_user_nicknames = ["全部"];
@@ -60,7 +58,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '认识我吗？',
-      path: "/friend/friend?friend_id={{current_user.id}}&nickname={{current_user.nickname}}"
+      path: "/friend/friend?friend_id={{wx.getStorageSync('current_user').id}}&nickname={{wx.getStorageSync('current_user').nickname}}"
     }
   }
 })

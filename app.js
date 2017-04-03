@@ -3,7 +3,7 @@ App({
   onLaunch: function () {
     // 先清理缓存
     wx.clearStorageSync()
-    // 模拟本地缓存数据
+    /* 模拟本地缓存数据
     wx.setStorage({
       key: "token",
       data: '111'
@@ -80,6 +80,41 @@ App({
       key: "discussions_in_todo_1",
       data: [ { todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？', created_at: '2017-02-26T21:21:25' }, { todo_id: 1, user_id: 3, nickname: '用户三', content: '这样子满意不？这样子满意不？这样子满意不？', created_at: '2017-02-26T21:21:25' }, { todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' }, { todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' }, { todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' },{ todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' },{ todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' }, { todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' } ]
     })
+    */
+      //调用登录接口
+      wx.login({
+        success: function (res) {
+          if (res.code) {
+            //发起网络请求
+            console.log('start to request login')
+            wx.request({
+              url: 'https://www.hopee.xyz/login',
+              data: { js_code: res.code },
+              method: 'POST',
+              success: function(res){
+                console.log(res)
+                if(res.data.result_code == "t"){
+                  console.log('获取用户登录态成功！')
+                  wx.setStorageSync('token', res.data.token)
+                  wx.setStorageSync('current_user', res.data.current_user)
+                  wx.setStorageSync('is_use', true)
+                }else if(res.data.result_code == "expired"){
+                  console.log('获取用户登录态过期！')
+                  wx.setStorageSync('token', res.data.token)
+                  wx.setStorageSync('current_user', res.data.current_user)
+                  wx.setStorageSync('is_use', false)
+                }else{
+                  console.log('获取用户登录态未知！')
+                  console.log(res)
+                }
+              },
+              fail: function(res){console.log('request login fail')}
+            })
+          } else {
+            console.log('获取用户登录态失败！' + res.errMsg)
+          }
+        }
+      })
   },
   // 获取用户信息，在index.js中调用这个函数
   getUserInfo:function(cb){
@@ -87,30 +122,7 @@ App({
     if(this.globalData.userInfo){
       typeof cb == "function" && cb(this.globalData.userInfo)
     }else{
-      //调用登录接口
-      wx.login({
-        success: function (res) {
-          if (res.code) {
-            //发起网络请求
-            wx.request({
-              url: 'https://www.hopee.xyz/login',
-              data: { js_code: res.code },
-              success: function(res){
-                if(res.result_code = "t"){
-                  wx.setStorageSync('token', res.token)
-                  wx.setStorageSync('current_user', res.current_user)
-                  wx.setStorageSync('is_use', true)
-                }else if(res.result_code == "expired"){
-                  wx.setStorageSync('token', res.token)
-                  wx.setStorageSync('current_user', res.current_user)
-                  wx.setStorageSync('is_use', false)
-                }
-              },
-              fail: function(res){}
-            })
-          } else {
-            console.log('获取用户登录态失败！' + res.errMsg)
-          }
+
           // 获取本地用户信息
           wx.getUserInfo({
             success: function (res) {
@@ -118,8 +130,6 @@ App({
               typeof cb == "function" && cb(that.globalData.userInfo)
             }
           })
-        }
-      })
     }
   },
   // 全局数据，可用`getApp().globalData.userInfo`来调用

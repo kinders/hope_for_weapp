@@ -1,6 +1,4 @@
 // pages/friends/friends.js
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
 Page({
   data:{},
   onLoad:function(options){
@@ -9,7 +7,7 @@ Page({
     this.setData({
       friendships: (wx.getStorageSync('friendships') || []),
       friendships_length: (wx.getStorageSync('friendships') || []).length,
-      current_user_id: current_user.id
+      current_user_id: wx.getStorageSync('current_user').id
     })
   },
   onReady:function(){
@@ -31,7 +29,7 @@ Page({
       itemList: ['好友详情', '发送请求', '修改昵称', '删除好友'],
       success: function(res) {
         if(res.tapIndex == 0){
-          if(friend_id == current_user.id){
+          if(friend_id == wx.getStorageSync('current_user').id){
             wx.switchTab({ url: '../todos/todos' })
           }else{
             wx.navigateTo({
@@ -50,7 +48,7 @@ Page({
           })
         }
         if(res.tapIndex == 3){
-          if(friend_id == current_user.id){
+          if(friend_id == wx.getStorageSync('current_user').id){
             wx.showToast({
               title: '无法删除自己',
               icon: 'loading',
@@ -64,7 +62,7 @@ Page({
               if (res.confirm) {
                 wx.request({
                   url: 'https://www.hopee.xyz/delete_friend',
-                  data: {token: token, friend_id: friend_id},
+                  data: {token: wx.getStorageSync('token'), friend_id: friend_id},
                   method: 'POST',
                   success: function(res){
                     // success

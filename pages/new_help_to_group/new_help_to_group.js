@@ -1,7 +1,6 @@
 // pages/new_help_to_group/new_help_to_group.js
 var group_id;
 var name;
-var token = wx.getStorageSync('token');
 Page({
   data:{},
   onLoad:function(options){
@@ -40,7 +39,7 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_help_to_group',
-              data: {token: token, group_id: group_id, content: e.detail.value.content},
+              data: {token: wx.getStorageSync('token'), group_id: group_id, content: e.detail.value.content},
               method: 'POST',
               success: function(res){
                 if(res.id >= 0){

@@ -1,6 +1,4 @@
 // pages/group/group.js
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
 Page({
   data:{},
   onLoad:function(options){
@@ -11,7 +9,7 @@ Page({
     var group = "group_" + group_id
     wx.request({
       url: 'https://www.hopee.xyz/group',
-      data: { token: token, group_id: group_id },
+      data: { token: wx.getStorageSync('token'), group_id: group_id },
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
@@ -28,7 +26,7 @@ Page({
       group: {group_id: group_id, name: name},
       group_friends: (wx.getStorageSync(group) || []),
       group_friends_length:(wx.getStorageSync(group) || []).length,
-      current_user_id: current_user.id
+      current_user_id: wx.getStorageSync('current_user').id
     })
   },
   onReady:function(){

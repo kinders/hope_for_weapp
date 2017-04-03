@@ -1,5 +1,4 @@
 // pages/new_group/new_group.js
-var token = wx.getStorageSync('token');
 Page({
   data:{},
   onLoad:function(options){
@@ -42,7 +41,7 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_group',
-              data: {token: token, name: e.detail.value.name, friends_id: e.detail.value.checkbox.join('_')},
+              data: {token: wx.getStorageSync('token'), name: e.detail.value.name, friends_id: e.detail.value.checkbox.join('_')},
               method: 'POST',
               success: function(res){
                 if(res.id >= 0){

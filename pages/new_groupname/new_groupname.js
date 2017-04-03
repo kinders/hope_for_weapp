@@ -1,7 +1,6 @@
 // pages/new_groupname/new_groupname.js
 var name;
 var group_id;
-var token = wx.getStorageSync('token');
 Page({
   data:{},
   onLoad:function(options){
@@ -45,7 +44,7 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_groupname',
-              data: {token: token, nickname: e.detail.value.name, group_id: group_id},
+              data: {token: wx.getStorageSync('token'), nickname: e.detail.value.name, group_id: group_id},
               method: 'POST',
               success: function(res){
                 if(res.result_code == 't'){

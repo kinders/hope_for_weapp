@@ -1,6 +1,4 @@
 // pages/group_helpeds/group_helpeds.js
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
 Page({
   data:{
     group_helpeds: [ { id: 3, content: '第一个群请求', group_id: 2, name: '群一', created_at: '2017-02-25T12:20:20' } ]
@@ -13,7 +11,7 @@ Page({
     var group_helpeds = "group_" + group_id + "_helpeds"
     wx.request({
       url: 'https://www.hopee.xyz/group_helpeds',
-      data: { token: token, group_id: group_id },
+      data: { token: wx.getStorageSync('token'), group_id: group_id },
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
@@ -29,7 +27,7 @@ Page({
       group: {group_id: group_id, name: name},
       group_helpeds: (wx.getStorageSync(group_helpeds) || []),
       group_helpeds_length:(wx.getStorageSync(group_helpeds) || []).length,
-      current_user_id: current_user.id
+      current_user_id: wx.getStorageSync('current_user').id
     })
   },
   onReady:function(){

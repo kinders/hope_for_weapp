@@ -1,5 +1,4 @@
 // pages/groups/groups.js
-var token = wx.getStorageSync('token');
 Page({
   data:{},
   onLoad:function(options){
@@ -50,7 +49,7 @@ Page({
               if (res.confirm) {
                 wx.request({
                   url: 'https://www.hopee.xyz/delete_group',
-                  data: {token: token, group_id: group_id},
+                  data: {token: wx.getStorageSync('token'), group_id: group_id},
                   method: 'POST',
                   success: function(res){
                     // success

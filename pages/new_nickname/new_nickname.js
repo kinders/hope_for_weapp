@@ -1,8 +1,6 @@
 // pages/new_nickname/new_nickname.js
 var nickname;
 var friend_id;
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
 Page({
   data:{},
   onLoad:function(options){
@@ -46,7 +44,7 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_nickname',
-              data: {token: token, nickname: e.detail.value.name, friend_id: friend_id},
+              data: {token: wx.getStorageSync('token'), nickname: e.detail.value.name, friend_id: friend_id},
               method: 'POST',
               success: function(res){
                 if(res.result_code == 't'){
@@ -60,8 +58,9 @@ Page({
                     data: friendships,
                   })      
                   // 如果是自己，还需要更改全局数据
-                  if(friend_id == current_user.id){
-                    current_user.nickname = e.detail.value.name
+                  if(friend_id == wx.getStorageSync('current_user').id){
+                    var me = {id: getStorageSync('current_user').id, nickname: e.detail.value.name, end_time: getStorageSync('current_user').end_time}
+                    wx.setStorageSync('current_user', me).nickname = e.detail.value.name
                   }         
                   wx.showToast({
                     title: '成功修改昵称',

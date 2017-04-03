@@ -1,8 +1,6 @@
 // pages/new_help_to_friend/new_help_to_friend.js
 var friend_id;
 var nickname;
-var token = wx.getStorageSync('token');
-var current_user = wx.getStorageSync('current_user');
 Page({
   data:{},
   onLoad:function(options){
@@ -12,7 +10,7 @@ Page({
     var friend = "friend_" + friend_id
     this.setData({
       friend: {friend_id: friend_id, nickname: nickname},
-      current_user_id: current_user.id
+      current_user_id: wx.getStorageSync('current_user').id
     })
   },
   onReady:function(){
@@ -43,10 +41,11 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_help_to_friend',
-              data: {token: token, friend_id: friend_id, content: content},
+              data: {token: wx.getStorageSync('token'), friend_id: friend_id, content: e.detail.value.content},
               method: 'POST',
               success: function(res){
-                if(res.id >= 0){
+                console.log(res)
+                if(res.data.id >= 0){
                   // 将信息插入helps
                   var time = new Date()
                   var new_help = {id: res.id, content: e.detail.value.content, receiver: nickname, created_at: time}

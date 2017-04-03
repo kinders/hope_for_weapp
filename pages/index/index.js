@@ -5,7 +5,6 @@ Page({
   data: {},
   //事件处理函数
   onLoad: function () {
-    console.log('onLoad')
     var that = this
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function(userInfo){
@@ -13,10 +12,9 @@ Page({
       that.setData({
         userInfo:userInfo
       })
-    })
     var token = wx.getStorageSync("token")
     var current_user = wx.getStorageSync("current_user")
-    var is_use = wx.getStorageSync("is_use")
+    var is_use = wx.getStorageSync('is_use')
     if(is_use == true){
     // 请求网络数据
     wx.request({
@@ -25,20 +23,22 @@ Page({
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
+        console.log('start to set storage from home')
+        console.log(res)
         if (res.data.todos) {
-          wx.setStorage({key: 'todos', data: res.data.todos})
+          wx.setStorageSync('todos', res.data.todos)
         }
         if (res.data.helps) {
-          wx.setStorage({key: 'helps', data: res.data.helps})
+          wx.setStorageSync('helps', res.data.helps)
         }
         if (res.data.friendships) {
-          wx.setStorage({key: 'friendships', data: res.data.friendships})
+          wx.setStorageSync('friendships', res.data.friendships)
         }
         if (res.data.groups) {
-          wx.setStorage({key: 'groups', data: res.data.groups})
+          wx.setStorageSync('groups', res.data.groups)
         }
         if (res.data.groups_helps) {
-          wx.setStorage({key: 'group_helps', data: res.data.group_helps})
+          wx.setStorageSync('group_helps', res.data.group_helps)
         }
       },
       fail: function() {},
@@ -47,10 +47,12 @@ Page({
     // 
     wx.switchTab({url: '../todos/todos'})
     }else{
-      this.setData({
+      that.setData({
         current_user: current_user
       })
     }
+    })
+
   },
   pay: function(){
     var token = wx.getStorageSync("token")
@@ -73,6 +75,7 @@ Page({
             },
             fail: function() {
               console.log("支付失败")
+              console.log(res.data)
               wx.showToast({
                 title: '支付失败，请重新续费',
                 icon: 'loading',
