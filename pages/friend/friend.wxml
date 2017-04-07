@@ -1,6 +1,6 @@
 <!--pages/friend/friend.wxml-->
 <view  class="topbar">
-  <text>任务({{friend_todos_length}})</text>
+  <text>任务</text>
   <navigator url="../friend_helps/friend_helps?friend_id={{friend.friend_id}}&nickname={{friend.nickname}}" open-type="redirect">查看请求</navigator >
    <navigator url="../new_help_to_friend/new_help_to_friend?friend_id={{friend.friend_id}}&nickname={{friend.nickname}}" open-type="redirect" wx:if="{{is_friendship == 't'}}">添加请求</navigator > 
    <navigator url="../new_friend/new_friend?friend_id={{friend.friend_id}}&nickname={{friend.nickname}}" open-type="redirect" wx:else>加为好友</navigator > 
@@ -13,6 +13,7 @@
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{friend_todos_user_nicknames}}">
   <view class="picker">
       筛选：{{friend_todos_user_nicknames[index]}}
+      <text style="float: right;">({{friend_todos_length}})</text>
     </view>
   </picker>
 </view>
@@ -31,7 +32,7 @@
        -->
        </view>
        <view class="item-value">
-       <navigator url="../todo/todo?todo_id={{friend_todo.id}}&user_nickname={{friend_todo.nickname}}&receiver_nickname={{friend.nickname}}&created_at={{friend_todo.created_at}}&is_finish=f&content={{friend_todo.content}}">{{ friend_todo.content}}</navigator>
+       <navigator url="../todo/todo?todo_id={{friend_todo.id}}&user_id={{friend_todo.user_id}}&user_nickname={{friend_todo.nickname}}&receiver_nickname={{friend.nickname}}&created_at={{friend_todo.created_at}}&is_finish=f&content={{friend_todo.content}}">{{ friend_todo.content}}</navigator>
      </view>
   </view>
   </block>

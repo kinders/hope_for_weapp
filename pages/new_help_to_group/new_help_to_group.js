@@ -24,6 +24,7 @@ Page({
     // 页面关闭
   },
   formSubmit:function(e){
+    var that=this;
     if(e.detail.value.content.replace(/\s/g, "") 
  == ""){
       wx.showToast({
@@ -42,17 +43,25 @@ Page({
               data: {token: wx.getStorageSync('token'), group_id: group_id, content: e.detail.value.content},
               method: 'POST',
               success: function(res){
-                if(res.id >= 0){
-                  // 将新群请求加入缓存。
-                  // new_group_help = { }
+                if(res.data.id >= 0){
+                  /* 将新群请求加入缓存。
+                  var groups_helps = wx.getStorageSync('groups_helps') || []
+                  groups_helps.unshift({id: res.data.id, content: e.detail.value.content, group_id: group_id, group_name: name, created_at: res.data.time})
+                  wx.setStorageSync('groups_helps', groups_helps)
+                  */
                   wx.showToast({
                     title: '成功提交请求',
                     icon: 'success',
                     duration: 2000
                   })
+                  that.setData({empty: null})
+                }else{
+                  console.log('fail: request new_help_to_group res')
+                  console.log(res)
                 }
               },
               fail: function() {
+                console.log('fail: request new_help_to_group')
                 wx.showToast({
                   title: '请求失败，请先检查网络，稍后发送。',
                   icon: 'loading',

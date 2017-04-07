@@ -3,10 +3,15 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    var group_id = options.group_id
-    var name = options.name
+    var group_id = options.group_id;
+    var name = options.name;
+    var group = "group_" + group_id;
+    this.setData({
+      group: {group_id: group_id, name: name},
+      current_user_id: wx.getStorageSync('current_user').id
+    })
     // 到网站请求最新信息
-    var group = "group_" + group_id
+    var that = this;
     wx.request({
       url: 'https://www.hopee.xyz/group',
       data: { token: wx.getStorageSync('token'), group_id: group_id },
@@ -15,18 +20,22 @@ Page({
         // 取得信息之后：缓存信息
         // [group: {user_id: , nickname: group.nickname}]
         if (res.data.group) {
-          wx.setStorage({key: group, data: res.data.group})
+          var group_friends = res.data.group;
+          var a = group_friends.map(function(hash){return hash.nickname.concat("^", hash.user_id)})
+	        a.sort()
+        	group_friends = a.map(function(hash){return {"user_id": hash.split('^')[1], "nickname": hash.split('^')[0]}})
+          wx.setStorageSync(group, group_friends)
+          that.setData({
+            group_friends: group_friends,
+            group_friends_length: res.data.group.length
+          })
+        } else {
+          console.log('fail: request group res')
+          console.log(res)
         }
       },
-      fail: function() {},
+      fail: function() {console.log('fail: request group')},
       complete: function() {}
-    }),
-    // 取出缓存信息
-    this.setData({
-      group: {group_id: group_id, name: name},
-      group_friends: (wx.getStorageSync(group) || []),
-      group_friends_length:(wx.getStorageSync(group) || []).length,
-      current_user_id: wx.getStorageSync('current_user').id
     })
   },
   onReady:function(){

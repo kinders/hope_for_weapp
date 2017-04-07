@@ -3,7 +3,7 @@
   <view class="section">
     <view class="section-title">群名称：</view>
     <view class="section-input">
-        <input name="name" type="text" placeholder="在此输入" />
+        <input name="name" type="text" placeholder="在此输入" value="{{empty}}"/>
     </view>
   </view>
   <scroll-view class="scroll-select">
@@ -11,7 +11,7 @@
     <checkbox-group name="checkbox">
       <block wx:for="{{friendships}}" wx:key="id">
         <view class="section-checkbox">
-          <label><checkbox value="{{item.friend_id}}" style="float: right;"/>{{item.nickname}}</label>
+          <label><checkbox value="{{item.friend_id}}" checked="{{is_check}}"style="float: right;"/>{{item.nickname}}</label>
         </view>
       </block>
     </checkbox-group>

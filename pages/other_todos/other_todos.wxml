@@ -1,12 +1,13 @@
 <!--other_todos.wxml-->
 <view  class="topbar">
-  <text>列表({{todos_length}})</text>
+  <text>列表</text>
   <navigator url="../todos/todos" open-type="switchTab" >返回未完成任务</navigator >
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{todos_user_nicknames}}">
   <view class="picker">
       筛选：{{todos_user_nicknames[index]}}
+      <text style="float: right;">({{todos_length}})</text>
     </view>
   </picker>
 </view>

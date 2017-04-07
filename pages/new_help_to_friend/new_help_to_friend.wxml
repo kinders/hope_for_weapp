@@ -13,7 +13,7 @@
 </view>
 <view style="padding: 10rpx;">
   <form bindsubmit="formSubmit" bindreset="formReset">
-    <textarea name="content" placeholder="请在此输入详细的请求" auto-focus="true" style="height: 15rem; width: 90%; border: 1px solid green; border-radius: 5px; padding: 20rpx; margin: 10rpx;"/>
+    <textarea name="content" value="{{empty}}" placeholder="请在此输入详细的请求" auto-focus="true" style="height: 15rem; width: 90%; border: 1px solid green; border-radius: 5px; padding: 20rpx; margin: 10rpx;"/>
     <button formType="submit" type="primary" style="padding: 10rpx; margin: 10rpx;">提交请求</button>
     <button formType="reset" type="default" style="padding: 10rpx; margin: 10rpx;">取消请求</button>
   </form>

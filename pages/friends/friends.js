@@ -4,17 +4,39 @@ Page({
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     // 取出缓存信息
-    this.setData({
-      friendships: (wx.getStorageSync('friendships') || []),
-      friendships_length: (wx.getStorageSync('friendships') || []).length,
-      current_user_id: wx.getStorageSync('current_user').id
-    })
+    this.setData({current_user_id: wx.getStorageSync('current_user').id})
   },
   onReady:function(){
     // 页面渲染完成
   },
   onShow:function(){
-    // 页面显示
+    // 到网站请求最新信息
+    var that = this
+    wx.request({
+      url: 'https://www.hopee.xyz/friends',
+      data: { token: wx.getStorageSync('token') },
+      method: 'GET',
+      success: function(res){
+        if(res.data.friendships){
+          var friendships = res.data.friendships;
+          var a = friendships.map(function(hash){return hash.nickname.concat("^", hash.friend_id)})
+	        a.sort()
+        	friendships = a.map(function(hash){return {"friend_id": hash.split('^')[1], "nickname": hash.split('^')[0]}})
+          var current_user = wx.getStorageSync('current_user')
+          friendships.unshift({friend_id: current_user.id, nickname: current_user.nickname})
+          wx.setStorageSync('friendships', friendships)
+          that.setData({
+            friendships: friendships || [],
+            friendships_length: friendships.length || 0
+          })
+        }else{
+          console.log('fail: request friends res')
+          console.log(res)
+        }
+      },
+      fail: function() {console.log('fail: request friend')},
+      complete: function() {}
+    })
   },
   onHide:function(){
     // 页面隐藏
@@ -23,8 +45,9 @@ Page({
     // 页面关闭
   },
   showActionSheet:function(event){
-    var friend_id = event.currentTarget.dataset.friend_id
-    var nickname = event.currentTarget.dataset.nickname
+    var that = this;
+    var friend_id = event.currentTarget.dataset.friend_id;
+    var nickname = event.currentTarget.dataset.nickname;
     wx.showActionSheet({
       itemList: ['好友详情', '发送请求', '修改昵称', '删除好友'],
       success: function(res) {
@@ -66,20 +89,24 @@ Page({
                   method: 'POST',
                   success: function(res){
                     // success
-                    if(res.result_code == 't'){
+                    if(res.data.result_code == 't'){
                       // 将好友从缓存中删除
-                      friendships = wx.getStorageSync('friendships') || []
-                      friendship_index = friendships.indexOf({friend_id: friend_id, nickname: nickname})
-                      friendships = friendships.splice(friendship_index, 1)
-                      wx.setStoragesync('friendships', friendships)
+                      var friendships = wx.getStorageSync('friendships') || []
+                      var friendship_index = friendships.indexOf({friend_id: friend_id, nickname: nickname})
+                      friendships.splice(friendship_index, 1)
+                      wx.setStorageSync('friendships', friendships)
+                      that.setData({
+                        friendships: friendships || [],
+                        friendships_length: friendships.length || 0
+                      })
                       wx.showToast({
-                        title: "成功将好友{{nickname}}删去",
+                        title: "成功将好友" + nickname + "删去",
                         icon: 'success',
                         duration: 2000
                       })
                     }else{
                       wx.showToast({
-                        title: "无法删除好友{{nickname}}",
+                        title: "服务器无法删除好友" + nickname,
                         icon: 'loading',
                         duration: 2000
                       })
@@ -98,9 +125,7 @@ Page({
           }
         }
       },
-      fail: function(res) {
-        console.log(res.errMsg)
-      }
+      fail: function(res) {console.log(res)}
     })
   }
 })

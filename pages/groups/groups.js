@@ -3,16 +3,33 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    // 取出缓存信息
-    this.setData({
-      groups: (wx.getStorageSync('groups') || [])
-    })
   },
   onReady:function(){
     // 页面渲染完成
   },
   onShow:function(){
     // 页面显示
+    // 到网站请求最新信息
+    var that = this
+    wx.request({
+      url: 'https://www.hopee.xyz/groups',
+      data: { token: wx.getStorageSync('token') },
+      method: 'GET',
+      success: function(res){
+        if(res.data.groups){
+          wx.setStorageSync('groups', res.data.groups)
+          that.setData({
+            groups: res.data.groups || [],
+            groups_length: res.data.groups.length || 0
+          })
+        }else{
+          console.log('fail: request groups res')
+          console.log(res)
+        }
+      },
+      fail: function() {console.log('fail: request groups')},
+      complete: function() {}
+    })
   },
   onHide:function(){
     // 页面隐藏
@@ -21,8 +38,9 @@ Page({
     // 页面关闭
   },
   showActionSheet:function(event){
-    var group_id = event.currentTarget.dataset.group_id
-    var name = event.currentTarget.dataset.name
+    var that=this;
+    var group_id = event.currentTarget.dataset.group_id;
+    var name = event.currentTarget.dataset.name;
     wx.showActionSheet({
       itemList: ['友群详情', '发送请求', '修改群称', '删除友群'],
       success: function(res) {
@@ -53,28 +71,37 @@ Page({
                   method: 'POST',
                   success: function(res){
                     // success
-                    if(res.result_code == 't'){
+                    if(res.data.result_code == 't'){
                       // 将朋友群从缓存中删除
-                      groups = wx.getStorageSync('groups') || []
-                      group_index = groups.indexOf({group_id: group_id, name: name})
-                      groups = groups.splice(group_index, 1)
-                      wx.setStoragesync('groups', groups)
+                      var groups = wx.getStorageSync('groups') || [];
+                      var group_index;
+                      groups.forEach(function(item, index){
+                        if(item.id == group_id){
+                          group_index = index
+                        }
+                      })
+                      groups.splice(group_index, 1)
+                      //wx.setStorageSync('groups', groups)
+                      that.setData({
+                        groups: groups || [],
+                        groups_length: groups.length || 0
+                      })
                       wx.showToast({
                         title: "成功将朋友群" + name + "删去",
                         icon: 'success',
                         duration: 2000
                       })
                     }else{
+                      console.log('fail: request delete_group res')
+                      console.log(res)
                       wx.showToast({
-                        title: "无法删除朋友群" + nickname,
+                        title: "服务器无法删除朋友群" + name,
                         icon: 'loading',
                         duration: 2000
                       })
                     }
                   },
-                  fail: function() {
-                    // fail
-                  },
+                  fail: function() {console.log('fail: request delete_group')},
                   complete: function() {
                     // complete
                   }

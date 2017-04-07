@@ -1,6 +1,6 @@
 <!--pages/groups/groups.wxml-->
 <view  class="topbar">
-  <text>列表{{groups_length}}</text>
+  <text>列表({{groups_length}})</text>
   <navigator url="../friends/friends" open-type="switchTab">返回朋友</navigator >
   <navigator url="../new_group/new_group">新建群组</navigator >
 </view>

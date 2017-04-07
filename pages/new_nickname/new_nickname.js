@@ -47,29 +47,38 @@ Page({
               data: {token: wx.getStorageSync('token'), nickname: e.detail.value.name, friend_id: friend_id},
               method: 'POST',
               success: function(res){
-                if(res.result_code == 't'){
-                  // 将缓存里面原来的名称更改为新的名称。
-                  // 如果是朋友
-                  friendships = wx.getStorageSync('friendships') || []
-                  friendship_index = friendships.indexOf({friend_id: friend_id, nickname: nickname})
-                  friendships = friendships.splice(friendship_index, 1, {friend_id: friend_id, nickname: e.detail.value.name})
-                  wx.setStorage({
-                    key: 'friendships',
-                    data: friendships,
-                  })      
-                  // 如果是自己，还需要更改全局数据
+                //console.log('new_nickname res')
+                //console.log(res)
+                if(res.data.result_code == 't'){
+                  /* 将缓存里面原来的名称更改为新的名称。
+                  // 如果是自己
                   if(friend_id == wx.getStorageSync('current_user').id){
-                    var me = {id: getStorageSync('current_user').id, nickname: e.detail.value.name, end_time: getStorageSync('current_user').end_time}
-                    wx.setStorageSync('current_user', me).nickname = e.detail.value.name
-                  }         
+                    var me = {id: wx.getStorageSync('current_user').id, nickname: e.detail.value.name, end_time: wx.getStorageSync('current_user').end_time}
+                    wx.setStorageSync('current_user', me)
+                  }else{
+                 // 如果是朋友
+                  var friendships = wx.getStorageSync('friendships') || [];
+                  var friendship_index;
+                  friendships.forEach(function(item, index){
+                    if(item.friend_id == friend_id){
+                      friend_id = index
+                    }
+                  })
+                  friendships.splice(friendship_index, 1, {friend_id: friend_id, nickname: e.detail.value.name})
+                  wx.setStorageSync('friendships', friendships)
+                  }
+                  */
                   wx.showToast({
                     title: '成功修改昵称',
                     icon: 'success',
                     duration: 2000
                   })
+                  setTimeout(function(){wx.navigateBack()},2000);
                 }else{
+                  console.log('fail: request new_nickname res')
+                  console.log(res)
                   wx.showToast({
-                    title: (res.msg || ""),
+                    title: (res.msg || "服务器拒绝修改昵称"),
                     icon: 'loading',
                     duration: 2000
                   })
@@ -77,8 +86,9 @@ Page({
               },
               fail: function() {
                 // fail
+                console.log('fail: request new_nickname')
                 wx.showToast({
-                  title: '请求失败，请先检查网络，稍后发送。',
+                  title: '请求失败，请先检查网络，稍后修改。',
                   icon: 'loading',
                   duration: 2000
                 })

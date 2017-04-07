@@ -26,6 +26,7 @@ Page({
     // 页面关闭
   },
   formSubmit:function(e){
+    var that=this;
     if(e.detail.value.content.replace(/\s/g, "") 
  == ""){
       wx.showToast({
@@ -41,28 +42,36 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_help_to_friend',
-              data: {token: wx.getStorageSync('token'), friend_id: friend_id, content: e.detail.value.content},
+              data: {token: wx.getStorageSync('token'), receiver_id: friend_id, content: e.detail.value.content},
               method: 'POST',
               success: function(res){
                 console.log(res)
                 if(res.data.id >= 0){
-                  // 将信息插入helps
-                  var time = new Date()
-                  var new_help = {id: res.id, content: e.detail.value.content, receiver: nickname, created_at: time}
-                  helps = wx.getStorageSync('helps') || []
-                  helps = helps.push(new_help)
-                  wx.setStoragesync('helps',helps)
+                  /* 将信息插入helps
+                  var new_help = {id: res.data.id, content: e.detail.value.content, receiver: nickname, created_at: res.data.created_at }
+                  var helps = wx.getStorageSync('helps') || []
+                  helps.unshift(new_help)
+                  wx.setStorageSync('helps',helps)
+                  */
                   wx.showToast({
                     title: '成功提交请求',
                     icon: 'success',
                     duration: 2000
                   })
+                  that.setData({empty: null})
                 }else{
-
+                  console.log('fail: request new_help_to_friend res')
+                  console.log(res)
+                  wx.showToast({
+                    title: '请求被服务器拒绝',
+                    icon: 'loading',
+                    duration: 2000
+                  })
                 }
               },
               fail: function() {
                 // fail
+                console.log('fail: request new_help_to_friend')
                 wx.showToast({
                   title: '请求失败，请先检查网络，稍后发送。',
                   icon: 'loading',

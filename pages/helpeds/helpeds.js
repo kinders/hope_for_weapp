@@ -12,35 +12,37 @@ Page({
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
-        if (res.data.dones) {
-          wx.setStorage({key: 'helpeds', data: res.data.helpeds})
+        if (res.data.helpeds) {
+          wx.setStorageSync('helpeds', res.data.helpeds)
+          that.setData({
+            helpeds: res.data.helpeds,
+            helpeds_length: res.data.helpeds.length,
+            current_user: wx.getStorageSync('current_user')
+          })
+          // 生成可供筛选的选项
+          var helpeds_receiver_nicknames = ["全部"];
+          var is_hidden = [];
+          (res.data.helpeds || []).map(function(helped){
+            if (helpeds_receiver_ids.indexOf(helped.receiver_id) == -1 ){
+              helpeds_receiver_ids = helpeds_receiver_ids.concat(helped.receiver_id)
+            }
+            if (helpeds_receiver_nicknames.indexOf(helped.nickname) == -1){
+              helpeds_receiver_nicknames = helpeds_receiver_nicknames.concat(helped.nickname)
+            }   
+            is_hidden = is_hidden.concat("item")
+          });
+          that.setData({
+            helpeds_receiver_ids: helpeds_receiver_ids,
+            helpeds_receiver_nicknames: helpeds_receiver_nicknames,
+            is_hidden: is_hidden
+          })
+        } else {
+          console.log('fail: request helpeds res')
+          console.log(res)
         }
       },
-      fail: function() {},
+      fail: function() {console.log('fail: request helpeds')},
       complete: function() {}
-    })
-    // 取出缓存信息
-    this.setData({
-      helpeds: (wx.getStorageSync('helpeds') || []),
-      helpeds_length: (wx.getStorageSync('helpeds') || []).length,
-      current_user: wx.getStorageSync('current_user')
-    })
-    // 生成可供筛选的选项
-    var helpeds_receiver_nicknames = ["全部"];
-    var is_hidden = [];
-    (wx.getStorageSync('helpeds') || []).map(function(helped){
-      if (helpeds_receiver_ids.indexOf(helped.receiver_id) == -1 ){
-        helpeds_receiver_ids = helpeds_receiver_ids.concat(helped.receiver_id)
-      }
-      if (helpeds_receiver_nicknames.indexOf(helped.nickname) == -1){
-        helpeds_receiver_nicknames = helpeds_receiver_nicknames.concat(helped.nickname)
-      }   
-      is_hidden = is_hidden.concat("item")
-    });
-    this.setData({
-      helpeds_receiver_ids: helpeds_receiver_ids,
-      helpeds_receiver_nicknames: helpeds_receiver_nicknames,
-      is_hidden: is_hidden
     })
   },
   onReady:function(){

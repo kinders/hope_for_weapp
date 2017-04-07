@@ -1,33 +1,37 @@
 // pages/group_helpeds/group_helpeds.js
 Page({
-  data:{
-    group_helpeds: [ { id: 3, content: '第一个群请求', group_id: 2, name: '群一', created_at: '2017-02-25T12:20:20' } ]
-  },
+  data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    var group_id = options.group_id
-    var name = options.name
+    var group_id = options.group_id;
+    var name = options.name;
+    // 取出缓存信息
+    this.setData({
+      group: {group_id: group_id, name: name},
+      current_user_id: wx.getStorageSync('current_user').id
+    })
     // 到网站请求最新信息
-    var group_helpeds = "group_" + group_id + "_helpeds"
+    var that = this;
+    var group_helpeds = "group_" + group_id + "_helpeds";
     wx.request({
       url: 'https://www.hopee.xyz/group_helpeds',
       data: { token: wx.getStorageSync('token'), group_id: group_id },
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
-        if (res.data.group) {
-          wx.setStorage({key: group_helpeds, data: res.data.group_helpeds})
+        if (res.data.group_helpeds) {
+          wx.setStorageSync(group_helpeds, res.data.group_helpeds)
+          that.setData({
+            group_helpeds: res.data.group_helpeds,
+            group_helpeds_length: res.data.group_helpeds.length,
+          })
+        } else {
+          console.log('fail: request group_helpeds res')
+          console.log(res) 
         }
       },
-      fail: function() {},
+      fail: function() {console.log('fail: request group_helpeds')},
       complete: function() {}
-    }),
-    // 取出缓存信息
-    this.setData({
-      group: {group_id: group_id, name: name},
-      group_helpeds: (wx.getStorageSync(group_helpeds) || []),
-      group_helpeds_length:(wx.getStorageSync(group_helpeds) || []).length,
-      current_user_id: wx.getStorageSync('current_user').id
     })
   },
   onReady:function(){

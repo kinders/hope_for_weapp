@@ -1,6 +1,6 @@
 <!--pages/helpeds/helpeds.wxml-->
 <view  class="topbar">
-  <text>列表({{helpeds_length}})</text >
+  <text>列表</text >
   <navigator url="../helps/helps" open-type="switchTab">未满足请求</navigator >
   <navigator url="../groups_helps/groups_helps" open-type="redirect" >群请求</navigator> 
 </view>
@@ -8,6 +8,7 @@
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{helpeds_receiver_nicknames}}">
   <view class="picker">
       筛选：{{helpeds_receiver_nicknames[index]}}
+      <text style="float: right;">({{helpeds_length}})</text>
     </view>
   </picker>
 </view>
@@ -26,7 +27,7 @@
        <text wx:else>{{helped.nickname}}</text>
      </view>
      <view class="item-value">
-       <navigator url="../todo/todo?todo_id={{helped.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{helped.nickname}}&created_at={{helped.created_at}}&is_finish=t&content={{helped.content}}">{{ helped.content}}</navigator>
+       <navigator url="../todo/todo?todo_id={{helped.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{helped.nickname}}&created_at={{helped.created_at}}&is_finish=true&content={{helped.content}}">{{ helped.content}}</navigator>
      </view>
   </view>
   </block>

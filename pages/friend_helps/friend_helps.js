@@ -5,26 +5,11 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    friend_id = options.friend_id
-    var friend_nickname = options.nickname
-    // 到网站请求最新信息
-    var friend_helps = "friend_" + friend_id +"_helps"
-    var friend = "friend_" + friend_id
-    var is_friendship = ''
-    var that = this
-    wx.request({
-      url: 'https://www.hopee.xyz/friend_helps',
-      data: { token: wx.getStorageSync('token'), friend_id: friend_id },
-      method: 'GET',
-      success: function(res){
-        // 取得信息之后：缓存信息
-        if (res.data.friend_helps) {
-          wx.setStorage({key: friend_helps, data: res.data.friend_helps})
-        }
-      },
-      fail: function() {},
-      complete: function() {}
-    }),
+    friend_id = options.friend_id;
+    var friend_nickname = options.nickname;
+    var friend_helps = "friend_" + friend_id +"_helps";
+    var friend = "friend_" + friend_id;
+    var is_friendship = '';
     // 取出缓存信息
     (wx.getStorageSync("friendships") || []).map(function(friendship){
       if(friendship.friend_id == friend_id){
@@ -32,28 +17,48 @@ Page({
       }
     })
     this.setData({
-      friend_helps: (wx.getStorageSync(friend_helps) || []),
-      friend_helps_length: (wx.getStorageSync(friend_helps) || []).length,
       is_friendship: is_friendship,
       friend: {friend_id: friend_id, nickname: friend_nickname},
       current_user_id: wx.getStorageSync('current_user').id
     })
-    // 生成可供筛选的选项
-    var friend_helps_receiver_nicknames = ["全部"];
-    var is_hidden = [];
-    (wx.getStorageSync(friend_helps) || []).map(function(help){
-      if (friend_helps_receiver_ids.indexOf(help.receiver_id) == -1 ){
-        friend_helps_receiver_ids = friend_helps_receiver_ids.concat(help.receiver_id)
-      }
-      if (friend_helps_receiver_nicknames.indexOf(help.nickname) == -1){
-        friend_helps_receiver_nicknames = friend_helps_receiver_nicknames.concat(help.nickname)
-      }   
-      is_hidden = is_hidden.concat("item")
-    });
-    this.setData({
-      friend_helps_receiver_ids: friend_helps_receiver_ids,
-      friend_helps_receiver_nicknames: friend_helps_receiver_nicknames,
-      is_hidden: is_hidden
+    // 到网站请求最新信息
+    var that = this
+    wx.request({
+      url: 'https://www.hopee.xyz/friend_helps',
+      data: { token: wx.getStorageSync('token'), friend_id: friend_id },
+      method: 'GET',
+      success: function(res){
+        // 取得信息之后：缓存信息
+        if(res.data.friend_helps){
+          wx.setStorageSync(friend_helps, res.data.friend_helps)
+          that.setData({
+            friend_helps: res.data.friend_helps,
+            friend_helps_length: res.data.friend_helps.length,
+          })
+          // 生成可供筛选的选项
+          var friend_helps_receiver_nicknames = ["全部"];
+          var is_hidden = [];
+          (res.data.friend_helps|| []).map(function(help){
+            if (friend_helps_receiver_ids.indexOf(help.receiver_id) == -1 ){
+              friend_helps_receiver_ids = friend_helps_receiver_ids.concat(help.receiver_id)
+            }
+            if (friend_helps_receiver_nicknames.indexOf(help.nickname) == -1){
+              friend_helps_receiver_nicknames = friend_helps_receiver_nicknames.concat(help.nickname)
+            }
+            is_hidden = is_hidden.concat("item")
+          });
+          that.setData({
+            friend_helps_receiver_ids: friend_helps_receiver_ids,
+            friend_helps_receiver_nicknames: friend_helps_receiver_nicknames,
+            is_hidden: is_hidden
+          })
+        }else{
+          console.log('fail: request friend_helps res')
+          console.log(res) 
+        }
+      },
+      fail: function() {console.log('fail: request friend_helps')},
+      complete: function() {}
     })
   },
   onReady:function(){
@@ -72,7 +77,7 @@ Page({
     this.setData({
       index: e.detail.value
     })
-    console.log(e.detail.value)
+    //console.log(e.detail.value)
     var is_hidden = [];
     var friend_helps = "friend_" + friend_id +"_helps"
     var friend_helps_length = 0

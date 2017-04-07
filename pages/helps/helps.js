@@ -1,38 +1,54 @@
 // pages/helps/helps.js
-var helps_receiver_ids = [0];
 Page({
   data:{},
   onLoad:function(options){
     // 页面初始化
-    // 取出缓存信息
-    this.setData({
-      helps: (wx.getStorageSync('helps') || []),
-      helps_length: (wx.getStorageSync('helps') || []).length,
-      current_user: wx.getStorageSync('current_user')
-    })
-    // 生成可供筛选的选项
-    var helps_receiver_nicknames = ["全部"];
-    var is_hidden = [];
-    (wx.getStorageSync('helps') || []).map(function(help){
-      if (helps_receiver_ids.indexOf(help.receiver_id) == -1 ){
-        helps_receiver_ids = helps_receiver_ids.concat(help.receiver_id)
-      }
-      if (helps_receiver_nicknames.indexOf(help.nickname) == -1){
-        helps_receiver_nicknames = helps_receiver_nicknames.concat(help.nickname)
-      }   
-      is_hidden = is_hidden.concat("item")
-    });
-    this.setData({
-      helps_receiver_ids: helps_receiver_ids,
-      helps_receiver_nicknames: helps_receiver_nicknames,
-      is_hidden: is_hidden
-    })
   },
   onReady:function(){
     // 页面渲染完成
   },
   onShow:function(){
     // 页面显示
+    // 到网站请求最新信息
+    var that = this
+    wx.request({
+      url: 'https://www.hopee.xyz/helps',
+      data: { token: wx.getStorageSync('token') },
+      method: 'GET',
+      success: function(res){
+        if(res.data.helps){
+          wx.setStorageSync('helps', res.data.helps)
+          that.setData({
+            helps: res.data.helps,
+            helps_length: res.data.helps.length,
+            current_user: wx.getStorageSync('current_user')
+          })
+          // 生成可供筛选的选项
+          var helps_receiver_nicknames = ["全部"];
+          var helps_receiver_ids = [0];
+          var is_hidden = [];
+          (res.data.helps || []).map(function(help){
+            if (helps_receiver_ids.indexOf(help.receiver_id) == -1 ){
+              helps_receiver_ids = helps_receiver_ids.concat(help.receiver_id)
+            }
+            if (helps_receiver_nicknames.indexOf(help.nickname) == -1){
+              helps_receiver_nicknames = helps_receiver_nicknames.concat(help.nickname)
+            }   
+            is_hidden = is_hidden.concat("item")
+          });
+          that.setData({
+            helps_receiver_ids: helps_receiver_ids,
+            helps_receiver_nicknames: helps_receiver_nicknames,
+            is_hidden: is_hidden
+          })
+        }else{
+          console.log('fail: request helps res')
+          console.log(res)
+        }
+      },
+      fail: function() {console.log('fail: request helps')},
+      complete: function() {}
+    })
   },
   onHide:function(){
     // 页面隐藏
@@ -46,6 +62,7 @@ Page({
     })
     var is_hidden = [];
     var helps_length = 0;
+    var helps_receiver_ids = this.data.helps_receiver_ids;
     if (e.detail.value == 0){
       (wx.getStorageSync('helps') || []).map(function(help){
         is_hidden = is_hidden.concat("item"),
@@ -66,4 +83,10 @@ Page({
       helps_length: helps_length
     })
   },
+  onShareAppMessage: function () {
+    return {
+      title: '我想和你分享这些愿望……',
+      path: "/friend/friend?friend_id={{wx.getStorageSync('current_user').id}}&nickname={{wx.getStorageSync('current_user').nickname}}"
+    }
+  }
 })

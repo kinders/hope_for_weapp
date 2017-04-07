@@ -3,137 +3,54 @@ App({
   onLaunch: function () {
     // 先清理缓存
     wx.clearStorageSync()
-    /* 模拟本地缓存数据
-    wx.setStorage({
-      key: "token",
-      data: '111'
-    })
-    wx.setStorage({
-      key:"current_user",
-      data: {id: 1, nickname: '用户一', end_time: '2018-01-01 00:00:01'}
-    })
-    wx.setStorage({
-      key:"is_use",
-      data: true
-    })
-    wx.setStorage({
-      key: "todos",
-      data: [{ id: 1, content: '第一个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20 09:50:14' }, { id: 2, content: '用户二给用户一的第一个任务', user_id: 2, nickname: '用户二', created_at: '2017-02-20 09:50:14'}, { id: 3, content: '用户二给用户一的第一个任务', user_id: 2, nickname: '用户二', created_at: '2017-02-20 09:50:14' }]
-    })
-    wx.setStorage({
-      key: "other_todos",
-      data: [{ id: 1, content: '第一个任务', user_id: 4, nickname: '用户4', created_at: '2017-02-20 09:50:14', discussions_count: 5 }, { id: 2, content: '用户5给用户一的第一个任务', user_id: 5, nickname: '用户5', created_at: '2017-02-20 09:50:14', discussions_count: 4 }, { id: 3, content: '用户5给用户一的第一个任务', user_id: 5, nickname: '用户5', created_at: '2017-02-20 09:50:14', discussions_count: 3 }]
-    })
-    wx.setStorage({
-        key: "dones",
-        data: [{ id: 1, user_id: 1, nickname: 'test', content: '第一个请求给自己', created_at: '2017-02-17 11:50' }, { id: 3, user_id: 3, nickname: '用户三', content: '第一个请求给自己', created_at: '2017-02-17 11:50' }, { id: 4, user_id: 4, nickname: '用户四', content: '第四个请求给自己', created_at: '2017-02-17 11:50' }, { id: 5, user_id: 4, nickname: '用户四', content: '第四个请求给自己', created_at: '2017-02-17 11:50' }]
-    })
-    wx.setStorage({
-        key: "helps",
-        data: [ { id: 3, content: '第一个请求', receiver_id: 2, nickname: '用户二', created_at: '2017-02-25T12:20:20' },{ id: 4, content: '第一个请求', receiver_id: 3, nickname: '用户三', created_at: '2017-02-25T12:20:20' },{ id: 5, content: '第一个请求', receiver_id: 3, nickname: '用户三', created_at: '2017-02-25T12:20:20' } ]
-    })
-    wx.setStorage({
-        key: "helpeds",
-        data: [ { id: 3, content: '第一个请求', receiver_id: 2, nickname: '用户二', created_at: '2017-02-25T12:20:20' },{ id: 4, content: '第一个请求', receiver_id: 3, nickname: '用户三', created_at: '2017-02-25T12:20:20' },{ id: 5, content: '第一个请求', receiver_id: 3, nickname: '用户三', created_at: '2017-02-25T12:20:20' } ]
-    })
-    wx.setStorage({
-        key: "groups_helps",
-        data: [ { id: 3, content: '第一个群请求', group_id: 2, name: '群二', created_at: '2017-02-25T12:20:20' }, { id: 4, content: '第二个群请求', group_id: 3, name: '群三', created_at: '2017-02-25T12:20:20' }, { id: 5, content: '第二个群请求', group_id: 3, name: '群三', created_at: '2017-02-25T12:20:20' } ]
-    })
-    wx.setStorage({
-      key: "friendships",
-      data: [ { friend_id: 1, nickname: '一号' },      { friend_id: 2, nickname: '二号朋友' },  { friend_id: 3, nickname: '三号朋友' } ]
-    })
-    wx.setStorage({
-      key: "strangers",
-      data: [ { friend_id: 10, nickname: '10号' },      { friend_id: 11, nickname: '11号朋友' },  { friend_id: 12, nickname: '12号朋友' } ]
-    })
-    wx.setStorage({
-      key: "friend_2_todos",
-      data: [ { id: 1, content: '第一个任务第一个任务第一个任务第一个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 2, content: '第二个任务', user_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 3, content: '第三个任务', user_id: 4, nickname: '用户四', created_at: '2017-02-20T09:50:14' } ]
-    })
-    wx.setStorage({
-      key: "friend_2_helps",
-      data: [ { id: 1, user_id: 2, content: '第一个任务第一个任务第一个任务第一个任务', receiver_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 2,user_id: 2, content: '第二个任务', receiver_id: 1, nickname: '用户一', created_at: '2017-02-20T09:50:14' }, { id: 3,user_id: 2, content: '第三个任务', receiver_id: 3, nickname: '用户三', created_at: '2017-02-20T09:50:14' } ]
-    })
-    wx.setStorage({
-      key: "groups",
-      data: [ { id: 1, name: '第一个友群' }, { id: 2, name: '第二个友群' } ]
-    })
-    wx.setStorage({
-      key: "group_1",
-      data: [ { user_id: 1, nickname: '用户一' }, { user_id: 2, nickname: '用户二' }, { user_id: 3, nickname: '用户三' } ]
-    })
-    wx.setStorage({
-      key: "group_1_helps",
-      data: [ { id: 1, content: '第7个群请求', created_at: '2017-02-25T12:20:20' },{ id: 2, content: '第8个群请求', created_at: '2017-02-25T12:20:20' },{ id: 3, content: '第9个群请求', created_at: '2017-02-25T12:20:20' } ]
-    })
-    wx.setStorage({
-      key: "group_1_helpeds",
-      data: [ { id: 1, content: '第一个群请求', created_at: '2017-02-25T12:20:20' },{ id: 2, content: '第二个群请求', created_at: '2017-02-25T12:20:20' },{ id: 3, content: '第三个群请求', created_at: '2017-02-25T12:20:20' } ]
-    })
-    wx.setStorage({
-      key: "helps_in_grouptodo_1",
-      data: [ { id: 1, content: '第一个群任务', receiver_id: 1, nickname: '用户一', is_finish: 't' }, { id: 2, content: '第一个群任务', receiver_id: 2, nickname: '用户二',  is_finish: 'f' }, { id: 2, content: '第一个群任务', receiver_id: 3, nickname: '用户三',  is_finish: 't' } ]
-    })
-    wx.setStorage({
-      key: "discussions_in_todo_1",
-      data: [ { todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？这样子满意不？', created_at: '2017-02-26T21:21:25' }, { todo_id: 1, user_id: 3, nickname: '用户三', content: '这样子满意不？这样子满意不？这样子满意不？', created_at: '2017-02-26T21:21:25' }, { todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' }, { todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' }, { todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' },{ todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' },{ todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' }, { todo_id: 1, user_id: 2, nickname: '用户二', content: '这样子满意不？', created_at: '2017-02-26T21:21:25' } ]
-    })
-    */
+    var that = this
       //调用登录接口
       wx.login({
         success: function (res) {
           if (res.code) {
             //发起网络请求
-            console.log('start to request login')
+            //console.log('start to request login')
             wx.request({
               url: 'https://www.hopee.xyz/login',
               data: { js_code: res.code },
               method: 'POST',
               success: function(res){
-                console.log(res)
+                //console.log(res)
                 if(res.data.result_code == "t"){
-                  console.log('获取用户登录态成功！')
+                  //console.log('获取用户登录态成功！')
                   wx.setStorageSync('token', res.data.token)
                   wx.setStorageSync('current_user', res.data.current_user)
-                  wx.setStorageSync('is_use', true)
+                  that.globalData.is_use = 1
+                  //wx.setStorageSync('is_use', 1)
                 }else if(res.data.result_code == "expired"){
                   console.log('获取用户登录态过期！')
                   wx.setStorageSync('token', res.data.token)
                   wx.setStorageSync('current_user', res.data.current_user)
-                  wx.setStorageSync('is_use', false)
+                  that.globalData.is_use = 2
+                  //wx.setStorageSync('is_use', 2)              
                 }else{
-                  console.log('获取用户登录态未知！')
+                  console.log('服务器未知用户登录态！')
                   console.log(res)
                 }
+                // 获取本地用户信息
+                wx.getUserInfo({
+                  success: function (res) {
+                    that.globalData.userInfo = res.userInfo
+                     typeof cb == "function" && cb(that.globalData.userInfo)
+                  }
+                })
               },
               fail: function(res){console.log('request login fail')}
             })
           } else {
-            console.log('获取用户登录态失败！' + res.errMsg)
+            console.log('获取用户登录态失败！')
+            console.log(res)
           }
         }
       })
-  },
-  // 获取用户信息，在index.js中调用这个函数
-  getUserInfo:function(cb){
-    var that = this
-    if(this.globalData.userInfo){
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    }else{
-
-          // 获取本地用户信息
-          wx.getUserInfo({
-            success: function (res) {
-              that.globalData.userInfo = res.userInfo
-              typeof cb == "function" && cb(that.globalData.userInfo)
-            }
-          })
-    }
-  },
-  // 全局数据，可用`getApp().globalData.userInfo`来调用
-  globalData:{
-    userInfo:null
-  }
+ },
+ globalData: {
+   userInfo:null,
+   is_use: 0
+}
 })

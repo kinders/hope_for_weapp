@@ -1,6 +1,6 @@
 <!--todos.wxml-->
 <view  class="topbar">
-  <text>列表({{todos_length}})</text>
+  <text>列表</text>
   <navigator url="../other_todos/other_todos">查看陌生人任务</navigator >
   <navigator url="../dones/dones">查看已完成任务</navigator >
 </view>
@@ -8,6 +8,7 @@
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{todos_user_nicknames}}">
   <view class="picker">
       筛选：{{todos_user_nicknames[index]}}
+      <text style="float: right;">({{todos_length}})</text>
     </view>
   </picker>
 </view>

@@ -34,31 +34,23 @@ Page({
               data: {token: wx.getStorageSync('token'), nickname: (e.detail.value.name || nickname), friend_id: friend_id},
               method: 'POST',
               success: function(res){
-                if(res.id >= 0){
-                  new_friendship = {id: res.id, nickname: e.detail.value.name || nickname}
-                  friendships = wx.getStorageSync('friendships') || []
-                  friendships = friendships.unshift(new_friendship)
-                  wx.setStorage({
-                    key: 'friendships',
-                    data: friendships,
-                    success: function(res){
-                      // success
-                    },
-                    fail: function() {
-                      // fail
-                    },
-                    complete: function() {
-                      // complete
-                    }
-                  })
+                if(res.data.id >= 0){
+                  /*
+                  var friendships = wx.getStorageSync('friendships') || []
+                  friendships.unshift({id: res.data.id, nickname: (e.detail.value.name || nickname)})
+                  wx.setStorageSync('friendships', friendships)
+                  */
                   wx.showToast({
                     title: '成功添加好友',
                     icon: 'success',
                     duration: 2000
                   })
+                  setTimeout(function(){wx.navigateBack()},2000);
                 }else{
+                  console.log('fail: request new_friend res')
+                  console.log(res)
                   wx.showToast({
-                    title: (res.msg || ""),
+                    title: (res.data.msg || "服务器拒绝添加该好友"),
                     icon: 'loading',
                     duration: 2000
                   })
@@ -66,6 +58,7 @@ Page({
               },
               fail: function() {
                 // fail
+                console.log('fail: request new_friend')
                 wx.showToast({
                   title: '请求失败，请先检查网络，稍后发送。',
                   icon: 'loading',

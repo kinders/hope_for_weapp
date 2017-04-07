@@ -35,12 +35,12 @@
     "color": "white",
     "backgroundColor": "black",
     "list": [{
-      "pagePath": "pages/todos/todos",
-      "text": "任务"
-    },{
       "pagePath": "pages/helps/helps",
       "text": "请求"
     }, {
+      "pagePath": "pages/todos/todos",
+      "text": "任务"
+    },{
       "pagePath": "pages/friends/friends",
       "text": "朋友"
     }]

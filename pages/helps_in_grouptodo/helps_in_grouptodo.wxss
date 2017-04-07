@@ -6,3 +6,7 @@
   box-sizing: border-box;  
   border-bottom: 0.1px solid lightgray;
 }
+.section-checkbox {
+    padding: 0.5rem 1rem;
+    border-bottom: 0.1px inset;
+}

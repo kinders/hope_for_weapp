@@ -4,28 +4,44 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    // 取出缓存信息
-    this.setData({
-      groups_helps: (wx.getStorageSync('groups_helps') || []),
-      groups_helps_length: (wx.getStorageSync('groups_helps') || []).length
-    })
-    // 生成可供筛选的选项
-    var groups_helps_group_names = ["全部"];
-    var is_hidden = [];
-    (wx.getStorageSync('groups_helps') || []).map(function(groups_help){
-      if (groups_helps_group_ids.indexOf(groups_help.group_id) == -1 ){
-        groups_helps_group_ids = groups_helps_group_ids.concat(groups_help.group_id)
+    var that = this
+    wx.request({
+      url: 'https://www.hopee.xyz/groups_helps',
+      data: { token: wx.getStorageSync('token') },
+      method: 'GET',
+      success: function(res){
+        if(res.data.groups_helps){
+          wx.setStorageSync('groups_helps', res.data.groups_helps)
+          that.setData({
+            groups_helps: res.data.groups_helps,
+            groups_helps_length: res.data.groups_helps.length,
+          })
+          // 生成可供筛选的选项
+          var groups_helps_group_names = ["全部"];
+          var is_hidden = [];
+          (res.data.groups_helps || []).map(function(groups_help){
+            if (groups_helps_group_ids.indexOf(groups_help.group_id) == -1 ){
+              groups_helps_group_ids = groups_helps_group_ids.concat(groups_help.group_id)
       }
-      if (groups_helps_group_names.indexOf(groups_help.name) == -1){
-        groups_helps_group_names = groups_helps_group_names.concat(groups_help.name)
-      }   
-      is_hidden = is_hidden.concat("item")
-    });
-    this.setData({
-      groups_helps_group_ids: groups_helps_group_ids,
-      groups_helps_group_names: groups_helps_group_names,
-      is_hidden: is_hidden
-    })
+            if (groups_helps_group_names.indexOf(groups_help.name) == -1){
+              groups_helps_group_names = groups_helps_group_names.concat(groups_help.name)
+            }   
+            is_hidden = is_hidden.concat("item")
+          });
+          that.setData({
+            groups_helps_group_ids: groups_helps_group_ids,
+            groups_helps_group_names: groups_helps_group_names,
+            is_hidden: is_hidden
+          })
+        }else{
+          console.log('fail: request groups_helps res')
+          console.log(res)
+        }
+      },
+      fail: function() {console.log('fail: request groups_helps')},
+      complete: function() {}
+    })    
+
   },
   onReady:function(){
     // 页面渲染完成

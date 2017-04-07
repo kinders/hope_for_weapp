@@ -13,62 +13,64 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    todo_id = options.todo_id
-    user_id = options.user_id
-    user_nickname = options.user_nickname
-    receiver_id = options.receiver_id
-    receiver_nickname = options.receiver_nickname
-    var created_at = options.created_at
-    var content = options.content
-    todo = 'todo_' + todo_id
-    discussions = 'discussions_in_todo_' + todo_id
-    just_finished = todo + '_is_finish'
-    var is_finished = wx.getStorageSync(just_finished) || false
-    if(is_finished == 't'){
-      is_finish = true
-    }else{
-      is_finish = options.is_finish
-    }
+    var that = this;
+    todo_id = options.todo_id;
+    user_id = options.user_id;
+    user_nickname = options.user_nickname;
+    receiver_id = options.receiver_id;
+    receiver_nickname = options.receiver_nickname;
+    var created_at = options.created_at;
+    var content = options.content;
+    todo = 'todo_' + todo_id;
+    discussions = 'discussions_in_todo_' + todo_id;
+    is_finish = options.is_finish;
     this.setData({
       todo: {user_id: user_id, user_nickname: user_nickname, receiver_nickname: receiver_nickname, created_at: created_at, is_finish: is_finish, content: content},
+      current_user: wx.getStorageSync('current_user')
     })
+    //console.log(this.data.todo)
     // 到网站请求最新信息
     wx.request({
-      url: 'https://www.hopee.xyz/discussions',
+      url: 'https://www.hopee.xyz/todo',
       data: { token: wx.getStorageSync('token'), todo_id: todo_id },
       method: 'GET',
       success: function(res){
+        //console.log('request todo success')
+        //console.log(res)
         // 取得信息之后：缓存信息
         if (res.data.discussions) {
-          wx.setStorage({key: discussions, data: res.data.discussions})
+          wx.setStorageSync(discussions, res.data.discussions)
+          that.setData({
+            discussions: res.data.discussions || [],
+            discussions_length: res.data.discussions.length || 0
+          })
+          //console.log('set_storage_sync_discussions')
+          // 生成可供筛选的选项
+          var discussions_user_nicknames = ["全部"];
+          var is_hidden = [];
+          res.data.discussions.map(function(discussion){
+            if (discussions_user_ids.indexOf(discussion.user_id) == -1 ){
+              discussions_user_ids = discussions_user_ids.concat(discussion.user_id)
+            }
+            if (discussions_user_nicknames.indexOf(discussion.nickname) == -1){
+              discussions_user_nicknames = discussions_user_nicknames.concat(discussion.nickname)
+            }   
+            is_hidden = is_hidden.concat("item")
+          });
+          that.setData({
+            discussions_user_ids: discussions_user_ids,
+            discussions_user_nicknames: discussions_user_nicknames,
+            is_hidden: is_hidden
+          })
+        }else{
+          console.log('fail: request todo res')
+          console.log(res)
         }
       },
-      fail: function() {},
+      fail: function() {console.log('fail: request todo')},
       complete: function() {}
     })
-    // 取出缓存信息
-    this.setData({
-      discussions: (wx.getStorageSync(discussions) || []),
-      discussions_length: (wx.getStorageSync(discussions) || []).length,
-      current_user: wx.getStorageSync('current_user')
-    })
-    // 生成可供筛选的选项
-    var discussions_user_nicknames = ["全部"];
-    var is_hidden = [];
-    (wx.getStorageSync(discussions) || []).map(function(discussion){
-      if (discussions_user_ids.indexOf(discussion.user_id) == -1 ){
-        discussions_user_ids = discussions_user_ids.concat(discussion.user_id)
-      }
-      if (discussions_user_nicknames.indexOf(discussion.nickname) == -1){
-        discussions_user_nicknames = discussions_user_nicknames.concat(discussion.nickname)
-      }   
-      is_hidden = is_hidden.concat("item")
-    });
-    this.setData({
-      discussions_user_ids: discussions_user_ids,
-      discussions_user_nicknames: discussions_user_nicknames,
-      is_hidden: is_hidden
-    })
+
   },
   onReady:function(){
     // 页面渲染完成
@@ -110,6 +112,7 @@ Page({
     })
   },
   close_help: function(){
+    var that = this;
     wx.showModal({
       title: "注意",
       content: '您确定要关闭这个请求吗？',
@@ -121,28 +124,29 @@ Page({
             method: 'POST',
             success: function(res){
               // success
-              if(res.result_code == "t"){
+              if(res.data.result_code == "t"){
                 wx.showToast({
                   title: '成功关闭这个请求',
                   icon: 'success',
                   duration: 2000
                 })
-                wx.setStorageSync(just_finished, 't')
-                wx.navigateBack()
+                //wx.setStorageSync(just_finished, 't')
+                var new_todo = that.data.todo;
+                new_todo.is_finish = 'true';
+                //console.log(new_todo)
+                that.setData({todo: new_todo})
               }else{
+                console.log('fail: request close_help res')
+                console.log(res)
                 wx.showToast({
-                  title: '无法关闭这个请求',
+                  title: '服务器拒绝关闭这个请求',
                   icon: 'loading',
                   duration: 2000
                 })
               }
             },
-            fail: function() {
-              // fail
-            },
-            complete: function() {
-              // complete
-            }
+            fail: function() {console.log('fail: request close_help')},
+            complete: function() {}
           })
         }
       },
@@ -150,6 +154,7 @@ Page({
     })
   },
   rehelp: function(){
+    var that=this;
     wx.showModal({
       title: "注意",
       content: '您确定要重启这个请求吗？',
@@ -161,27 +166,27 @@ Page({
             method: 'POST',
             success: function(res){
               // success
-              if(res.result_code == "t"){
+              if(res.data.result_code == "t"){
                 wx.showToast({
                   title: '成功重启这个请求',
                   icon: 'success',
                   duration: 2000
                 })
-                wx.setStorageSync(just_finished, false)
-                wx.setData({
-                  todo: {user_id: user_id, user_nickname: user_nickname, receiver_nickname: receiver_nickname, created_at: created_at, is_finish: false, content: content}
-                })
+                //wx.setStorageSync(just_finished, false)
+                var new_todo = that.data.todo;
+                new_todo.is_finish = false;
+                that.setData({todo: new_todo})
               }else{
+                console.log('fail: request rehelp res')
+                console.log(res)
                 wx.showToast({
-                  title: '无法重启这个请求',
+                  title: '服务器拒绝重启这个请求',
                   icon: 'loading',
                   duration: 2000
                 })
               }
             },
-            fail: function() {
-              // fail
-            },
+            fail: function() {console.log('fail: request rehelp')},
             complete: function() {
               // complete
             }
@@ -192,6 +197,7 @@ Page({
     })
   },
   formSubmit: function(e){
+    var that = this;
     // 用户提交留言
     if(e.detail.value.content.replace(/\s/g, "") 
  == ""){
@@ -211,22 +217,47 @@ Page({
               data: {token: wx.getStorageSync('token'), todo_id: todo_id, content: e.detail.value.content},
               method: 'POST',
               success: function(res){
-                if(res.id >= 0){
+                if(res.data.id >= 0){
                   var nowtime = new Date();
-                  var new_discussion = {todo_id: todo.id, user_id: wx.getStorageSync('current_user').id, content: e.detail.value.content, created_at: nowtime.toLocaleString()};
-                  discussions = discussions.unshift(new_discussion)
-                  wx.setStorageSync(discussions, iscussions)
-                  this.setData({
-                    discussions: wx.getStorageSync(discussions)
-                      })
+                  var new_discussion = {todo_id: todo.id, user_id: wx.getStorageSync('current_user').id, nickname: wx.getStorageSync('current_user').nickname, content: e.detail.value.content, created_at: nowtime.toLocaleString()};
+                  var discussions_obj = wx.getStorageSync(discussions) || []
+                  discussions_obj.push(new_discussion)
+                  wx.setStorageSync(discussions, discussions_obj)
+                  that.setData({
+                    discussions: discussions_obj,
+                    discussions_length: discussions_obj.length,
+                    empty: ""
+                  })
+                  // 生成可供筛选的选项
+    var discussions_user_ids = [0];
+    var discussions_user_nicknames = ["全部"];
+    var is_hidden = [];
+    discussions_obj.map(function(discussion){
+      if (discussions_user_ids.indexOf(discussion.user_id) == -1 ){
+        discussions_user_ids = discussions_user_ids.concat(discussion.user_id)
+      }
+      if (discussions_user_nicknames.indexOf(discussion.nickname) == -1){
+        discussions_user_nicknames = discussions_user_nicknames.concat(discussion.nickname)
+      }   
+      is_hidden = is_hidden.concat("item")
+    });
+    that.setData({
+      discussions_user_ids: discussions_user_ids,
+      discussions_user_nicknames: discussions_user_nicknames,
+      is_hidden: is_hidden
+    })
                   wx.showToast({
                     title: '成功发表一条留言',
                     icon: 'success',
-                    duration: 2000
+                    duration: 2000,
+                    //complete: function(){
+                      //wx.navigateBack()
+                    //}
                   })
+                  
                 }else{
                   wx.showToast({
-                    title: res.msg || "留言失败，请稍后重试",
+                    title: res.data.msg || "留言失败，请稍后重试",
                     icon: 'loading',
                     duration: 2000
                   })
@@ -252,7 +283,7 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: '这件事，你看怎么办才好？',
+      title: '这事，你看怎么办才好？',
       path: "/todo/todotodo_id={{todo.id}}&user_nickname={{todo.nickname}}&receiver_nickname={{todo.receiver_nickname}}&created_at={{todo.created_at}}&is_finish=t&content={{todo.content}}"
     }
   }

@@ -5,6 +5,7 @@ Page({
   data: {},
   //事件处理函数
   onLoad: function () {
+    /*
     // 取出缓存信息
     this.setData({
       todos: (wx.getStorageSync('todos') || []),
@@ -27,6 +28,49 @@ Page({
       todos_user_ids: todos_user_ids,
       todos_user_nicknames: todos_user_nicknames,
       is_hidden: is_hidden
+    })
+    */
+  },
+  onShow: function(){
+    // 到网站请求最新信息
+    var that = this
+    wx.request({
+      url: 'https://www.hopee.xyz/todos',
+      data: { token: wx.getStorageSync('token') },
+      method: 'GET',
+      success: function(res){
+        //console.log(res)
+        if(res.data.todos){
+          wx.setStorageSync('todos', res.data.todos)
+          that.setData({
+            todos: res.data.todos,
+            todos_length: res.data.todos.length,
+            current_user: wx.getStorageSync('current_user')
+          })
+          // 生成可供筛选的选项
+          var todos_user_nicknames = ["全部"];
+          var is_hidden = [];
+          (wx.getStorageSync('todos') || []).map(function(todo){
+            if (todos_user_ids.indexOf(todo.user_id) == -1 ){
+              todos_user_ids = todos_user_ids.concat(todo.user_id)
+            }
+            if (todos_user_nicknames.indexOf(todo.nickname) == -1){
+              todos_user_nicknames = todos_user_nicknames.concat(todo.nickname)
+            }   
+            is_hidden = is_hidden.concat("item")
+          });
+          that.setData({
+            todos_user_ids: todos_user_ids,
+            todos_user_nicknames: todos_user_nicknames,
+            is_hidden: is_hidden
+          })
+        }else{
+          console.log('fail: request helps res')
+          console.log(res)
+        }
+      },
+      fail: function() {console.log('fail: request helps')},
+      complete: function() {}
     })
   },
   bindPickerChange: function(e) {
@@ -54,11 +98,5 @@ Page({
       is_hidden: is_hidden,
       todos_length: todos_length
     })
-  },
-  onShareAppMessage: function () {
-    return {
-      title: '认识我吗？',
-      path: "/friend/friend?friend_id={{wx.getStorageSync('current_user').id}}&nickname={{wx.getStorageSync('current_user').nickname}}"
-    }
   }
 })

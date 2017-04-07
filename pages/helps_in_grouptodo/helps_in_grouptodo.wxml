@@ -5,25 +5,53 @@
   <navigator url="../group/group?group_id={{group.group_id}}&name={{group.name}}" open-type="redirect">群成员</navigator >
 </view>
 <view class="topbar" style="background-color:gray;">
-<text>群组名称：</text>
-<text style="margin: auto;">{{group.name}}</text>
+  <text>群组名称：</text>
+  <text style="margin: auto;">{{group.name}}</text>
 </view>
 <view class="todo">
+    <button type="warn" bindtap="close_grouptodo" size="mini" wx:if="{{grouptodo.is_finish == 'f'}}" style="width:100%;">关闭整个群请求，包括所有成员</button>
   <view>
     <text>时间：{{grouptodo.time}}</text>
-    <button type="warn" bindtap="close_help" size="mini" wx:if="{{grouptodo.is_finish == 'f'}}" style="float: right;width:20%;">关闭</button>
   </view>
   <view>
     <text>内容：{{grouptodo.content}}</text>
   </view>
 </view>
-<view class="list">
-  <block wx:for="{{helps_in_grouptodo}}" wx:key="id" wx:for-item="help">
-     <view class="item-value">
-       <text>{{index + 1}}    </text>
-       <text wx:if="{{help.receiver_id == current_user_id}}" style="color: gray;">{{help.nickname}}</text>
-       <navigator wx:else url="../todo/todotodo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{help.created_at}}&is_finish={{help.is_finish}}&content={{help.content}}" style="display: inline-block">{{help.nickname}}</navigator>
-       <text wx:if="{{help.is_finish == 't'}}" style="padding: 0 0.5rem 0 0;">   √</text> 
+<view class="todo">
+<view class="send">
+  <form bindsubmit="new_group_discussion">
+    <view style="display: flex;">
+       <textarea name="content" placeholder="在此输入留言，可发送给所有成员" auto-focus="true" style="width: 83%;  height: 4rem;  border: 1px solid green; border-radius: 5px; margin: 0 0 0 0.2rem; padding: 20rpx;"/>
+       <button formType="submit" type="primary" size="mini" style="float: right;width:13%;">留言</button>
      </view>
-  </block>
+  </form>
+</view>
+</view>
+<view class="todo">
+  <text style="font-weight: bold">下面是群组所有成员完成情况</text>
+  <form bindsubmit="close_helps">
+    <view class="list">
+      <checkbox-group name="checkbox">
+        <block wx:for="{{helps_in_grouptodo}}" wx:key="id" wx:for-item="help">
+         <view wx:if="{{help.is_finish == true}}"class="item-value">
+           <text>{{index + 1}}    </text>
+           <text wx:if="{{help.receiver_id == current_user_id}}" style="color: gray;">{{help.nickname}}</text>
+           <navigator wx:else url="../todo/todo?todo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{grouptodo.time}}&is_finish={{help.is_finish}}&content={{grouptodo.content}}" style="display: inline-block">{{help.nickname}}</navigator>
+           <text  style="padding: 0 0.5rem 0 0; color: blue; float: right;">√</text> 
+         </view>
+         <view  wx:else class="section-checkbox">
+           <label>
+             <text>{{index + 1}}    </text>
+             <text wx:if="{{help.receiver_id == current_user_id}}" style="color: gray;">{{help.nickname}}</text>
+              <checkbox value="{{help.receiver_id}}" style="float: right;"/>
+              <navigator url="../todo/todo?todo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{grouptodo.time}}&is_finish={{help.is_finish}}&content={{grouptodo.content}}" style="display: inline-block">{{help.nickname}}</navigator>
+            </label>
+          </view>
+       </block>
+      </checkbox-group>
+    </view>
+    <view class="btn-area">
+      <button formType="submit" type="warn"  size="mini"  style="width:100%;">关闭所选成员的任务</button>
+    </view>
+  </form>
 </view>

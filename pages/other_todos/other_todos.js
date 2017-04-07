@@ -5,41 +5,44 @@ Page({
   //事件处理函数
   onLoad: function () {
     // 请求网络数据
+    var that=this;
     wx.request({
       url: 'https://www.hopee.xyz/other_todos',
       data: { token: wx.getStorageSync('token') },
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
-        if (res.data.todos) {
-          wx.setStorage({key: 'other_todos', data: res.data.other_todos})
+        if (res.data.other_todos) {
+          wx.setStorageSync('other_todos', res.data.other_todos)
+          that.setData({
+            todos: res.data.other_todos,
+            todos_length: res.data.other_todos.length,
+            current_user: wx.getStorageSync('current_user')
+          })
+          // 生成可供筛选的选项
+          var todos_user_nicknames = ["全部"];
+          var is_hidden = [];
+          (res.data.other_todos || []).map(function(todo){
+            if (todos_user_ids.indexOf(todo.user_id) == -1 ){
+              todos_user_ids = todos_user_ids.concat(todo.user_id)
+            }
+            if (todos_user_nicknames.indexOf(todo.nickname) == -1){
+              todos_user_nicknames = todos_user_nicknames.concat(todo.nickname)
+            }   
+            is_hidden = is_hidden.concat("item")
+          });
+          that.setData({
+            todos_user_ids: todos_user_ids,
+            todos_user_nicknames: todos_user_nicknames,
+            is_hidden: is_hidden
+          })
+        }else{
+          console.log('fail: request other_todos res')
+          console.log(res)
         }
       },
-      fail: function() {},
+      fail: function() {console.log('fail: request other_todos')},
       complete: function() {}
-    })
-    // 取出缓存信息
-    this.setData({
-      todos: (wx.getStorageSync('other_todos') || []),
-      todos_length: (wx.getStorageSync('other_todos') || []).length,
-      current_user: wx.getStorageSync('current_user')
-    })
-    // 生成可供筛选的选项
-    var todos_user_nicknames = ["全部"];
-    var is_hidden = [];
-    (wx.getStorageSync('other_todos') || []).map(function(todo){
-      if (todos_user_ids.indexOf(todo.user_id) == -1 ){
-        todos_user_ids = todos_user_ids.concat(todo.user_id)
-      }
-      if (todos_user_nicknames.indexOf(todo.nickname) == -1){
-        todos_user_nicknames = todos_user_nicknames.concat(todo.nickname)
-      }   
-      is_hidden = is_hidden.concat("item")
-    });
-    this.setData({
-      todos_user_ids: todos_user_ids,
-      todos_user_nicknames: todos_user_nicknames,
-      is_hidden: is_hidden
     })
   },
   bindPickerChange: function(e) {
