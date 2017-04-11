@@ -15,6 +15,7 @@ Page({
     wx.request({
       url: 'https://www.hopee.xyz/friends',
       data: { token: wx.getStorageSync('token') },
+      header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
         if(res.data.friendships){
@@ -48,8 +49,10 @@ Page({
     var that = this;
     var friend_id = event.currentTarget.dataset.friend_id;
     var nickname = event.currentTarget.dataset.nickname;
+    var ftodos = nickname.concat("的任务")
+    var fhelps = nickname.concat("的请求")
     wx.showActionSheet({
-      itemList: ['好友详情', '发送请求', '修改昵称', '删除好友'],
+      itemList: [ftodos, fhelps, '发送请求', '修改昵称', '删除好友'],
       success: function(res) {
         if(res.tapIndex == 0){
           if(friend_id == wx.getStorageSync('current_user').id){
@@ -59,18 +62,23 @@ Page({
               url: "../friend/friend?friend_id=" + friend_id + "&nickname=" + nickname
             })
           }
-        }
-        if(res.tapIndex == 1){
+        }else if(res.tapIndex == 1){
+          if(friend_id == wx.getStorageSync('current_user').id){
+            wx.switchTab({ url: '../helps/helps' })
+          }else{
+            wx.navigateTo({
+              url: "../friend_helps/friend_helps?friend_id=" + friend_id + "&nickname=" + nickname
+            })
+          }
+        }else if(res.tapIndex == 2){
           wx.navigateTo({
             url: "../new_help_to_friend/new_help_to_friend?friend_id=" + friend_id + "&nickname=" + nickname
           })
-        }
-        if(res.tapIndex == 2){
+        } else if(res.tapIndex == 3){
           wx.navigateTo({
             url: "../new_nickname/new_nickname?friend_id=" + friend_id + "&nickname=" + nickname
           })
-        }
-        if(res.tapIndex == 3){
+        }else if(res.tapIndex == 4){
           if(friend_id == wx.getStorageSync('current_user').id){
             wx.showToast({
               title: '无法删除自己',
@@ -86,6 +94,7 @@ Page({
                 wx.request({
                   url: 'https://www.hopee.xyz/delete_friend',
                   data: {token: wx.getStorageSync('token'), friend_id: friend_id},
+                  header:{"Content-Type":"application/json"},
                   method: 'POST',
                   success: function(res){
                     // success
@@ -126,6 +135,18 @@ Page({
         }
       },
       fail: function(res) {console.log(res)}
+    })
+  },
+  moreFun: function(){
+    wx.showActionSheet({
+      itemList: ['群组', '关注我的陌生人'],
+      success: function(res){
+        if(res.tapIndex == 1){
+          wx.redirectTo({url: '../strangers/strangers'})
+        }else if(res.tapIndex == 0){
+           wx.redirectTo({url: '../groups/groups'})
+        }
+      }
     })
   }
 })

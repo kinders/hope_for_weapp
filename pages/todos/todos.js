@@ -37,6 +37,7 @@ Page({
     wx.request({
       url: 'https://www.hopee.xyz/todos',
       data: { token: wx.getStorageSync('token') },
+      header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
         //console.log(res)
@@ -98,5 +99,17 @@ Page({
       is_hidden: is_hidden,
       todos_length: todos_length
     })
+  },
+  moreFun: function(){
+    wx.showActionSheet({
+      itemList: ['陌生人给我的任务', '已完成的任务'],
+      success: function(res){
+        if(res.tapIndex == 0){
+          wx.navigateTo({url: '../other_todos/other_todos'})
+        }else if(res.tapIndex == 1){
+           wx.navigateTo({url: '../dones/dones'})
+        }
+      }
+  })
   }
 })

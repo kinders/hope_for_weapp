@@ -1,7 +1,7 @@
 <!--other_todos.wxml-->
 <view  class="topbar">
   <text>列表</text>
-  <navigator url="../todos/todos" open-type="switchTab" >返回未完成任务</navigator >
+  <text bindtap="moreFun">更多任务</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{todos_user_nicknames}}">
@@ -11,21 +11,18 @@
     </view>
   </picker>
 </view>
-<view class="list">
+<scroll-view scroll-y="true"  style="height: 25rem;" class="list">
   <block wx:for="{{todos}}" wx:key="id" wx:for-item="todo">
+  <navigator url="../todo/todo?todo_id={{todo.id}}&user_nickname={{todo.nickname}}&receiver_nickname={{current_user.nickname}}&created_at={{todo.created_at}}&is_finish=f&content={{todo.content}}">
   <view class="{{is_hidden[index]}}">
      <view class="item-key">
        <text>{{index + 1}}    </text>
+       <text wx:if="{{todo.user_id == current_user.id}}" style="color: gray; padding: 0.25rem;">{{todo.nickname}}</text>
+       <text wx:else style="color: blue; padding: 0.25rem;">{{todo.nickname}}</text>
        <text>{{todo.created_at}}</text>
      </view>
-     <view class="friend" style="padding: 0.25rem;">
-       <text wx:if="{{todo.user_id == current_user.id}}" style="color: gray;">{{todo.nickname}}</text>
-       <text wx:else>{{todo.nickname}}</text>
-       </view>
-       <view class="item-value">
-       <navigator url="../todo/todo?todo_id={{todo.id}}&user_nickname={{todo.nickname}}&receiver_nickname={{current_user.nickname}}&created_at={{todo.created_at}}&is_finish=f&content={{todo.content}}">{{ todo.content}}</navigator>
-     </view>
+     <view class="item-value">{{ todo.content}}</view>
   </view>
+  </navigator>
   </block>
-</view>
-
+</scroll-view>

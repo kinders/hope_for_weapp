@@ -1,8 +1,7 @@
 <!--pages/groups_helps/groups_helps.wxml-->
 <view  class="topbar">
   <text>列表</text >
-  <!--<navigator url="../groups_helpeds/groups_helpeds" open-type="redirect">查看已满足群请求</navigator >-->
-  <navigator url="../helps/helps" open-type="switchTab">返回请求</navigator >
+  <text bindtap="moreFun">更多请求</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{groups_helps_group_names}}">
@@ -12,22 +11,19 @@
     </view>
   </picker>
 </view>
-<view class="list">
+<scroll-view scroll-y="true"  style="height: 25rem;" class="list">
   <block wx:for="{{groups_helps}}" wx:key="id" wx:for-item="group_help">
+  <navigator url="../helps_in_grouptodo/helps_in_grouptodo?id={{group_help.id}}&time={{group_help.created_at}}&content={{group_help.content}}&is_finish=f&group_id={{group_help.group_id}}&name={{group_help.name}}">
   <view class="{{is_hidden[index]}}">
     <view class="item-key">
       <text>{{index + 1}}    </text>
+      <text style="padding: 0.25rem;color: blue;">{{group_help.name}}</text>
       <text>{{group_help.created_at}}</text>
     </view>
-    <view class="friend" style="padding: 0.25rem;">
-      <!--
-      <navigator url="../group/group?id={{group_help.group_id}}">{{group_help.name}}</navigator>
-      -->
-      <text>{{group_help.name}}</text>
-    </view>
     <view class="item-value">
-      <navigator url="../helps_in_grouptodo/helps_in_grouptodo?id={{group_help.id}}&time={{group_help.created_at}}&content={{group_help.content}}&is_finish=f&group_id={{group_help.group_id}}&name={{group_help.name}}">{{ group_help.content}}</navigator>
+      {{ group_help.content}}
     </view>
   </view>
+  </navigator>
   </block>
-</view>
+</scroll-view>

@@ -14,6 +14,7 @@ Page({
     wx.request({
       url: 'https://www.hopee.xyz/helps',
       data: { token: wx.getStorageSync('token') },
+      header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
         if(res.data.helps){
@@ -85,8 +86,20 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: '我想和你分享这些愿望……',
-      path: "/friend/friend?friend_id={{wx.getStorageSync('current_user').id}}&nickname={{wx.getStorageSync('current_user').nickname}}"
+      title: '或许您可以帮我……',
+      path: "/pages/new_friend/new_friend?friend_id=" + wx.getStorageSync('current_user').id + "&nickname=" + wx.getStorageSync('current_user').nickname
     }
+  },
+  moreFun: function(){
+    wx.showActionSheet({
+      itemList: ['未满足的群请求', '已经得到满足的请求'],
+      success: function(res){
+        if(res.tapIndex == 0){
+          wx.navigateTo({url: '../groups_helps/groups_helps'})
+        }else if(res.tapIndex == 1){
+           wx.navigateTo({url: '../helpeds/helpeds'})
+        }
+      }
+  })
   }
 })

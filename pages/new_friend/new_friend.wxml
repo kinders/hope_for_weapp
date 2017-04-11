@@ -6,14 +6,18 @@
 <view class="container">
 <form bindsubmit="formSubmit" bindreset="formReset">
   <view class="section">
-    <view class="section-title">为朋友设置新的昵称：</view>
-    <view class="section-input">
+    <view class="section-title">为朋友设置昵称：</view>
+    <view class="section-input" style="padding: 1rem 0 0 0">
         <input name="nickname" type="text" placeholder="{{friend_nickname}}" />
     </view>
   </view>
   <view class="btn-area">
+    <view style="padding: 1rem 0 0 0">
     <button formType="submit" type="primary">添加朋友</button>
+    </view>
+    <view style="padding: 1rem 0 0 0">
     <button formType="reset" type="default">取消添加</button>
+    </view>
   </view>
 </form>
 </view>

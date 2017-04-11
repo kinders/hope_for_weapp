@@ -1,7 +1,7 @@
 <!--pages/dones/dones.wxml-->
 <view  class="topbar">
   <text>列表</text>
-  <navigator url="../todos/todos" open-type="switchTab" >返回未完成任务</navigator >
+  <text bindtap="moreFun">更多任务</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{dones_user_nicknames}}">
@@ -11,22 +11,20 @@
     </view>
   </picker>
 </view>
-<view class="list">
+<scroll-view scroll-y="true"  style="height: 25rem;" class="list">
   <block wx:for="{{dones}}" wx:key="index" wx:for-item="done">
+  <navigator url="../todo/todo?todo_id={{done.id}}&user_nickname={{done.nickname}}&receiver_nickname={{current_user.nickname}}&created_at={{done.created_at}}&is_finish=t&content={{done.content}}">
   <view class="{{is_hidden[index]}}">
      <view  class="item-key">
        <text>{{index + 1}}  </text>
+       <text wx:if="{{done.user_id == current_user_id}}" style="color: gray; padding: 0.25rem;">{{done.nickname}}</text>
+       <text wx:else style="color: blue; padding: 0.25rem;">{{done.nickname}}</text>
        <text>{{done.created_at}}</text>
      </view>
-     <view class="friend" style="padding: 0.25rem;">
-       <text wx:if="{{done.user_id == current_user_id}}" style="color: gray;">{{done.nickname}}</text>
-       <!--
-       <navigator url="../friend/friend?id={{done.user_id}}"  class="friend" open-type="redirect" wx:else>{{done.nickname}}</navigator>-->
-       <text wx:else>{{done.nickname}}</text>
-     </view>
      <view class="item-value">
-       <navigator url="../todo/todo?todo_id={{done.id}}&user_nickname={{done.nickname}}&receiver_nickname={{current_user.nickname}}&created_at={{done.created_at}}&is_finish=t&content={{done.content}}">{{ done.content }}</navigator>
+       {{ done.content }}
      </view>
-  </view>     
+  </view>
+  </navigator> 
   </block>
-</view>
+</scroll-view>

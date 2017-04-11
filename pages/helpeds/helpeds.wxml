@@ -1,8 +1,7 @@
 <!--pages/helpeds/helpeds.wxml-->
 <view  class="topbar">
   <text>列表</text >
-  <navigator url="../helps/helps" open-type="switchTab">未满足请求</navigator >
-  <navigator url="../groups_helps/groups_helps" open-type="redirect" >群请求</navigator> 
+  <text bindtap="moreFun">更多请求</text> 
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{helpeds_receiver_nicknames}}">
@@ -12,23 +11,20 @@
     </view>
   </picker>
 </view>
-<view class="list">
+<scroll-view scroll-y="true"  style="height: 28rem;" class="list">
   <block wx:for="{{helpeds}}" wx:key="id" wx:for-item="helped">
+  <navigator url="../todo/todo?todo_id={{helped.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{helped.nickname}}&created_at={{helped.created_at}}&is_finish=true&content={{helped.content}}">
   <view class="{{is_hidden[index]}}">
      <view class="item-key">
        <text>{{index + 1}}    </text>
+       <text wx:if="{{helped.receiver_id == current_user.id}}" style="color: gray;padding: 0.25rem;">{{helped.nickname}}</text>
+       <text wx:else style="padding: 0.25rem;color: blue;">{{helped.nickname}}</text>
        <text>{{helped.created_at}}</text>
      </view>
-     <view class="friend" style="padding: 0.25rem;">
-       <text wx:if="{{helped.receiver_id == current_user.id}}" style="color: gray;">{{helped.nickname}}</text>
-       <!--
-       <navigator url="../friend/friend?friend_id={{helped.receiver_id}}" wx:else>{{helped.nickname}}</navigator>
-       -->
-       <text wx:else>{{helped.nickname}}</text>
-     </view>
      <view class="item-value">
-       <navigator url="../todo/todo?todo_id={{helped.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{helped.nickname}}&created_at={{helped.created_at}}&is_finish=true&content={{helped.content}}">{{ helped.content}}</navigator>
+       {{ helped.content}}
      </view>
   </view>
+  </navigator>
   </block>
-</view>
+</scroll-view>

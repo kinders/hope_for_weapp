@@ -1,13 +1,12 @@
 <!--pages/groups/groups.wxml-->
 <view  class="topbar">
   <text>列表({{groups_length}})</text>
-  <navigator url="../friends/friends" open-type="switchTab">返回朋友</navigator >
-  <navigator url="../new_group/new_group">新建群组</navigator >
+  <text bindtap="moreFun">更多朋友</text>
 </view>
-<view class="list">
+<scroll-view scroll-y="true"  style="height: 28rem;" class="list">
   <block wx:for="{{groups}}" wx:key="id" wx:for-item="group">
     <view  class="item-value" bindtap="showActionSheet" data-group_id="{{group.id}}" data-name="{{group.name}}">
       <text>{{group.name}}</text>
     </view>
   </block>
-</view>
+</scroll-view>

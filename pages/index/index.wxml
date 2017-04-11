@@ -13,17 +13,16 @@
   <view class="usermotto">
     <button bindtap="pay" type="primary">续费1元，使用10天</button>
   </view>
-
   </view>
   <view wx:elif="{{is_use == 0}}">
   <view class="usermotto">
     <text>正在连接网络...</text>
   </view>
   <view class="usermotto" bindtap="reconnect">
-    <button>重试连接</button>
+    <button>加速连接</button>
   </view>
   </view>
-  <view wx:else="{{is_use == 1}}">
+  <view wx:elif="{{is_use == 1}}">
      <navigator url="../todos/todos" open-type='switchTab'>开始“希望”</navigator>
   </view>
 </view>

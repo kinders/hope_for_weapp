@@ -1,5 +1,6 @@
 // pages/helps_in_grouptodo/helps_in_grouptodo.js
 var grouptodo_id;
+var helps_in_grouptodo;
 Page({
   data:{},
   onLoad:function(options){
@@ -10,25 +11,43 @@ Page({
     var content = options.content
     grouptodo_id = options.id
     var is_finish = options.is_finish
-    var helps_in_grouptodo = "helps_in_grouptodo_" + grouptodo_id
+    helps_in_grouptodo = "helps_in_grouptodo_" + grouptodo_id
     this.setData({
       group: {group_id: group_id, name: name},
       grouptodo: {id: grouptodo_id, time: time, content: content, is_finish: is_finish},
       current_user: wx.getStorageSync('current_user')
     })
+
+  },
+  onReady:function(){
+    // 页面渲染完成
+  },
+  onShow:function(){
+    // 页面显示
     // 到网站请求最新信息
     var that = this
     wx.request({
       url: 'https://www.hopee.xyz/helps_in_grouptodo',
       data: { token: wx.getStorageSync('token'), grouptodo_id: grouptodo_id },
+      header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
         if(res.data.helps_in_grouptodo){
-          wx.setStorageSync(helps_in_grouptodo, res.data.helps_in_grouptodo)
+          var h = res.data.helps_in_grouptodo;
+          var is_hidden = 'hidden';
+          for(var i=0; i < h.length; i++){
+            if(h[i].is_finish == "false"){
+              is_hidden = ''
+              break
+            }
+          }
+          wx.setStorageSync(helps_in_grouptodo, h)
           that.setData({
-            helps_in_grouptodo: res.data.helps_in_grouptodo,
-            helps_in_grouptodo_length: res.data.helps_in_grouptodo.length,
+            helps_in_grouptodo: h,
+            helps_in_grouptodo_length: h.length,
+            is_hidden: is_hidden
           })
+
         }else{
           console.log('fail: request helps_in_grouptodo res')
           console.log(res)
@@ -37,12 +56,6 @@ Page({
       fail: function() {console.log('fail: request helps_in_grouptodo')},
       complete: function() {}
     })
-  },
-  onReady:function(){
-    // 页面渲染完成
-  },
-  onShow:function(){
-    // 页面显示
   },
   onHide:function(){
     // 页面隐藏
@@ -59,6 +72,7 @@ Page({
           wx.request({
             url: 'https://www.hopee.xyz/close_grouptodo',
             data: {token: wx.getStorageSync('token'), grouptodo_id: grouptodo_id},
+            header:{"Content-Type":"application/json"},
             method: 'POST',
             success: function(res){
               // success
@@ -104,6 +118,7 @@ Page({
             wx.request({
               url: 'https://www.hopee.xyz/new_group_discussion',
               data: {token: wx.getStorageSync('token'), grouptodo_id: grouptodo_id, content: e.detail.value.content},
+              header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
                 if(res.data.result_code == 't'){
@@ -143,9 +158,10 @@ Page({
     }
   },
   close_helps: function(e){
+    var that=this;
     if(e.detail.value.checkbox.length == 0){
       wx.showToast({
-        title: '您还没有选择已经完成请求的成员',
+        title: '没有选择成员',
         icon: 'loading',
         duration: 2000
       })
@@ -155,18 +171,19 @@ Page({
       content:  "人数：" + e.detail.value.checkbox.length,
       success: function(res) {
         if (res.confirm) {
-
             wx.request({
               url: 'https://www.hopee.xyz/close_helps',
               data: {token: wx.getStorageSync('token'), grouptodo_id: grouptodo_id, friends_id: e.detail.value.checkbox.join('_')},
+              header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
                 if(res.data.result_code == 't'){
                   wx.showToast({
-                    title: '成功关闭多个群成员的责任',
+                    title: '成功关闭指定群成员的责任',
                     icon: 'success',
                     duration: 2000
                   })
+                  that.onShow()
                 }else{
                   console.log('fail: request close_helps res')
                   console.log(res)

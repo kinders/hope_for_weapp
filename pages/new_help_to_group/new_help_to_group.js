@@ -40,7 +40,8 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_help_to_group',
-              data: {token: wx.getStorageSync('token'), group_id: group_id, content: e.detail.value.content},
+              data: {token: wx.getStorageSync('token'), group_id: that.data.group.group_id, content: e.detail.value.content},
+              header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
                 if(res.data.id >= 0){

@@ -1,8 +1,7 @@
 <!--pages/helps/helps.wxml-->
 <view  class="topbar">
   <text>列表</text>
-  <navigator url="../helpeds/helpeds">已满足请求</navigator >
-  <navigator url="../groups_helps/groups_helps" >群请求</navigator> 
+  <text bindtap="moreFun">更多请求</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{helps_receiver_nicknames}}">
@@ -12,23 +11,18 @@
     </view>
   </picker>
 </view>
-<view class="list">
+<scroll-view scroll-y="true"  style="height: 25rem;" class="list">
   <block wx:for="{{helps}}" wx:key="id" wx:for-item="help">
-  <view class="{{is_hidden[index]}}">
-     <view class="item-key">
-       <text>{{index + 1}}    </text>
-       <text>{{help.created_at}}</text>
-     </view>
-     <view class="friend" style="padding: 0.25rem;">
-       <text wx:if="{{help.receiver_id == current_user.id}}" style="color: gray;">{{help.nickname}}</text>
-       <!--
-       <navigator url="../friend/friend?friend_id={{help.receiver_id}}" wx:else>{{help.nickname}}</navigator>
-       -->
-       <text wx:else>{{help.nickname}}</text>
-     </view>
-     <view class="item-value">
-       <navigator url="../todo/todo?todo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{help.created_at}}&is_finish=f&content={{help.content}}">{{ help.content}}</navigator>
-     </view>
+    <view class="{{is_hidden[index]}}">
+      <navigator url="../todo/todo?todo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{help.created_at}}&is_finish=f&content={{help.content}}">
+        <view class="item-key">
+         <text>{{index + 1}}    </text>
+         <text style="padding: 0.25rem;color: blue;" wx:if="{{help.receiver_id == current_user.id}}" style="color: gray;">{{help.nickname}}</text>
+         <text style="padding: 0.25rem;color: blue;" wx:else>{{help.nickname}}</text>
+         <text>{{help.created_at}}</text>
+       </view>
+       <view class="item-value">{{ help.content}}</view>
+     </navigator>
   </view>
   </block>
-</view>
+</scroll-view>

@@ -9,6 +9,7 @@ Page({
     wx.request({
       url: 'https://www.hopee.xyz/dones',
       data: { token: wx.getStorageSync('token') },
+      header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
         if(res.data.dones){
@@ -82,5 +83,17 @@ Page({
       is_hidden: is_hidden,
       dones_length: dones_length
     })
+  },
+  moreFun: function(){
+    wx.showActionSheet({
+      itemList: ['未完成的任务(首页)', '陌生人给我的任务'],
+      success: function(res){
+        if(res.tapIndex == 0){
+          wx.switchTab({url: '../todos/todos'})
+        }else if(res.tapIndex == 1){
+           wx.navigateTo({url: '../other_todos/other_todos'})
+        }
+      }
+  })
   }
 })

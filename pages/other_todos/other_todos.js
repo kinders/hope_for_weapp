@@ -9,6 +9,7 @@ Page({
     wx.request({
       url: 'https://www.hopee.xyz/other_todos',
       data: { token: wx.getStorageSync('token') },
+      header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
@@ -71,4 +72,16 @@ Page({
       todos_length: todos_length
     })
   },
+  moreFun: function(){
+    wx.showActionSheet({
+      itemList: ['未完成的任务(首页)', '已完成的任务'],
+      success: function(res){
+        if(res.tapIndex == 0){
+          wx.switchTab({url: '../todos/todos'})
+        }else if(res.tapIndex == 1){
+           wx.navigateTo({url: '../dones/dones'})
+        }
+      }
+  })
+  }
 })

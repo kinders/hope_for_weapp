@@ -101,10 +101,74 @@ Page({
       friend_todos_length: friend_todos_length
     })
   },
-  onShareAppMessage: function () {
-    return {
-      title: '或许你可以来帮帮忙',
-      path: "/friend/friend?friend_id={{this.friend.friend_id}}&nickname={{friend_nickname = this.friend.nickname}}"
+  moreFun: function(){
+    var that=this;
+    var friend = that.data.friend;
+    var is_friend = that.data.is_friendship;
+    if(is_friend == 't'){
+      wx.showActionSheet({
+        itemList: ['朋友的请求', '发送请求', '修改昵称', '删除好友'],
+        success: function(res){
+          if(res.tapIndex == 0){
+            wx.redirectTo({url: "../friend_helps/friend_helps?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
+          }else if(res.tapIndex == 1){
+             wx.redirectTo({url: "../new_help_to_friend/new_help_to_friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
+          }else if(res.tapIndex == 2){
+             wx.redirectTo({url: "../new_nickname/new_nickname?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname })
+          }else if(res.tapIndex == 3){
+            wx.showModal({
+            title: '警告',
+            content: "确定将要删除好友 " + friend.nickname + " ？",
+            success: function(res) {
+              if (res.confirm) {
+                wx.request({
+                  url: 'https://www.hopee.xyz/delete_friend',
+                  data: {token: wx.getStorageSync('token'), friend_id: friend.friend_id},
+                  header:{"Content-Type":"application/json"},
+                  method: 'POST',
+                  success: function(res){
+                    // success
+                    if(res.data.result_code == 't'){
+                      wx.showToast({
+                        title: "成功将好友" + friend.nickname + "删去",
+                        icon: 'success',
+                        duration: 2000
+                      })
+                      setTimeout(function(){wx.navigateBack()},2000);
+                    }else{
+                      wx.showToast({
+                        title: "服务器无法删除好友" + friend.nickname,
+                        icon: 'loading',
+                        duration: 2000
+                      })
+                    }
+                  },
+                  fail: function() {
+                    // fail
+                  },
+                  complete: function() {
+                    // complete
+                  }
+                })
+              }
+            }
+          })
+          }
+        }
+      })
+    }else{
+      wx.showActionSheet({
+        itemList: ['查看请求', '发送请求', '加为好友'],
+        success: function(res){
+          if(res.tapIndex == 0){
+            wx.redirectTo({url: "../friend_helps/friend_helps?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
+          }else if(res.tapIndex == 1){
+             wx.redirectTo({url: "../new_help_to_friend/new_help_to_friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
+          }else if(res.tapIndex == 2){
+             wx.redirectTo({url: "../new_friend/new_friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
+          }
+        }
+      })
     }
   }
 })

@@ -6,14 +6,18 @@
 <view class="container">
 <form bindsubmit="formSubmit" bindreset="formReset">
   <view class="section">
-    <view class="section-title">设置新的群称：</view>
-    <view class="section-input">
+    <view class="section-title">请输入新的群称：</view>
+    <view class="section-input" style="padding: 1rem 0 0 0">
         <input name="name" type="text" placeholder="在此输入" />
     </view>
   </view>
   <view class="btn-area">
+    <view style="padding: 1rem 0 0 0">
     <button formType="submit" type="primary">提交群称</button>
+    </view>
+    <view style="padding: 1rem 0 0 0">
     <button formType="reset" type="default">取消更改</button>
+    </view>
   </view>
 </form>
 </view>

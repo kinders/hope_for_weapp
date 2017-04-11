@@ -45,7 +45,8 @@ Page({
             wx.request({
               url: 'https://www.hopee.xyz/new_groupname',
               data: {token: wx.getStorageSync('token'), name: e.detail.value.name, group_id: group_id},
-              method: 'POST',
+              header:{"Content-Type":"application/json"},
+              method: 'POST',            
               success: function(res){
                 if(res.data.result_code == 't'){
                   /* 将缓存里面原来的名称更改为新的名称。

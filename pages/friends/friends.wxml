@@ -1,14 +1,13 @@
 <!--pages/friends/friends.wxml-->
 <view  class="topbar">
   <text>列表({{friendships_length}})</text>
-  <navigator url="../strangers/strangers" open-type="redirect">陌生人</navigator >
-  <navigator url="../groups/groups" open-type="redirect">群组</navigator >
+  <text bindtap="moreFun">更多朋友</text>
 </view>
-<view class="list">
+<scroll-view scroll-y="true"  style="height: 28rem;" class="list">
   <block wx:for="{{friendships}}" wx:key="id" wx:for-item="friendship">
     <view class="item-value" bindtap="showActionSheet" data-friend_id="{{friendship.friend_id}}" data-nickname="{{friendship.nickname}}">
     <text wx:if="{{friendship.friend_id == current_user_id}}"  style="color: gray;">{{friendship.nickname}}</text>
     <text wx:else>{{friendship.nickname}}</text>
     </view>
   </block>
-</view>
+</scroll-view>

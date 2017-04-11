@@ -6,62 +6,39 @@ Page({
   //事件处理函数
   onLoad: function () {
     var that = this
-    this.setData({
-      userInfo: getApp().globalData.userInfo
-    })
-    var is_use = getApp().globalData.is_use
-    //var is_use = wx.getStorageSync('is_use')
-    //console.log('is_use')
-    //console.log(is_use)
-    if(is_use == 1){
-      wx.switchTab({url: '../helps/helps'})
-    }else if (is_use == 2){
+    //调用应用实例的方法获取全局数据
+    app.getUserInfo(function(userInfo){
+      //取出用户
       that.setData({
-        current_user: wx.getStorageSync("current_user"),
-        is_use: 2
+        userInfo:userInfo
       })
-    } else {
-      that.setData({is_use: 0})
-    }
-  },
-  /*
-  home: function(){
-    // 请求网络数据
-    console.log('start to request home')
-    wx.request({
-      url: 'https://www.hopee.xyz/home',
-      data: { token: wx.getStorageSync("token") },
-      method: 'GET',
-      success: function(res){
-        // 取得信息之后：缓存信息
-        //console.log('start to set storage from home')
-        //console.log(res)
-        if (res.data.todos) {
-          wx.setStorageSync('todos', res.data.todos)
-        }
-        if (res.data.helps) {
-          wx.setStorageSync('helps', res.data.helps)
-        }
-        if (res.data.friendships) {
-          wx.setStorageSync('friendships', res.data.friendships)
-        }
-        if (res.data.groups) {
-          wx.setStorageSync('groups', res.data.groups)
-        }
-        if (res.data.groups_helps) {
-          wx.setStorageSync('group_helps', res.data.group_helps)
-        }
-      },
-      fail: function() {},
-      complete: function() {console.log('end request home')}
     })
+    wx.showToast({
+        title: '正在启动',
+        icon: 'loading',
+        duration: 3000
+    })
+    var that=this;
+    setTimeout(function(){
+      var is_use = getApp().globalData.is_use
+      if(is_use == 1){
+        wx.switchTab({url: '../helps/helps'})
+      }else if (is_use == 2){
+        that.setData({
+          current_user: wx.getStorageSync("current_user"),
+          is_use: 2
+        })
+      } else {
+        that.setData({is_use: 0})
+      }     
+    },3000);
   },
-  */
   pay: function(){
     var that = this;
     wx.request({
       url: 'https://www.hopee.xyz/wechat_pay',
       data: {token: wx.getStorageSync("token")},
+      header:{"Content-Type":"application/json"},
       method: 'POST',
       success: function(res){
         // success
@@ -106,8 +83,8 @@ Page({
     var that=this;
     var is_use = getApp().globalData.is_use
     if(is_use == 1){
-    // 请求网络数据
-    wx.switchTab({url: '../helps/helps'})
+      // 请求网络数据
+      wx.switchTab({url: '../helps/helps'})
     }else if (is_use == 2){
       wx.showToast({
         title: '需要续费',
@@ -117,10 +94,16 @@ Page({
       that.setData({
         current_user: wx.getStorageSync("current_user"),
       })
-    } else {
-      that.setData({is_use: 0}),
+    } else if (is_use == 3){
       wx.showToast({
-        title: '网络出现问题，无法联系服务器',
+        title: '服务端出错',
+        icon: 'loading',
+        duration: 2000
+      })
+    } else {
+      app.getUserInfo()
+      wx.showToast({
+        title: '网络故障。可先退出小程序，稍后重新进入',
         icon: 'loading',
         duration: 2000
       })

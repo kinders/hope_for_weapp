@@ -1,11 +1,4 @@
 /* pages/helps_in_grouptodo/helps_in_grouptodo.wxss */
-.todo {
-  flex-direction: row;
-  padding: 0.5rem;
-  justify-content: space-between;
-  box-sizing: border-box;  
-  border-bottom: 0.1px solid lightgray;
-}
 .section-checkbox {
     padding: 0.5rem 1rem;
     border-bottom: 0.1px inset;

@@ -4,10 +4,17 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    var that = this
+  },
+  onReady:function(){
+    // 页面渲染完成
+  },
+  onShow:function(){
+    // 页面显示
+        var that = this
     wx.request({
       url: 'https://www.hopee.xyz/groups_helps',
       data: { token: wx.getStorageSync('token') },
+      header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
         if(res.data.groups_helps){
@@ -40,14 +47,7 @@ Page({
       },
       fail: function() {console.log('fail: request groups_helps')},
       complete: function() {}
-    })    
-
-  },
-  onReady:function(){
-    // 页面渲染完成
-  },
-  onShow:function(){
-    // 页面显示
+    }) 
   },
   onHide:function(){
     // 页面隐藏
@@ -81,4 +81,16 @@ Page({
       groups_helps_length: groups_helps_length
     })
   },
+  moreFun: function(){
+    wx.showActionSheet({
+      itemList: ['未满足的请求(首页)', '已经满足的请求'],
+      success: function(res){
+        if(res.tapIndex == 0){
+          wx.switchTab({url: '../helps/helps'})
+        }else if(res.tapIndex == 1){
+           wx.navigateTo({url: '../helpeds/helpeds'})
+        }
+      }
+  })
+  }
 })

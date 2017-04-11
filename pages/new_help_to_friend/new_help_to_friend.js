@@ -43,6 +43,7 @@ Page({
             wx.request({
               url: 'https://www.hopee.xyz/new_help_to_friend',
               data: {token: wx.getStorageSync('token'), receiver_id: friend_id, content: e.detail.value.content},
+              header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
                 console.log(res)

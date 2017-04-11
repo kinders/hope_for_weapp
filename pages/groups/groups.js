@@ -14,6 +14,7 @@ Page({
     wx.request({
       url: 'https://www.hopee.xyz/groups',
       data: { token: wx.getStorageSync('token') },
+      header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
         if(res.data.groups){
@@ -41,25 +42,31 @@ Page({
     var that=this;
     var group_id = event.currentTarget.dataset.group_id;
     var name = event.currentTarget.dataset.name;
+    var gdetail = '“' + name + '”群成员'
     wx.showActionSheet({
-      itemList: ['友群详情', '发送请求', '修改群称', '删除友群'],
+      itemList: [gdetail, '群组未满足的请求', '群组已满足的请求', '发送群请求', '修改群称', '删除群组'],
       success: function(res) {
         if(res.tapIndex == 0){
           wx.navigateTo({
             url: "../group/group?group_id=" + group_id + "&name=" + name
           })
-        }
-        if(res.tapIndex == 1){
+        } else if (res.tapIndex == 1 ){
+          wx.navigateTo({
+            url: "../group_helps/group_helps?group_id=" + group_id + "&name=" + name
+          })
+        } else if (res.tapIndex == 2 ){
+          wx.navigateTo({
+            url: "../group_helpeds/group_helpeds?group_id=" + group_id + "&name=" + name
+          })        
+        } else if(res.tapIndex == 3){
           wx.navigateTo({
             url: "../new_help_to_group/new_help_to_group?group_id=" + group_id + "&name=" + name
           })
-        }
-        if(res.tapIndex == 2){
+        }else if(res.tapIndex == 4){
           wx.navigateTo({
             url: "../new_groupname/new_groupname?group_id=" + group_id + "&name=" + name
           })
-        }
-        if(res.tapIndex == 3){
+        } else if(res.tapIndex == 5){
           wx.showModal({
             title: '警告',
             content: "确定将要删除朋友群 " + name + " ？",
@@ -68,6 +75,7 @@ Page({
                 wx.request({
                   url: 'https://www.hopee.xyz/delete_group',
                   data: {token: wx.getStorageSync('token'), group_id: group_id},
+                  header:{"Content-Type":"application/json"},
                   method: 'POST',
                   success: function(res){
                     // success
@@ -113,6 +121,20 @@ Page({
       },
       fail: function(res) {
         console.log(res.errMsg)
+      }
+    })
+  },
+  moreFun: function(){
+    wx.showActionSheet({
+      itemList: ['新建群组', '我的朋友(首页)', '关注我的陌生人'],
+      success: function(res){
+        if(res.tapIndex == 2){
+          wx.redirectTo({url: '../strangers/strangers'})
+        }else if(res.tapIndex == 1){
+           wx.switchTab({url: '../friends/friends'})
+        }else if(res.tapIndex == 0){
+           wx.navigateTo({url: '../new_group/new_group'})
+        }
       }
     })
   }

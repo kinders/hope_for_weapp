@@ -17,7 +17,11 @@
     </checkbox-group>
   </scroll-view>
   <view class="btn-area">
+    <view style="padding: 1rem 0 0 0">
     <button formType="submit" type="primary">创建群组</button>
+    </view>
+    <view style="padding: 1rem 0 0 0">
     <button formType="reset" type="default" >取消建群</button>
+    </view>
   </view>
 </form>

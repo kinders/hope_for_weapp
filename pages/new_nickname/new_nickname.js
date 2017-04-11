@@ -45,6 +45,7 @@ Page({
             wx.request({
               url: 'https://www.hopee.xyz/new_nickname',
               data: {token: wx.getStorageSync('token'), nickname: e.detail.value.name, friend_id: friend_id},
+              header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
                 //console.log('new_nickname res')
