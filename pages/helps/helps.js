@@ -92,7 +92,7 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['未满足的群请求', '已经得到满足的请求'],
+      itemList: ['我未满意的群请求', '我满意的请求'],
       success: function(res){
         if(res.tapIndex == 0){
           wx.navigateTo({url: '../groups_helps/groups_helps'})

@@ -2,6 +2,7 @@
 <view  class="topbar">
   <text>列表</text >
   <text bindtap="moreFun">更多请求</text>
+  <navigator url="../helps/helps" open-type="switchTab">返回主页</navigator>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{groups_helps_group_names}}">

@@ -2,6 +2,7 @@
 <view  class="topbar">
   <text>列表({{groups_length}})</text>
   <text bindtap="moreFun">更多朋友</text>
+  <navigator url="../friends/friends"  open-type="switchTab">返回主页</navigator>
 </view>
 <scroll-view scroll-y="true"  style="height: 28rem;" class="list">
   <block wx:for="{{groups}}" wx:key="id" wx:for-item="group">

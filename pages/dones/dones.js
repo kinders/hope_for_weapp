@@ -1,5 +1,4 @@
 // pages/dones/dones.js
-var dones_user_ids = [0];
 Page({
   data:{},
     onLoad:function(options){
@@ -20,6 +19,7 @@ Page({
             current_user: wx.getStorageSync('current_user')
           })
           // 生成可供筛选的选项
+          var dones_user_ids = [0];
           var dones_user_nicknames = ["全部"];
           var is_hidden = [];
           (res.data.dones || []).map(function(done){
@@ -62,6 +62,7 @@ Page({
     this.setData({
       index: e.detail.value
     })
+    var dones_user_ids = this.data.dones_user_ids;
     var is_hidden = [];
     var dones_length = 0;
     if (e.detail.value == 0){
@@ -86,14 +87,64 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['未完成的任务(首页)', '陌生人给我的任务'],
+      itemList: ['我未完成的任务(首页)', '陌生人给我的任务'],
       success: function(res){
         if(res.tapIndex == 0){
           wx.switchTab({url: '../todos/todos'})
         }else if(res.tapIndex == 1){
-           wx.navigateTo({url: '../other_todos/other_todos'})
+           wx.redirectTo({url: '../other_todos/other_todos'})
         }
       }
   })
+  },
+  bindDateChange: function(e){
+    this.setData({
+      date: e.detail.value
+    })
+    var that=this; 
+    wx.request({
+      url: 'https://www.hopee.xyz/dones_in_date',
+      data: {token: wx.getStorageSync('token'), date: e.detail.value },
+      method: 'GET',
+      header: {"Content-Type":"application/json"},
+      success: function(res){
+         if(res.data.dones){
+          wx.setStorageSync('dones', res.data.dones)
+          that.setData({
+            dones: res.data.dones,
+            dones_length: res.data.dones.length,
+            current_user: wx.getStorageSync('current_user')
+          })
+          // 生成可供筛选的选项
+          var dones_user_ids = [0];
+          var dones_user_nicknames = ["全部"];
+          var is_hidden = [];
+          (res.data.dones || []).map(function(done){
+            if (dones_user_ids.indexOf(done.user_id) == -1 ){
+              dones_user_ids = dones_user_ids.concat(done.user_id)
+            }
+            if (dones_user_nicknames.indexOf(done.nickname) == -1){
+              dones_user_nicknames = dones_user_nicknames.concat(done.nickname)
+            }   
+            is_hidden = is_hidden.concat("item")
+          });
+          that.setData({
+            dones_user_ids: dones_user_ids,
+            dones_user_nicknames: dones_user_nicknames,
+            is_hidden: is_hidden
+          })
+        }else{
+          console.log('fail: request dones in date res')
+          console.log(res)
+        }
+      },
+      fail: function(res) {
+        // fail
+      },
+      complete: function(res) {
+        // complete
+      }
+    })
+
   }
 })

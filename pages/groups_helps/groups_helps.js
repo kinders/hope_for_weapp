@@ -83,12 +83,12 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['未满足的请求(首页)', '已经满足的请求'],
+      itemList: ['我未满意的请求(首页)', '我满意的请求'],
       success: function(res){
         if(res.tapIndex == 0){
           wx.switchTab({url: '../helps/helps'})
         }else if(res.tapIndex == 1){
-           wx.navigateTo({url: '../helpeds/helpeds'})
+           wx.redirectTo({url: '../helpeds/helpeds'})
         }
       }
   })

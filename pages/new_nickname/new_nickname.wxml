@@ -16,7 +16,7 @@
     <button formType="submit" type="primary">提交昵称</button>
     </view>
     <view style="padding: 1rem 0 0 0">
-    <button formType="reset" type="default">取消修改</button>
+    <button formType="reset" type="default">返回</button>
     </view> 
   </view>
 </form>

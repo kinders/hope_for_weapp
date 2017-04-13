@@ -11,12 +11,12 @@
   <text>最后有效时间：{{ current_user.end_time }}</text>
   </view>
   <view class="usermotto">
-    <button bindtap="pay" type="primary">续费1元，使用10天</button>
+    <button bindtap="pay" type="primary">续费使用</button>
   </view>
   </view>
   <view wx:elif="{{is_use == 0}}">
   <view class="usermotto">
-    <text>正在连接网络...</text>
+    <text>网络连接不畅...</text>
   </view>
   <view class="usermotto" bindtap="reconnect">
     <button>加速连接</button>

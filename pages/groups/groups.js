@@ -89,7 +89,7 @@ Page({
                         }
                       })
                       groups.splice(group_index, 1)
-                      //wx.setStorageSync('groups', groups)
+                      wx.setStorageSync('groups', groups)
                       that.setData({
                         groups: groups || [],
                         groups_length: groups.length || 0

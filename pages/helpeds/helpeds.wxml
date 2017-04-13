@@ -1,12 +1,20 @@
 <!--pages/helpeds/helpeds.wxml-->
 <view  class="topbar">
   <text>列表</text >
-  <text bindtap="moreFun">更多请求</text> 
+  <text bindtap="moreFun">更多请求</text>
+  <navigator url="../helps/helps" open-type="switchTab">返回主页</navigator>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker mode="date" value="{{date}}" start="2017-04-01" end="2022-12-31" bindchange="bindDateChange">
+    <view class="picker">
+      1. 选择日期: {{date}}
+    </view>
+  </picker>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{helpeds_receiver_nicknames}}">
   <view class="picker">
-      筛选：{{helpeds_receiver_nicknames[index]}}
+      2. 筛选朋友：{{helpeds_receiver_nicknames[index]}}
       <text style="float: right;">({{helpeds_length}})</text>
     </view>
   </picker>

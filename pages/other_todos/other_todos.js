@@ -74,12 +74,12 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['未完成的任务(首页)', '已完成的任务'],
+      itemList: ['我未完成的任务(首页)', '我已完成的任务'],
       success: function(res){
         if(res.tapIndex == 0){
           wx.switchTab({url: '../todos/todos'})
         }else if(res.tapIndex == 1){
-           wx.navigateTo({url: '../dones/dones'})
+           wx.redirectTo({url: '../dones/dones'})
         }
       }
   })

@@ -102,7 +102,7 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['陌生人给我的任务', '已完成的任务'],
+      itemList: ['陌生人给我的任务', '我已完成的任务'],
       success: function(res){
         if(res.tapIndex == 0){
           wx.navigateTo({url: '../other_todos/other_todos'})
