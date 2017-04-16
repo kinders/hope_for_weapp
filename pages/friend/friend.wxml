@@ -1,7 +1,7 @@
 <!--pages/friend/friend.wxml-->
 <view  class="topbar">
   <text>任务列表</text>
-  <text bindtap="moreFun">更多功能</text>
+  <text bindtap="moreFun">常用操作</text>
   <navigator open-type="navigateBack">返回</navigator>
 </view>
 <view  class="topbar" style="background-color:gray;">
@@ -26,7 +26,7 @@
      </view>
      <navigator url="../friend/friend?friend_id={{friend_todo.user_id}}&nickname={{friend_todo.nickname}}" open-type="redirect" wx:else class="item-key">
        <text>{{index + 1}}</text>
-       <text  style="color: blue; padding: 0.5rem;">{{friend_todo.nickname}}</text>
+       <text  style="color: black; padding: 0.5rem;">{{friend_todo.nickname}}</text>
        <text>{{friend_todo.created_at}}</text>
      </navigator>
        <navigator url="../todo/todo?todo_id={{friend_todo.id}}&user_id={{friend_todo.user_id}}&user_nickname={{friend_todo.nickname}}&receiver_nickname={{friend.nickname}}&created_at={{friend_todo.created_at}}&is_finish=f&content={{friend_todo.content}}" class="item-value">{{ friend_todo.content}}</navigator>

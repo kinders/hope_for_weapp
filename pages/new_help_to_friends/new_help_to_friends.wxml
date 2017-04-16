@@ -1,0 +1,32 @@
+<!--pages/new_help_to_friends/new_help_to_friends.wxml-->
+<form bindsubmit="formSubmit"  bindreset="formReset">
+  <view class="todo">
+  <text  style="font-weight: bold; margin: 0 1rem 0 0;">提示</text>
+  <text style="font-size: 0.8rem;">如果您经常要向这些朋友发送请求，建议您将这些好友添加到一个群组里面</text>
+</view>
+  <view class="section">
+    <view class="section-title">请求内容：</view>
+    <view class="section-input">
+      <textarea name="content" value="{{empty}}" placeholder="请在此输入详细的请求" style="height: 5rem; width: 90%; border: 1px solid green; border-radius: 5px; padding: 20rpx; margin: 10rpx;"/>
+    </view>
+  </view>
+  <view class="section-title">选择朋友：</view>
+  <view class="scroll-select" style="height: 20rem;">
+    <checkbox-group name="checkbox">
+      <block wx:for="{{friendships}}" wx:key="id">
+        <view class="section-checkbox">
+          <label><checkbox value="{{item.friend_id}}" checked="{{is_check}}"style="float: right;"/>{{item.nickname}}</label>
+        </view>
+      </block>
+    </checkbox-group>
+
+    <view class="btn-area">
+      <view style="padding: 0.5rem 0 0 0">
+        <button formType="submit" type="primary">群发请求</button>
+      </view>
+      <view style="padding: 0.5rem 0 0 0">
+        <button formType="reset" type="default" >返回</button>
+      </view>
+    </view>
+  </view>
+</form>

@@ -1,10 +1,9 @@
 <!--pages/strangers/strangers.wxml-->
 <view  class="topbar">
   <text>列表({{strangers_length}})</text>
-  <text bindtap="moreFun">更多朋友</text>
-  <navigator url="../friends/friends"  open-type="switchTab">返回主页</navigator>
+  <navigator url="../friends/friends"  open-type="switchTab">返回朋友</navigator>
 </view>
-<scroll-view scroll-y="true"  style="height: 28rem;" class="list">
+<scroll-view scroll-y="true"  style="height: 30rem;" class="list">
   <block wx:for="{{strangers}}" wx:key="id" wx:for-item="friendship">
     <navigator url="../friend/friend?friend_id={{friendship.user_id}}&nickname={{friendship.nickname}}" class="item-value">
       <text>{{friendship.nickname}}</text>

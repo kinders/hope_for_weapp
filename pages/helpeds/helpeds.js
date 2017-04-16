@@ -88,18 +88,6 @@ Page({
       helpeds_length: helpeds_length
     })
   },
-  moreFun: function(){
-    wx.showActionSheet({
-      itemList: ['我未满意的请求(首页)', '我未满意的群请求'],
-      success: function(res){
-        if(res.tapIndex == 0){
-          wx.switchTab({url: '../helps/helps'})
-        }else if(res.tapIndex == 1){
-           wx.redirectTo({url: '../groups_helps/groups_helps'})
-        }
-      }
-  })
-  },
   bindDateChange: function(e){
     this.setData({
       date: e.detail.value
@@ -136,7 +124,8 @@ Page({
           that.setData({
             helpeds_receiver_ids: helpeds_receiver_ids,
             helpeds_receiver_nicknames: helpeds_receiver_nicknames,
-            is_hidden: is_hidden
+            is_hidden: is_hidden,
+            index: 0
           })
         } else {
           console.log('fail: request helpeds in date res')

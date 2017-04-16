@@ -2,7 +2,7 @@
 var grouptodo_id;
 var helps_in_grouptodo;
 Page({
-  data:{},
+  data:{is_checked: false},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     var group_id = options.group_id
@@ -87,7 +87,7 @@ Page({
                 console.log('fail: request close_grouptodo res')
                 console.log(res)
                 wx.showToast({
-                  title: '服务器拒绝关闭这个请求',
+                  title: '服务器无法关闭这个请求',
                   icon: 'loading',
                   duration: 2000
                 })
@@ -102,8 +102,7 @@ Page({
     })
   },
   new_group_discussion: function(e){
-    if(e.detail.value.content.replace(/\s/g, "") 
- == ""){
+    if(e.detail.value.content.replace(/\s/g, "")  == ""){
       wx.showToast({
         title: '内容不能为空',
         icon: 'loading',
@@ -188,7 +187,7 @@ Page({
                   console.log('fail: request close_helps res')
                   console.log(res)
                   wx.showToast({
-                    title: (res.data.msg || '服务器拒绝关闭这些请求'),
+                    title: '服务器无法关闭这些请求',
                     icon: 'loading',
                     duration: 2000
                   })
@@ -208,6 +207,15 @@ Page({
           }
         }
       })      
-  }      
+    }      
+  },
+  selectCheckbox: function(){
+    var that = this;
+    var is_checked = that.data.is_checked;
+    if(is_checked == false){
+      that.setData({is_checked: true})
+    }else{
+      that.setData({is_checked: false})
+    }
   }
 })

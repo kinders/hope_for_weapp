@@ -85,18 +85,6 @@ Page({
       dones_length: dones_length
     })
   },
-  moreFun: function(){
-    wx.showActionSheet({
-      itemList: ['我未完成的任务(首页)', '陌生人给我的任务'],
-      success: function(res){
-        if(res.tapIndex == 0){
-          wx.switchTab({url: '../todos/todos'})
-        }else if(res.tapIndex == 1){
-           wx.redirectTo({url: '../other_todos/other_todos'})
-        }
-      }
-  })
-  },
   bindDateChange: function(e){
     this.setData({
       date: e.detail.value
@@ -131,7 +119,8 @@ Page({
           that.setData({
             dones_user_ids: dones_user_ids,
             dones_user_nicknames: dones_user_nicknames,
-            is_hidden: is_hidden
+            is_hidden: is_hidden,
+            index: 0
           })
         }else{
           console.log('fail: request dones in date res')

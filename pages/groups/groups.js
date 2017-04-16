@@ -44,25 +44,25 @@ Page({
     var name = event.currentTarget.dataset.name;
     var gdetail = '“' + name + '”群成员'
     wx.showActionSheet({
-      itemList: [gdetail, '群组未满足的请求', '群组已满足的请求', '发送群请求', '修改群称', '删除群组'],
+      itemList: ['发送群请求', gdetail, '未满意的群请求', '已满意的群请求', '修改群称', '删除群组'],
       success: function(res) {
         if(res.tapIndex == 0){
           wx.navigateTo({
-            url: "../group/group?group_id=" + group_id + "&name=" + name
+            url: "../new_help_to_group/new_help_to_group?group_id=" + group_id + "&name=" + name
           })
-        } else if (res.tapIndex == 1 ){
+        }else if(res.tapIndex == 1){
           wx.navigateTo({
-            url: "../group_helps/group_helps?group_id=" + group_id + "&name=" + name
+            url: "../group/group?group_id=" + group_id + "&name=" + name
           })
         } else if (res.tapIndex == 2 ){
           wx.navigateTo({
+            url: "../group_helps/group_helps?group_id=" + group_id + "&name=" + name
+          })
+        } else if (res.tapIndex == 3 ){
+          wx.navigateTo({
             url: "../group_helpeds/group_helpeds?group_id=" + group_id + "&name=" + name
           })        
-        } else if(res.tapIndex == 3){
-          wx.navigateTo({
-            url: "../new_help_to_group/new_help_to_group?group_id=" + group_id + "&name=" + name
-          })
-        }else if(res.tapIndex == 4){
+        } else if(res.tapIndex == 4){
           wx.navigateTo({
             url: "../new_groupname/new_groupname?group_id=" + group_id + "&name=" + name
           })
@@ -126,13 +126,9 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['新建群组', '我的朋友(首页)', '关注我的陌生人'],
+      itemList: ['新建群组'],
       success: function(res){
-        if(res.tapIndex == 2){
-          wx.redirectTo({url: '../strangers/strangers'})
-        }else if(res.tapIndex == 1){
-           wx.switchTab({url: '../friends/friends'})
-        }else if(res.tapIndex == 0){
+        if(res.tapIndex == 0){
            wx.navigateTo({url: '../new_group/new_group'})
         }
       }

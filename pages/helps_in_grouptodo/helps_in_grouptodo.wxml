@@ -42,7 +42,7 @@
            <label>
              <text>{{index + 1}}    </text>
              <text wx:if="{{help.receiver_id == current_user_id}}" style="color: gray;">{{help.nickname}}</text>
-              <checkbox value="{{help.receiver_id}}" style="float: right;"/>
+              <checkbox value="{{help.receiver_id}}" style="float: right;" checked="{{is_checked}}" />
               <navigator url="../todo/todo?todo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{grouptodo.time}}&is_finish={{help.is_finish}}&content={{grouptodo.content}}" style="display: inline-block">{{help.nickname}}</navigator>
             </label>
           </view>
@@ -50,7 +50,10 @@
       </checkbox-group>
     </view>
     <view class="btn-area {{is_hidden}}">
-      <button formType="submit" type="warn"  size="mini"  style="width:100%;">关闭所选成员的任务</button>
+      <view style="padding: 0.5rem 0 0 0">
+      <button bindtap="selectCheckbox" type="primary" size="mini"  style="width:47%;">选择全部</button>
+      <button formType="submit" type="primary"  size="mini"  style="width:47%; float: right;">关闭所选成员</button>
+       </view>
     </view>
   </form>
 </view>

@@ -1,8 +1,9 @@
 <!--other_todos.wxml-->
 <view  class="topbar">
-  <text>列表</text>
-  <text bindtap="moreFun">更多任务</text>
-  <navigator url="../todos/todos" open-type="switchTab">返回主页</navigator>
+  <navigator url="../todos/todos" open-type="switchTab">未完任务</navigator>
+  <text style="color: green;">陌生人任务</text>
+  <navigator url="../dones/dones" open-type="redirect">已完任务</navigator>
+  
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{todos_user_nicknames}}">
@@ -19,7 +20,7 @@
      <view class="item-key">
        <text>{{index + 1}}    </text>
        <text wx:if="{{todo.user_id == current_user.id}}" style="color: gray; padding: 0.25rem;">{{todo.nickname}}</text>
-       <text wx:else style="color: blue; padding: 0.25rem;">{{todo.nickname}}</text>
+       <text wx:else style="color: black; padding: 0.25rem;">{{todo.nickname}}</text>
        <text>{{todo.created_at}}</text>
      </view>
      <view class="item-value">{{ todo.content}}</view>

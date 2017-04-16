@@ -1,8 +1,8 @@
 <!--pages/helpeds/helpeds.wxml-->
 <view  class="topbar">
-  <text>列表</text >
-  <text bindtap="moreFun">更多请求</text>
-  <navigator url="../helps/helps" open-type="switchTab">返回主页</navigator>
+  <navigator url="../helps/helps" open-type="switchTab">未完请求</navigator>
+  <navigator url="../groups_helps/groups_helps" open-type="redirect">未完群请求</navigator>
+  <text style="color: green;">已完请求</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker mode="date" value="{{date}}" start="2017-04-01" end="2022-12-31" bindchange="bindDateChange">
@@ -26,7 +26,7 @@
      <view class="item-key">
        <text>{{index + 1}}    </text>
        <text wx:if="{{helped.receiver_id == current_user.id}}" style="color: gray;padding: 0.25rem;">{{helped.nickname}}</text>
-       <text wx:else style="padding: 0.25rem;color: blue;">{{helped.nickname}}</text>
+       <text wx:else style="padding: 0.25rem;color: black;">{{helped.nickname}}</text>
        <text>{{helped.created_at}}</text>
      </view>
      <view class="item-value">

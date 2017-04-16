@@ -89,17 +89,5 @@ Page({
       title: '或许您可以帮我……',
       path: "/pages/new_friend/new_friend?friend_id=" + wx.getStorageSync('current_user').id + "&nickname=" + wx.getStorageSync('current_user').nickname
     }
-  },
-  moreFun: function(){
-    wx.showActionSheet({
-      itemList: ['我未满意的群请求', '我满意的请求'],
-      success: function(res){
-        if(res.tapIndex == 0){
-          wx.navigateTo({url: '../groups_helps/groups_helps'})
-        }else if(res.tapIndex == 1){
-           wx.navigateTo({url: '../helpeds/helpeds'})
-        }
-      }
-  })
   }
 })

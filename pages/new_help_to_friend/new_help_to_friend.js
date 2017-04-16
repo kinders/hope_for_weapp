@@ -64,7 +64,7 @@ Page({
                   console.log('fail: request new_help_to_friend res')
                   console.log(res)
                   wx.showToast({
-                    title: '请求被服务器拒绝',
+                    title: '服务器无法添加这个请求',
                     icon: 'loading',
                     duration: 2000
                   })

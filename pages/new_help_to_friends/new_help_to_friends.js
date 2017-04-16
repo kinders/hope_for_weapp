@@ -1,4 +1,4 @@
-// pages/new_group/new_group.js
+// pages/new_help_to_friends/new_help_to_friends.js
 Page({
   data:{},
   onLoad:function(options){
@@ -21,49 +21,46 @@ Page({
   },
   formSubmit:function(e){
     var that=this;
-    if(e.detail.value.name.replace(/\s/g, "") == ""){
+    if (e.detail.value.content.replace(/\s/g, "")  == "" ){
       wx.showToast({
-        title: '群名称不能为空',
+        title: '不能提交空白请求',
         icon: 'loading',
-        duration: 1000
+        duration: 2000
       })
-    }else if(e.detail.value.checkbox.length < 2){
+    }else if(e.detail.value.checkbox.length == 0){
       wx.showToast({
-        title: '群里人数不能少于2人',
+        title: '您还没有选择朋友',
         icon: 'loading',
-        duration: 1000
+        duration: 2000
       })
     }else{
       wx.showModal({
-        title: "群名： " + e.detail.value.name,
-        content:  "人数：" + e.detail.value.checkbox.length,
+        title: "群发人数： " + e.detail.value.checkbox.length,
+        content:  "内容：" + e.detail.value.content,
         success: function(res) {
           if (res.confirm) {
             wx.request({
-              url: 'https://www.hopee.xyz/new_group',
-              data: {token: wx.getStorageSync('token'), name: e.detail.value.name, friends_id: e.detail.value.checkbox.join('_')},
+              url: 'https://www.hopee.xyz/new_help_to_friends',
+              data: {token: wx.getStorageSync('token'), content: e.detail.value.content, friends_id: e.detail.value.checkbox},
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
-                if(res.data.group_id >= 0){
+                if(res.data.result_code == 't'){
                   wx.showToast({
-                    title: '成功建立新群',
+                    title: '成功群发',
                     icon: 'success',
                     duration: 2000
                   })
-                  that.setData({
-                    empty: '',
-                    is_check: false
-                  })
                 }else{
-                  console.log('fail: request new_group res')
+                  console.log('fail: request new_help_to_friends res')
                   console.log(res)
                   wx.showToast({
-                    title: '服务器无法添加该群',
+                    title: '服务器无法群发该请求。您可在“请求”页面查看群发情况',
                     icon: 'loading',
                     duration: 2000
                   })
                 }
+                setTimeout(function(){wx.navigateBack()},2000);  
               },
               fail: function() {
                 // fail
@@ -78,7 +75,7 @@ Page({
             })
           }
         }
-      })     
+      })        
     }
   },
   formReset: function(){

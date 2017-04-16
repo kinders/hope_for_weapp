@@ -51,7 +51,7 @@ Page({
                 //console.log('new_nickname res')
                 //console.log(res)
                 if(res.data.result_code == 't'){
-                  /* 将缓存里面原来的名称更改为新的名称。
+                  //* 将缓存里面原来的名称更改为新的名称。
                   // 如果是自己
                   if(friend_id == wx.getStorageSync('current_user').id){
                     var me = {id: wx.getStorageSync('current_user').id, nickname: e.detail.value.name, end_time: wx.getStorageSync('current_user').end_time}
@@ -68,7 +68,7 @@ Page({
                   friendships.splice(friendship_index, 1, {friend_id: friend_id, nickname: e.detail.value.name})
                   wx.setStorageSync('friendships', friendships)
                   }
-                  */
+                  //*/
                   wx.showToast({
                     title: '成功修改昵称',
                     icon: 'success',
@@ -79,7 +79,7 @@ Page({
                   console.log('fail: request new_nickname res')
                   console.log(res)
                   wx.showToast({
-                    title: (res.msg || "服务器拒绝修改昵称"),
+                    title: "服务器无法修改昵称",
                     icon: 'loading',
                     duration: 2000
                   })

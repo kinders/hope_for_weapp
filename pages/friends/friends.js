@@ -24,7 +24,7 @@ Page({
 	        a.sort()
         	friendships = a.map(function(hash){return {"friend_id": hash.split('^')[1], "nickname": hash.split('^')[0]}})
           var current_user = wx.getStorageSync('current_user')
-          friendships.unshift({friend_id: current_user.id, nickname: current_user.nickname})
+          friendships.unshift({friend_id: current_user.id.toString(), nickname: current_user.nickname})
           wx.setStorageSync('friendships', friendships)
           that.setData({
             friendships: friendships || [],
@@ -52,9 +52,13 @@ Page({
     var ftodos = nickname.concat("的任务")
     var fhelps = nickname.concat("的请求")
     wx.showActionSheet({
-      itemList: [ftodos, fhelps, '发送请求', '修改昵称', '删除好友'],
+      itemList: ['发送请求', ftodos, fhelps, '修改昵称', '删除好友'],
       success: function(res) {
         if(res.tapIndex == 0){
+          wx.navigateTo({
+            url: "../new_help_to_friend/new_help_to_friend?friend_id=" + friend_id + "&nickname=" + nickname
+          })
+        } else if(res.tapIndex == 1){
           if(friend_id == wx.getStorageSync('current_user').id){
             wx.switchTab({ url: '../todos/todos' })
           }else{
@@ -62,7 +66,7 @@ Page({
               url: "../friend/friend?friend_id=" + friend_id + "&nickname=" + nickname
             })
           }
-        }else if(res.tapIndex == 1){
+        }else if(res.tapIndex == 2){
           if(friend_id == wx.getStorageSync('current_user').id){
             wx.switchTab({ url: '../helps/helps' })
           }else{
@@ -70,11 +74,7 @@ Page({
               url: "../friend_helps/friend_helps?friend_id=" + friend_id + "&nickname=" + nickname
             })
           }
-        }else if(res.tapIndex == 2){
-          wx.navigateTo({
-            url: "../new_help_to_friend/new_help_to_friend?friend_id=" + friend_id + "&nickname=" + nickname
-          })
-        } else if(res.tapIndex == 3){
+        }else if(res.tapIndex == 3){
           wx.navigateTo({
             url: "../new_nickname/new_nickname?friend_id=" + friend_id + "&nickname=" + nickname
           })
@@ -101,7 +101,12 @@ Page({
                     if(res.data.result_code == 't'){
                       // 将好友从缓存中删除
                       var friendships = wx.getStorageSync('friendships') || []
-                      var friendship_index = friendships.indexOf({friend_id: friend_id, nickname: nickname})
+                      var friendship_index;
+                      friendships.map(function(hash, index){
+                        if(hash.friend_id == friend_id){
+                          friendship_index = index
+                        }
+                      })
                       friendships.splice(friendship_index, 1)
                       wx.setStorageSync('friendships', friendships)
                       that.setData({
@@ -134,17 +139,20 @@ Page({
           }
         }
       },
-      fail: function(res) {console.log(res)}
+      fail: function(res) {}
     })
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['群组', '关注我的陌生人'],
+      itemList: ['添加朋友', '新建群组','临时群发'],
       success: function(res){
-        if(res.tapIndex == 1){
+        if(res.tapIndex == 0){
           wx.redirectTo({url: '../strangers/strangers'})
-        }else if(res.tapIndex == 0){
-           wx.redirectTo({url: '../groups/groups'})
+        }else if (res.tapIndex == 1){
+          console.log('navigate to new group')
+          wx.navigateTo({url: '../new_group/new_group'})
+        }else if (res.tapIndex == 2){
+          wx.navigateTo({url: '../new_help_to_friends/new_help_to_friends'})
         }
       }
     })

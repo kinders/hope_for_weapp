@@ -18,8 +18,10 @@
     "pages/new_nickname/new_nickname",
     "pages/new_friend/new_friend",
     "pages/new_group/new_group",
+    "pages/new_members/new_members",
     "pages/new_groupname/new_groupname",
     "pages/new_help_to_friend/new_help_to_friend",
+    "pages/new_help_to_friends/new_help_to_friends",
     "pages/new_help_to_group/new_help_to_group",
     "pages/todo/todo",
     "pages/strangers/strangers"
@@ -33,16 +35,24 @@
   },
   "tabBar": {
     "color": "white",
+    "selectedColor": "green",
     "backgroundColor": "black",
+    "borderStyle": "black", 
     "list": [{
       "pagePath": "pages/helps/helps",
-      "text": "请求"
+      "text": "请求",
+      "iconPath": "icons/like.png",
+      "selectedIconPath": "icons/like_green.png"
     }, {
       "pagePath": "pages/todos/todos",
-      "text": "任务"
+      "text": "任务",
+      "iconPath": "icons/good.png",
+      "selectedIconPath": "icons/good_green.png"
     },{
       "pagePath": "pages/friends/friends",
-      "text": "朋友"
+      "text": "朋友",
+      "iconPath": "icons/people.png",
+      "selectedIconPath": "icons/people_green.png"
     }]
   }
 

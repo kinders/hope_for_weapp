@@ -10,8 +10,16 @@ Page({
       group: {group_id: group_id, name: name},
       current_user_id: wx.getStorageSync('current_user').id
     })
+  },
+  onReady:function(){
+    // 页面渲染完成
+  },
+  onShow:function(){
+    // 页面显示
     // 到网站请求最新信息
     var that = this;
+    var group_id = that.data.group.group_id;
+    var group = "group_" + group_id;
     wx.request({
       url: 'https://www.hopee.xyz/group',
       data: { token: wx.getStorageSync('token'), group_id: group_id },
@@ -39,12 +47,6 @@ Page({
       complete: function() {}
     })
   },
-  onReady:function(){
-    // 页面渲染完成
-  },
-  onShow:function(){
-    // 页面显示
-  },
   onHide:function(){
     // 页面隐藏
   },
@@ -56,25 +58,29 @@ Page({
     var group_id = that.data.group.group_id;
     var name = that.data.group.name;
     wx.showActionSheet({
-      itemList: ['群组未满足的请求', '群组已满足的请求', '发布群请求', '修改群称', '删除群组'],
+      itemList: ['增减成员', '发布群请求', '未满意的群请求', '已满意的群请求', '修改群称', '删除群组'],
       success: function(res) {
         if (res.tapIndex == 0 ){
           wx.navigateTo({
-            url: "../group_helps/group_helps?group_id=" + group_id + "&name=" + name
+            url: "../new_members/new_members?group_id=" + group_id + "&name=" + name
           })
-        } else if (res.tapIndex == 1 ){
-          wx.navigateTo({
-            url: "../group_helpeds/group_helpeds?group_id=" + group_id + "&name=" + name
-          })        
-        } else if(res.tapIndex == 2){
+        } else if(res.tapIndex == 1){
           wx.navigateTo({
             url: "../new_help_to_group/new_help_to_group?group_id=" + group_id + "&name=" + name
           })
-        }else if(res.tapIndex == 3){
+        }else if (res.tapIndex == 2 ){
+          wx.navigateTo({
+            url: "../group_helps/group_helps?group_id=" + group_id + "&name=" + name
+          })
+        } else if (res.tapIndex == 3 ){
+          wx.navigateTo({
+            url: "../group_helpeds/group_helpeds?group_id=" + group_id + "&name=" + name
+          })        
+        } else if(res.tapIndex == 4){
           wx.navigateTo({
             url: "../new_groupname/new_groupname?group_id=" + group_id + "&name=" + name
           })
-        } else if(res.tapIndex == 4){
+        } else if(res.tapIndex == 5){
           wx.showModal({
             title: '警告',
             content: "确定将要删除朋友群 " + name + " ？",

@@ -65,7 +65,7 @@ Page({
                   console.log('fail: request new_friend res')
                   console.log(res)
                   wx.showToast({
-                    title: (res.data.msg || "服务器拒绝添加该好友"),
+                    title: "服务器无法添加该好友",
                     icon: 'loading',
                     duration: 2000
                   })

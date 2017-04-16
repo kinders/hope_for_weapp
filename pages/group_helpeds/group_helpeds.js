@@ -52,21 +52,21 @@ Page({
     var group_id = that.data.group.group_id;
     var name = that.data.group.name;
     wx.showActionSheet({
-      itemList: ['群组成员', '群组未满足的请求', '发送群请求', '修改群称', '删除群组'],
+      itemList: ['发送群请求', '群组成员', '未满意的群请求', '修改群称', '删除群组'],
       success: function(res) {
         if(res.tapIndex == 0){
           wx.navigateTo({
+            url: "../new_help_to_group/new_help_to_group?group_id=" + group_id + "&name=" + name
+          })
+        }else if(res.tapIndex == 1){
+          wx.navigateTo({
             url: "../group/group?group_id=" + group_id + "&name=" + name
           })
-        } else if (res.tapIndex == 1 ){
+        } else if (res.tapIndex == 2 ){
           wx.navigateTo({
             url: "../group_helps/group_helps?group_id=" + group_id + "&name=" + name
           })
-        } else if(res.tapIndex == 2){
-          wx.navigateTo({
-            url: "../new_help_to_group/new_help_to_group?group_id=" + group_id + "&name=" + name
-          })
-        }else if(res.tapIndex == 3){
+        } else if(res.tapIndex == 3){
           wx.navigateTo({
             url: "../new_groupname/new_groupname?group_id=" + group_id + "&name=" + name
           })

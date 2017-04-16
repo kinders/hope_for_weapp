@@ -36,17 +36,5 @@ Page({
   },
   onUnload:function(){
     // 页面关闭
-  },
-  moreFun: function(){
-    wx.showActionSheet({
-      itemList: ['朋友(首页)', '群组列表'],
-      success: function(res){
-        if(res.tapIndex == 0){
-          wx.switchTab({url: '../friends/friends'})
-        }else if(res.tapIndex == 1){
-           wx.redirectTo({url: '../groups/groups'})
-        }
-      }
-  })
   }
 })

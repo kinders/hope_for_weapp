@@ -1,27 +1,30 @@
 <!--pages/todo/todo.wxml-->
 <view  class="topbar" wx:if="{{todo.user_id == current_user.id}}">
-  <text>详情</text>
+  <text style="color: green;">详情</text>
   <text bindtap="rehelp"  wx:if="{{ todo.is_finish == 'true'}}">重启任务</text>
   <text bindtap="close_help"  wx:else >结束任务</text>
   <text bindtap="turnBack">返回</text>
 </view>
 <view  class="topbar" wx:else>
-  <text>详情</text>
+  <text style="color: green;">详情</text>
   <text bindtap="turnBack">返回</text>
 </view>
 <view class="todo">
-<view>
-     <text style="font-weight: bold; margin: 0 1rem 0 0;">时间</text><text>{{todo.created_at}}</text>
+  <view style="padding: 0.2rem 0 0 0;">
+     <text style="margin: 0 1rem 0 0;">时间</text>
+     <text style="font-size: 0.8rem;">{{todo.created_at}}</text>
   </view>
-  <view>
-    <text style="font-weight: bold; margin: 0 1rem 0 0;">发起</text><text>{{todo.user_nickname}}</text>
+  <view style="padding: 0.2rem 0 0 0;">
+    <text style="margin: 0 1rem 0 0;">接收</text>
+    <text style="font-size: 0.8rem;">{{todo.receiver_nickname}}</text>
   </view>
-
-  <view>
-    <text style="font-weight: bold; margin: 0 1rem 0 0;">接收</text><text>{{todo.receiver_nickname}}</text>
+  <view style="padding: 0.2rem 0 0 0;">
+    <text style="margin: 0 1rem 0 0;">发起</text>
+    <text style="font-size: 0.8rem;">{{todo.user_nickname}}</text>
   </view>
-  <view>
-    <text style="font-weight: bold; margin: 0 1rem 0 0;">内容</text><text>{{todo.content}}</text>
+  <view style="padding: 0.2rem 0 0 0;">
+    <text style="margin: 0 1rem 0 0;">详细内容</text>
+    <text style="font-size: 0.8rem;">{{todo.content}}</text>
   </view>
 </view>
 <view class="send">
@@ -46,7 +49,7 @@
      <view class="item-key">
        <text>{{index + 1}}    </text>
        <text wx:if="{{current_user.id == discussion.user_id}}" style="color: gray; padding: 0.25rem;">{{discussion.nickname}}</text>
-       <text wx:else style="color: blue; padding: 0.25rem;">{{discussion.nickname}}</text>
+       <text wx:else style="color: black; padding: 0.25rem;">{{discussion.nickname}}</text>
        <text>{{discussion.created_at}}</text>
      </view>
      <view class="item-value">

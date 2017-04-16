@@ -71,17 +71,5 @@ Page({
       is_hidden: is_hidden,
       todos_length: todos_length
     })
-  },
-  moreFun: function(){
-    wx.showActionSheet({
-      itemList: ['我未完成的任务(首页)', '我已完成的任务'],
-      success: function(res){
-        if(res.tapIndex == 0){
-          wx.switchTab({url: '../todos/todos'})
-        }else if(res.tapIndex == 1){
-           wx.redirectTo({url: '../dones/dones'})
-        }
-      }
-  })
   }
 })

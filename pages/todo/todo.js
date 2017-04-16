@@ -15,33 +15,10 @@ Page({
   onLoad:function(options){
     // 从分享界面登录
     var that = this;
-    var token = getApp().globalData.token
+    var token = getApp().globalData.token;
     if (token == ''){
       scene = 1;
-      wx.login({
-        success: function (res) {
-          if (res.code) {
-            //发起网络请求
-            //console.log('start to request login')
-            wx.request({
-              url: 'https://www.hopee.xyz/login',
-              data: { js_code: res.code },
-              header:{"Content-Type":"application/json"},
-              method: 'POST',
-              success: function(res){
-                //console.log(res)
-                if(res.data.result_code == "t"){
-                  getApp().globalData.token = res.data.token
-                  that.getInfo()
-                  wx.setStorageSync('token', res.data.token)
-                }else{
-                  wx.navigateTo({url: '../index/index'})
-                }
-              }
-            })
-          }
-        }
-      })
+      that.relogin()
     }
     // 页面初始化 options为页面跳转所带来的参数
     todo_id = options.todo_id;
@@ -56,15 +33,50 @@ Page({
     is_finish = options.is_finish;
     this.setData({
       todo: {id: todo_id, user_id: user_id, user_nickname: user_nickname, receiver_nickname: receiver_nickname, created_at: created_at, is_finish: is_finish, content: content},
-      current_user: wx.getStorageSync('current_user')
+      current_user: getApp().globalData.current_user
     })
+  },
+  relogin:function(){
+      wx.login({
+        success: function (res) {
+          if (res.code) {
+            //发起网络请求
+            wx.request({
+              url: 'https://www.hopee.xyz/login',
+              data: { js_code: res.code },
+              header:{"Content-Type":"application/json"},
+              method: 'POST',
+              success: function(res){
+                //console.log(res)
+                if(res.data.result_code == "t"){
+                  getApp().globalData.token = res.data.token
+                  getApp().globalData.current_user = res.data.current_user
+                }else{
+                  wx.navigateTo({url: '../index/index'})
+                }
+              }
+            })
+          }
+        }
+      })
   },
   onReady:function(){
     // 页面渲染完成
   },
   onShow:function(){
     // 页面显示
-    this.getInfo()
+    var that = this;
+    var token = getApp().globalData.token;
+    if (token == ''){
+      wx.showToast({
+        title: '正在载入...',
+        icon: 'loading',
+        duration: 3000
+      })
+      setTimeout(function(){that.getInfo()}, 3000)
+    } else {
+      that.getInfo()
+    }
   },
   getInfo: function(){
     // 到网站请求最新信息
@@ -152,7 +164,7 @@ Page({
         if (res.confirm){
           wx.request({
             url: 'https://www.hopee.xyz/close_help',
-            data: {token: wx.getStorageSync('token'), todo_id: todo_id},
+            data: {token: getApp().globalData.token, todo_id: todo_id},
             header:{"Content-Type":"application/json"},
             method: 'POST',
             success: function(res){
@@ -172,7 +184,7 @@ Page({
                 console.log('fail: request close_help res')
                 console.log(res)
                 wx.showToast({
-                  title: '服务器拒绝关闭这个请求',
+                  title: '服务器无法关闭这个请求',
                   icon: 'loading',
                   duration: 2000
                 })
@@ -195,7 +207,7 @@ Page({
         if (res.confirm){
           wx.request({
             url: 'https://www.hopee.xyz/rehelp',
-            data: {token: wx.getStorageSync('token'), todo_id: todo_id},
+            data: {token: getApp().globalData.token, todo_id: todo_id},
             header:{"Content-Type":"application/json"},
             method: 'POST',
             success: function(res){
@@ -214,7 +226,7 @@ Page({
                 console.log('fail: request rehelp res')
                 console.log(res)
                 wx.showToast({
-                  title: '服务器拒绝重启这个请求',
+                  title: '服务器无法重启这个请求',
                   icon: 'loading',
                   duration: 2000
                 })
@@ -232,6 +244,7 @@ Page({
   },
   formSubmit: function(e){
     var that = this;
+    var current_user = getApp().globalData.current_user;
     // 用户提交留言
     if(e.detail.value.content.replace(/\s/g, "")  == ""){
       wx.showToast({
@@ -247,13 +260,13 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_discussion',
-              data: {token: wx.getStorageSync('token'), todo_id: todo_id, content: e.detail.value.content},
+              data: {token: getApp().globalData.token, todo_id: todo_id, content: e.detail.value.content},
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
                 if(res.data.id >= 0){
                   var nowtime = new Date();
-                  var new_discussion = {todo_id: todo.id, user_id: wx.getStorageSync('current_user').id, nickname: wx.getStorageSync('current_user').nickname, content: e.detail.value.content, created_at: nowtime.toLocaleString()};
+                  var new_discussion = {todo_id: todo.id, user_id: current_user.id, nickname: current_user.nickname, content: e.detail.value.content, created_at: nowtime.toLocaleString()};
                   var discussions_obj = wx.getStorageSync(discussions) || []
                   discussions_obj.push(new_discussion)
                   wx.setStorageSync(discussions, discussions_obj)

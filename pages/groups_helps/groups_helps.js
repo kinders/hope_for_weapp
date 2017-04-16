@@ -80,17 +80,5 @@ Page({
       is_hidden: is_hidden,
       groups_helps_length: groups_helps_length
     })
-  },
-  moreFun: function(){
-    wx.showActionSheet({
-      itemList: ['我未满意的请求(首页)', '我满意的请求'],
-      success: function(res){
-        if(res.tapIndex == 0){
-          wx.switchTab({url: '../helps/helps'})
-        }else if(res.tapIndex == 1){
-           wx.redirectTo({url: '../helpeds/helpeds'})
-        }
-      }
-  })
   }
 })
