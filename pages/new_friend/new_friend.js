@@ -60,7 +60,15 @@ Page({
                     icon: 'success',
                     duration: 2000
                   })
-                  setTimeout(function(){wx.navigateBack()},2000);
+                  var is_num = /^\d+$/
+                  var current_user = getApp().globalData.current_user
+                  setTimeout(function(){
+                    if (is_num.test(current_user.nickname)) {
+                      wx.redirectTo({url: '../new_nickname/new_nickname?friend_id=' + current_user.id + '&nickname=' + current_user.nickname})
+                    } else {
+                      wx.navigateBack()
+                    }
+                  },2000);
                 }else{
                   console.log('fail: request new_friend res')
                   console.log(res)

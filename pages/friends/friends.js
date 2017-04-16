@@ -3,18 +3,18 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    // 取出缓存信息
-    this.setData({current_user_id: wx.getStorageSync('current_user').id})
   },
   onReady:function(){
     // 页面渲染完成
   },
   onShow:function(){
     // 到网站请求最新信息
+    var token = getApp().globalData.token;
+    var current_user = getApp().globalData.current_user;
     var that = this
     wx.request({
       url: 'https://www.hopee.xyz/friends',
-      data: { token: wx.getStorageSync('token') },
+      data: { token: token },
       header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
@@ -23,10 +23,10 @@ Page({
           var a = friendships.map(function(hash){return hash.nickname.concat("^", hash.friend_id)})
 	        a.sort()
         	friendships = a.map(function(hash){return {"friend_id": hash.split('^')[1], "nickname": hash.split('^')[0]}})
-          var current_user = wx.getStorageSync('current_user')
           friendships.unshift({friend_id: current_user.id.toString(), nickname: current_user.nickname})
           wx.setStorageSync('friendships', friendships)
           that.setData({
+            current_user_id: current_user.id,
             friendships: friendships || [],
             friendships_length: friendships.length || 0
           })

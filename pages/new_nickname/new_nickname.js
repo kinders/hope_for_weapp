@@ -10,6 +10,14 @@ Page({
     this.setData({
       friend_nickname: nickname
     })
+    var current_user = getApp().globalData.current_user
+    if (friend_id == current_user.id){
+      wx.showToast({
+        title: '下面将为自己设置昵称',
+        icon: 'loading',
+        duration: 5000
+      })
+    }
   },
   onReady:function(){
     // 页面渲染完成
@@ -24,6 +32,8 @@ Page({
     // 页面关闭
   },
   formSubmit:function(e){
+    var token = getApp().globalData.token;
+    var current_user = getApp().globalData.current_user;
     if(e.detail.value.name.replace(/\s*/, "") == ""){
       wx.showToast({
         title: '昵称不能为空',
@@ -44,7 +54,7 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_nickname',
-              data: {token: wx.getStorageSync('token'), nickname: e.detail.value.name, friend_id: friend_id},
+              data: {token: token, nickname: e.detail.value.name, friend_id: friend_id},
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
@@ -53,9 +63,10 @@ Page({
                 if(res.data.result_code == 't'){
                   //* 将缓存里面原来的名称更改为新的名称。
                   // 如果是自己
-                  if(friend_id == wx.getStorageSync('current_user').id){
-                    var me = {id: wx.getStorageSync('current_user').id, nickname: e.detail.value.name, end_time: wx.getStorageSync('current_user').end_time}
-                    wx.setStorageSync('current_user', me)
+                  if(friend_id == current_user.id){
+                    getApp().globalData.current_user.nickname = e.detail.value.name 
+                    //var me = {id: wx.getStorageSync('current_user').id, nickname: e.detail.value.name, end_time: wx.getStorageSync('current_user').end_time}
+                    //wx.setStorageSync('current_user', me)
                   }else{
                  // 如果是朋友
                   var friendships = wx.getStorageSync('friendships') || [];
@@ -74,7 +85,9 @@ Page({
                     icon: 'success',
                     duration: 2000
                   })
-                  setTimeout(function(){wx.navigateBack()},2000);
+                  setTimeout(function(){
+                    wx.navigateBack()
+                  },2000);
                 }else{
                   console.log('fail: request new_nickname res')
                   console.log(res)
