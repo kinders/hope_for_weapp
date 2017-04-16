@@ -144,7 +144,7 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['添加朋友', '新建群组','临时群发'],
+      itemList: ['添加朋友', '新建群组','临时群发', '添加虚拟用户'],
       success: function(res){
         if(res.tapIndex == 0){
           wx.redirectTo({url: '../strangers/strangers'})
@@ -153,6 +153,8 @@ Page({
           wx.navigateTo({url: '../new_group/new_group'})
         }else if (res.tapIndex == 2){
           wx.navigateTo({url: '../new_help_to_friends/new_help_to_friends'})
+        }else if (res.tapIndex == 3){
+          wx.navigateTo({url: "../new_friend/new_friend?is_fiction=1&nickname=虚拟用户"})
         }
       }
     })

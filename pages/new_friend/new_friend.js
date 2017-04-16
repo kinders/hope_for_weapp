@@ -14,8 +14,10 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     friend_id = options.friend_id
     nickname = options.nickname
+    var is_fiction = options.is_fiction
     this.setData({
-      friend_nickname: nickname
+      friend_nickname: nickname,
+      is_fiction: is_fiction
     })
   },
   onReady:function(){
@@ -31,6 +33,7 @@ Page({
     // 页面关闭
   },
   formSubmit:function(e){
+    var that=this;
     if (friend_id == getApp().globalData.current_user.id){
       wx.showToast({
         title: '你是自己最好的朋友！',
@@ -45,21 +48,17 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_friend',
-              data: {token: wx.getStorageSync('token'), nickname: (e.detail.value.nickname || nickname), friend_id: friend_id},
+              data: {token: wx.getStorageSync('token'), nickname: (e.detail.value.nickname || nickname), friend_id: friend_id, is_fiction: that.data.is_fiction},
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
                 if(res.data.id >= 0){
-                  /*
-                  var friendships = wx.getStorageSync('friendships') || []
-                  friendships.unshift({id: res.data.id, nickname: (e.detail.value.name || nickname)})
-                  wx.setStorageSync('friendships', friendships)
-                  */
                   wx.showToast({
                     title: '成功添加好友',
                     icon: 'success',
                     duration: 2000
                   })
+                  // 如果当前用户昵称为数字，则要求修改昵称，否则返回
                   var is_num = /^\d+$/
                   var current_user = getApp().globalData.current_user
                   setTimeout(function(){
