@@ -18,10 +18,14 @@ Page({
       method: 'GET',
       success: function(res){
         if(res.data.groups){
-          wx.setStorageSync('groups', res.data.groups)
+          var g = res.data.groups;
+          var a = g.map(function(hash, index){return hash.name.concat("^^+_-^^", index)})
+	        a.sort()
+        	var groups = a.map(function(hash){return g[hash.split('^^+_-^^')[1]]})
+          wx.setStorageSync('groups', groups)
           that.setData({
-            groups: res.data.groups || [],
-            groups_length: res.data.groups.length || 0
+            groups: groups || [],
+            groups_length: groups.length || 0
           })
         }else{
           console.log('fail: request groups res')

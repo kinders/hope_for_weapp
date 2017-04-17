@@ -30,9 +30,9 @@ Page({
         // [group: {user_id: , nickname: group.nickname}]
         if (res.data.group) {
           var group_friends = res.data.group;
-          var a = group_friends.map(function(hash){return hash.nickname.concat("^", hash.user_id)})
+          var a = group_friends.map(function(hash){return hash.nickname.concat("^^+_-^^", hash.user_id)})
 	        a.sort()
-        	group_friends = a.map(function(hash){return {"user_id": hash.split('^')[1], "nickname": hash.split('^')[0]}})
+        	group_friends = a.map(function(hash){return {"user_id": hash.split('^^+_-^^')[1], "nickname": hash.split('^^+_-^^')[0]}})
           wx.setStorageSync(group, group_friends)
           that.setData({
             group_friends: group_friends,

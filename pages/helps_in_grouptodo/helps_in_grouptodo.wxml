@@ -33,14 +33,14 @@
       <checkbox-group name="checkbox">
         <block wx:for="{{helps_in_grouptodo}}" wx:key="id" wx:for-item="help">
          <view wx:if="{{help.is_finish == 'true'}}"class="item-value">
-           <text>{{index + 1}}    </text>
+           <text style="color: gray;">{{index + 1}}    </text>
            <text wx:if="{{help.receiver_id == current_user_id}}" style="color: gray;">{{help.nickname}}</text>
            <navigator wx:else url="../todo/todo?todo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{grouptodo.time}}&is_finish={{help.is_finish}}&content={{grouptodo.content}}" style="display: inline-block">{{help.nickname}}</navigator>
            <text  style="padding: 0 0.5rem 0 0; float: right;">完成</text> 
          </view>
          <view  wx:else class="section-checkbox">
            <label>
-             <text>{{index + 1}}    </text>
+             <text style="color: gray;">{{index + 1}}    </text>
              <text wx:if="{{help.receiver_id == current_user_id}}" style="color: gray;">{{help.nickname}}</text>
               <checkbox value="{{help.receiver_id}}" style="float: right;" checked="{{is_checked}}" />
               <navigator url="../todo/todo?todo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{grouptodo.time}}&is_finish={{help.is_finish}}&content={{grouptodo.content}}" style="display: inline-block">{{help.nickname}}</navigator>

@@ -20,9 +20,9 @@ Page({
       success: function(res){
         if(res.data.friendships){
           var friendships = res.data.friendships;
-          var a = friendships.map(function(hash){return hash.nickname.concat("^", hash.friend_id)})
+          var a = friendships.map(function(hash){return hash.nickname.concat("^^+_-^^", hash.friend_id)})
 	        a.sort()
-        	friendships = a.map(function(hash){return {"friend_id": hash.split('^')[1], "nickname": hash.split('^')[0]}})
+        	friendships = a.map(function(hash){return {"friend_id": hash.split('^^+_-^^')[1], "nickname": hash.split('^^+_-^^')[0]}})
           friendships.unshift({friend_id: current_user.id.toString(), nickname: current_user.nickname})
           wx.setStorageSync('friendships', friendships)
           that.setData({

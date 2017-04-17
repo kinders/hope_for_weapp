@@ -41,10 +41,13 @@ Page({
               break
             }
           }
-          wx.setStorageSync(helps_in_grouptodo, h)
+          var a = h.map(function(hash, index){return hash.nickname.concat("^^+_-^^", index)})
+	        a.sort()
+        	var helps = a.map(function(hash){return h[hash.split('^^+_-^^')[1]]})
+          wx.setStorageSync(helps_in_grouptodo, helps)
           that.setData({
-            helps_in_grouptodo: h,
-            helps_in_grouptodo_length: h.length,
+            helps_in_grouptodo: helps,
+            helps_in_grouptodo_length: helps.length,
             is_hidden: is_hidden
           })
 
