@@ -67,6 +67,7 @@ Page({
     // 页面关闭
   },
   close_grouptodo: function(){
+    var that = this;
     wx.showModal({
       title: "注意",
       content: '您确定要关闭这个群组请求吗？',
@@ -85,6 +86,10 @@ Page({
                   icon: 'success',
                   duration: 2000
                 })
+                var new_grouptodo = that.data.grouptodo;
+                new_grouptodo.is_finish = 't';
+                that.setData({grouptodo: new_grouptodo})
+                wx.navigateBack()
                 wx.navigateBack()
               }else{
                 console.log('fail: request close_grouptodo res')
@@ -97,6 +102,48 @@ Page({
               }
             },
             fail: function() {console.log('fail: request close_grouptodo')},
+            complete: function() {}
+          })
+        }
+      },
+      fail: function(){}
+    })
+  },
+  open_grouptodo: function(){
+    var that = this;
+    wx.showModal({
+      title: "注意",
+      content: '您确定要重启这个群请求吗？',
+      success: function(res){
+        if (res.confirm){
+          wx.request({
+            url: 'https://www.hopee.xyz/open_grouptodo',
+            data: {token: wx.getStorageSync('token'), grouptodo_id: grouptodo_id},
+            header:{"Content-Type":"application/json"},
+            method: 'POST',
+            success: function(res){
+              // success
+              if(res.data.result_code == "t"){
+                wx.showToast({
+                  title: '成功重启这个请求',
+                  icon: 'success',
+                  duration: 2000
+                })
+                var new_grouptodo = that.data.grouptodo;
+                new_grouptodo.is_finish = 'f';
+                that.setData({grouptodo: new_grouptodo})
+                wx.navigateBack()
+              }else{
+                console.log('fail: request open_grouptodo res')
+                console.log(res)
+                wx.showToast({
+                  title: '服务器无法重启这个请求',
+                  icon: 'loading',
+                  duration: 2000
+                })
+              }
+            },
+            fail: function() {console.log('fail: request open_grouptodo')},
             complete: function() {}
           })
         }

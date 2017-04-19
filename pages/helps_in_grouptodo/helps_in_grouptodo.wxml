@@ -1,7 +1,8 @@
 <!--pages/helps_in_grouptodo/helps_in_grouptodo.wxml-->
 <view  class="topbar">
   <text>列表</text >
-  <text type="warn" bindtap="close_grouptodo"wx:if="{{grouptodo.is_finish == 'f'}}">结束这个群请求</text>
+  <text type="warn" bindtap="close_grouptodo"wx:if="{{grouptodo.is_finish == 'f'}}">结束群请求</text>
+  <text type="warn" bindtap="open_grouptodo"wx:if="{{grouptodo.is_finish == 't'}}">重启群请求</text>
   <navigator  open-type="navigateBack">返回</navigator >
 </view>
 <view class="topbar" style="background-color:gray;">

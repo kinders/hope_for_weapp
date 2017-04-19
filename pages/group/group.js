@@ -61,23 +61,23 @@ Page({
       itemList: ['增减成员', '发布群请求', '未满意的群请求', '已满意的群请求', '修改群称', '删除群组'],
       success: function(res) {
         if (res.tapIndex == 0 ){
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../new_members/new_members?group_id=" + group_id + "&name=" + name
           })
         } else if(res.tapIndex == 1){
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../new_help_to_group/new_help_to_group?group_id=" + group_id + "&name=" + name
           })
         }else if (res.tapIndex == 2 ){
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../group_helps/group_helps?group_id=" + group_id + "&name=" + name
           })
         } else if (res.tapIndex == 3 ){
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../group_helpeds/group_helpeds?group_id=" + group_id + "&name=" + name
           })        
         } else if(res.tapIndex == 4){
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../new_groupname/new_groupname?group_id=" + group_id + "&name=" + name
           })
         } else if(res.tapIndex == 5){

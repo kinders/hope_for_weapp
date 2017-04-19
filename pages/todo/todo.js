@@ -175,10 +175,8 @@ Page({
                   icon: 'success',
                   duration: 2000
                 })
-                //wx.setStorageSync(just_finished, 't')
                 var new_todo = that.data.todo;
                 new_todo.is_finish = 'true';
-                //console.log(new_todo)
                 that.setData({todo: new_todo})
               }else{
                 console.log('fail: request close_help res')

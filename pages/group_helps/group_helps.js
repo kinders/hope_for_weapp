@@ -52,24 +52,23 @@ Page({
     var that=this;
     var group_id = that.data.group.group_id;
     var name = that.data.group.name;
-    var gdetail = '“' + name + '”群成员'
     wx.showActionSheet({
-      itemList: ['发送群请求', gdetail, '已满意的群请求', '修改群称', '删除群组'],
+      itemList: ['发送群请求', '群组成员', '已满意的群请求', '修改群称', '删除群组'],
       success: function(res) {
         if(res.tapIndex == 0){
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../new_help_to_group/new_help_to_group?group_id=" + group_id + "&name=" + name
           })
         }else if(res.tapIndex == 1){
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../group/group?group_id=" + group_id + "&name=" + name
           })
         } else if (res.tapIndex == 2 ){
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../group_helpeds/group_helpeds?group_id=" + group_id + "&name=" + name
           })        
         } else if(res.tapIndex == 3){
-          wx.navigateTo({
+          wx.redirectTo({
             url: "../new_groupname/new_groupname?group_id=" + group_id + "&name=" + name
           })
         } else if(res.tapIndex == 4){
