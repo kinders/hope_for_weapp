@@ -7,7 +7,7 @@
 <scroll-view scroll-y="true"  style="height: 28rem;" class="list">
   <block wx:for="{{friendships}}" wx:key="id" wx:for-item="friendship">
     <view class="item-value" bindtap="showActionSheet" data-friend_id="{{friendship.friend_id}}" data-nickname="{{friendship.nickname}}">
-    <text style="float: right;">{{friendship.helps_length}}</text>
+    <text style="float: right;" wx:if="{{friendship.helps_length > 0}}">{{friendship.helps_length}}</text>
     <text wx:if="{{friendship.friend_id == current_user_id}}"  style="color: gray;">{{friendship.nickname}}</text>
     <text wx:else>{{friendship.nickname}}</text>
     </view>

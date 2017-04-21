@@ -35,9 +35,19 @@ Page({
   },
   pay: function(){
     var that = this;
+    var token = getApp().globalData.token;
+    //console.log(token)
+    if(token == undefined){
+      wx.showToast({
+        title: '程序还未准备好，请您重试',
+        icon: 'loading',
+        duration: 5000
+      })
+    }else{
+
     wx.request({
       url: 'https://www.hopee.xyz/wechat_pay',
-      data: {token: wx.getStorageSync("token")},
+      data: {token: token},
       header:{"Content-Type":"application/json"},
       method: 'POST',
       success: function(res){
@@ -45,6 +55,7 @@ Page({
         if(res){
           var p = res
           //console.log('start to request payment')
+          //console.log(res.data)
           wx.requestPayment({
             timeStamp: p.data.timeStamp,
             nonceStr: p.data.nonceStr,
@@ -53,7 +64,6 @@ Page({
             paySign: p.data.paySign,
             success: function(res){
               //console.log("支付成功")
-              //that.home()
               wx.switchTab({url: '../helps/helps'})
             },
             fail: function() {
@@ -78,6 +88,8 @@ Page({
         // complete
       }
     })
+
+    }
   },
   reconnect: function(){
     var that=this;
@@ -87,16 +99,17 @@ Page({
       wx.switchTab({url: '../helps/helps'})
     }else if (is_use == 2){
       wx.showToast({
-        title: '需要续费',
+        title: '需要续费才能继续使用',
         icon: 'loading',
         duration: 2000
       }),
       that.setData({
         current_user: wx.getStorageSync("current_user"),
+        is_use: 2
       })
     } else if (is_use == 3){
       wx.showToast({
-        title: '服务端出错',
+        title: '服务端无法让用户登录。可先退出小程序，稍后重新进入',
         icon: 'loading',
         duration: 2000
       })
