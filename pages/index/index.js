@@ -20,9 +20,15 @@ Page({
     })
     var that=this;
     setTimeout(function(){
-      var is_use = getApp().globalData.is_use
+      var is_use = getApp().globalData.is_use;
+      var current_user = getApp().globalData.current_user;
       if(is_use == 1){
-        wx.switchTab({url: '../helps/helps'})
+        var is_num = /^\d+$/;
+        if(is_num.test(current_user.nickname)){
+          wx.navigateTo({url: '../new_nickname/new_nickname?friend_id=' + current_user.id + '&nickname=' + current_user.nickname})
+        }else{
+          wx.switchTab({url: '../helps/helps'})
+        }
       }else if (is_use == 2){
         that.setData({
           current_user: wx.getStorageSync("current_user"),
@@ -32,6 +38,15 @@ Page({
         that.setData({is_use: 0})
       }     
     },3000);
+  },
+  onShow: function(){
+    var that = this;
+    var is_use = this.data.is_use;
+    if(is_use == undefined){
+      that.setData({
+        is_use: getApp().globalData.is_use
+      })
+    }
   },
   pay: function(){
     var that = this;
@@ -95,8 +110,13 @@ Page({
     var that=this;
     var is_use = getApp().globalData.is_use
     if(is_use == 1){
-      // 请求网络数据
-      wx.switchTab({url: '../helps/helps'})
+      var current_user = getApp().globalData.current_user;
+      var is_num = /^\d+$/;
+      if(is_num.test(current_user.nickname)){
+        wx.navigateTo({url: '../new_nickname/new_nickname?friend_id=' + current_user.id + '&nickname=' + current_user.nickname})
+      }else{
+        wx.switchTab({url: '../helps/helps'})
+      }
     }else if (is_use == 2){
       wx.showToast({
         title: '需要续费才能继续使用',

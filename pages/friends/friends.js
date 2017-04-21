@@ -20,6 +20,13 @@ Page({
       success: function(res){
         if(res.data.friendships){
           var f = res.data.friendships;
+          if (f.length == 0){
+            wx.showToast({
+              title: '点击右上角的三点，分享自己来增加朋友',
+              icon: 'loading',
+              duration: 5000
+            })
+          }
           var a = f.map(function(hash, index){return hash.nickname.concat("^^+_-^^", index)})
 	        a.sort()
         	var friendships = a.map(function(hash){return f[hash.split('^^+_-^^')[1]]})
@@ -158,5 +165,12 @@ Page({
         }
       }
     })
+  },
+  onShareAppMessage: function () {
+    var current_user = getApp().globalData.current_user
+    return {
+      title: '加我吧，朋友，我需要您的协作',
+      path: "/pages/new_friend/new_friend?friend_id=" + current_user.id + "&nickname=" + current_user.nickname
+    }
   }
 })

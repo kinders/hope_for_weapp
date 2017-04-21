@@ -11,7 +11,7 @@
   <text>最后有效时间：{{ current_user.end_time }}</text>
   </view>
   <view class="usermotto">
-    <button bindtap="pay" type="primary">续费使用</button>
+    <button bindtap="pay" type="primary">续费1元，使用7天</button>
   </view>
   </view>
   <view wx:elif="{{is_use == 0}}">

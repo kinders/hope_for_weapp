@@ -34,6 +34,7 @@ Page({
   formSubmit:function(e){
     var token = getApp().globalData.token;
     var current_user = getApp().globalData.current_user;
+    var is_num = /^\d+$/;
     if(e.detail.value.name.replace(/\s*/, "") == ""){
       wx.showToast({
         title: '昵称不能为空',
@@ -43,6 +44,12 @@ Page({
     }else if(e.detail.value.name == nickname){
       wx.showToast({
         title: '昵称没有变化',
+        icon: 'loading',
+        duration: 2000
+      })
+    }else if(is_num.test(e.detail.value.name)){
+      wx.showToast({
+        title: '昵称不能是纯数字',
         icon: 'loading',
         duration: 2000
       })
