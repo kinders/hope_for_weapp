@@ -5,12 +5,13 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    friend_id = options.friend_id
-    nickname = options.nickname
-    var friend = "friend_" + friend_id
+    friend_id = options.friend_id;
+    nickname = options.nickname;
+    var friend = "friend_" + friend_id;
+    var current_user = getApp().globalData.current_user;
     this.setData({
       friend: {friend_id: friend_id, nickname: nickname},
-      current_user_id: wx.getStorageSync('current_user').id
+      current_user_id: current_user.id
     })
   },
   onReady:function(){
@@ -40,9 +41,10 @@ Page({
         content:  e.detail.value.content,
         success: function(res) {
           if (res.confirm) {
+            var token = getApp().globalData.token;
             wx.request({
               url: 'https://www.hopee.xyz/new_help_to_friend',
-              data: {token: wx.getStorageSync('token'), receiver_id: friend_id, content: e.detail.value.content},
+              data: {token: token, receiver_id: friend_id, content: e.detail.value.content},
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){

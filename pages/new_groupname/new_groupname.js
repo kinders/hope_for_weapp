@@ -42,9 +42,10 @@ Page({
         content:  e.detail.value.name,
         success: function(res) {
           if (res.confirm) {
+            var token = getApp().globalData.token;
             wx.request({
               url: 'https://www.hopee.xyz/new_groupname',
-              data: {token: wx.getStorageSync('token'), name: e.detail.value.name, group_id: group_id},
+              data: {token: token, name: e.detail.value.name, group_id: group_id},
               header:{"Content-Type":"application/json"},
               method: 'POST',            
               success: function(res){

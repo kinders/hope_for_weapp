@@ -10,10 +10,12 @@ Page({
   onShow:function(){
     // 页面显示
     // 到网站请求最新信息
-    var that = this
+    var that = this;
+    var token = getApp().globalData.token;
+    var current_user = getApp().globalData.current_user;
     wx.request({
       url: 'https://www.hopee.xyz/helps',
-      data: { token: wx.getStorageSync('token') },
+      data: { token: token },
       header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
@@ -22,7 +24,7 @@ Page({
           that.setData({
             helps: res.data.helps,
             helps_length: res.data.helps.length,
-            current_user: wx.getStorageSync('current_user')
+            current_user: current_user
           })
           // 生成可供筛选的选项
           var helps_receiver_nicknames = ["全部"];
@@ -85,9 +87,10 @@ Page({
     })
   },
   onShareAppMessage: function () {
+    var current_user = getApp().globalData.current_user;
     return {
       title: '或许您可以帮我……',
-      path: "/pages/new_friend/new_friend?friend_id=" + wx.getStorageSync('current_user').id + "&nickname=" + wx.getStorageSync('current_user').nickname
+      path: "/pages/new_friend/new_friend?friend_id=" + current_user.id + "&nickname=" + current_user.nickname
     }
   }
 })

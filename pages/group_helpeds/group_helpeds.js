@@ -3,19 +3,21 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
+    var token = getApp().globalData.token;
+    var current_user = getApp().globalData.current_user;
     var group_id = options.group_id;
     var name = options.name;
     // 取出缓存信息
     this.setData({
       group: {group_id: group_id, name: name},
-      current_user_id: wx.getStorageSync('current_user').id
+      current_user_id: current_user.id
     })
     // 到网站请求最新信息
     var that = this;
     var group_helpeds = "group_" + group_id + "_helpeds";
     wx.request({
       url: 'https://www.hopee.xyz/group_helpeds',
-      data: { token: wx.getStorageSync('token'), group_id: group_id },
+      data: { token: token, group_id: group_id },
       header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
@@ -49,6 +51,7 @@ Page({
   },
   moreFun:function(){
     var that=this;
+    var token = getApp().globalData.token;
     var group_id = that.data.group.group_id;
     var name = that.data.group.name;
     wx.showActionSheet({
@@ -78,7 +81,7 @@ Page({
               if (res.confirm) {
                 wx.request({
                   url: 'https://www.hopee.xyz/delete_group',
-                  data: {token: wx.getStorageSync('token'), group_id: group_id},
+                  data: {token: token, group_id: group_id},
                   header:{"Content-Type":"application/json"},
                   method: 'POST',
                   success: function(res){

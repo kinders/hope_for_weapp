@@ -10,10 +10,12 @@ Page({
   onShow:function(){
     // 页面显示
     // 到网站请求最新信息
-    var that = this
+    var that = this;
+    var token = getApp().globalData.token;
+    var current_user = getApp().globalData.current_user;
     wx.request({
       url: 'https://www.hopee.xyz/strangers',
-      data: { token: wx.getStorageSync('token') },
+      data: { token: token },
       header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
@@ -23,7 +25,7 @@ Page({
           that.setData({
             strangers: res.data.strangers,
             strangers_length: res.data.strangers.length,
-            current_user_id: wx.getStorageSync('current_user').id
+            current_user_id: current_user.id
           })
         }
       },

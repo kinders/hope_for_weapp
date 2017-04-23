@@ -39,9 +39,10 @@ Page({
         content:  "内容：" + e.detail.value.content,
         success: function(res) {
           if (res.confirm) {
+            var token = getApp().globalData.token;
             wx.request({
               url: 'https://www.hopee.xyz/new_help_to_friends',
-              data: {token: wx.getStorageSync('token'), content: e.detail.value.content, friends_id: e.detail.value.checkbox},
+              data: {token: token, content: e.detail.value.content, friends_id: e.detail.value.checkbox},
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){

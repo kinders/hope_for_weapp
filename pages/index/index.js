@@ -31,7 +31,7 @@ Page({
         }
       }else if (is_use == 2){
         that.setData({
-          current_user: wx.getStorageSync("current_user"),
+          current_user: current_user),
           is_use: 2
         })
       } else {
@@ -51,7 +51,6 @@ Page({
   pay: function(){
     var that = this;
     var token = getApp().globalData.token;
-    //console.log(token)
     if(token == undefined){
       wx.showToast({
         title: '程序还未准备好，请您重试',
@@ -59,58 +58,56 @@ Page({
         duration: 5000
       })
     }else{
-
-    wx.request({
-      url: 'https://www.hopee.xyz/wechat_pay',
-      data: {token: token},
-      header:{"Content-Type":"application/json"},
-      method: 'POST',
-      success: function(res){
-        // success
-        if(res){
-          var p = res
-          //console.log('start to request payment')
-          //console.log(res.data)
-          wx.requestPayment({
-            timeStamp: p.data.timeStamp,
-            nonceStr: p.data.nonceStr,
-            package: p.data.package,
-            signType: 'MD5',
-            paySign: p.data.paySign,
-            success: function(res){
-              //console.log("支付成功")
-              wx.switchTab({url: '../helps/helps'})
-            },
-            fail: function() {
-              console.log("fail: requestPayment")
-              console.log(res.data)
-              wx.showToast({
-                title: '支付失败，请重新续费',
-                icon: 'loading',
-                duration: 1000
-              })
-            },
-            complete: function() {
-              // complete
-            }
-          })
+      wx.request({
+        url: 'https://www.hopee.xyz/wechat_pay',
+        data: {token: token},
+        header:{"Content-Type":"application/json"},
+        method: 'POST',
+        success: function(res){
+          // success
+          if(res){
+            var p = res
+            //console.log('start to request payment')
+            //console.log(res.data)
+            wx.requestPayment({
+              timeStamp: p.data.timeStamp,
+              nonceStr: p.data.nonceStr,
+              package: p.data.package,
+              signType: 'MD5',
+              paySign: p.data.paySign,
+              success: function(res){
+                //console.log("支付成功")
+                wx.switchTab({url: '../helps/helps'})
+              },
+              fail: function() {
+                console.log("fail: requestPayment")
+                console.log(res.data)
+                wx.showToast({
+                  title: '支付失败，请重新续费',
+                  icon: 'loading',
+                  duration: 1000
+                })
+              },
+              complete: function() {
+                // complete
+              }
+            })
+          }
+        },
+        fail: function() {
+          // fail
+        },
+        complete: function() {
+          // complete
         }
-      },
-      fail: function() {
-        // fail
-      },
-      complete: function() {
-        // complete
-      }
-    })
-
+      })
     }
   },
   reconnect: function(){
     var that=this;
     var is_use = getApp().globalData.is_use
+    var current_user = getApp().globalData.current_user;
     if(is_use == 1){
-      var current_user = getApp().globalData.current_user;
       var is_num = /^\d+$/;
       if(is_num.test(current_user.nickname)){
         wx.navigateTo({url: '../new_nickname/new_nickname?friend_id=' + current_user.id + '&nickname=' + current_user.nickname})
@@ -124,7 +121,7 @@ Page({
         duration: 2000
       }),
       that.setData({
-        current_user: wx.getStorageSync("current_user"),
+        current_user: current_user,
         is_use: 2
       })
     } else if (is_use == 3){

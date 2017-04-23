@@ -4,6 +4,7 @@ var helps_in_grouptodo;
 Page({
   data:{is_checked: false},
   onLoad:function(options){
+    var current_user = getApp().globalData.current_user;
     // 页面初始化 options为页面跳转所带来的参数
     var group_id = options.group_id
     var name = options.name
@@ -15,7 +16,7 @@ Page({
     this.setData({
       group: {group_id: group_id, name: name},
       grouptodo: {id: grouptodo_id, time: time, content: content, is_finish: is_finish},
-      current_user: wx.getStorageSync('current_user')
+      current_user: current_user
     })
 
   },
@@ -25,10 +26,11 @@ Page({
   onShow:function(){
     // 页面显示
     // 到网站请求最新信息
-    var that = this
+    var that = this;
+    var token = getApp().globalData.token;
     wx.request({
       url: 'https://www.hopee.xyz/helps_in_grouptodo',
-      data: { token: wx.getStorageSync('token'), grouptodo_id: grouptodo_id },
+      data: { token: token, grouptodo_id: grouptodo_id },
       header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
@@ -68,6 +70,7 @@ Page({
   },
   close_grouptodo: function(){
     var that = this;
+    var token = getApp().globalData.token;
     wx.showModal({
       title: "注意",
       content: '您确定要关闭这个群组请求吗？',
@@ -75,7 +78,7 @@ Page({
         if (res.confirm){
           wx.request({
             url: 'https://www.hopee.xyz/close_grouptodo',
-            data: {token: wx.getStorageSync('token'), grouptodo_id: grouptodo_id},
+            data: {token: token, grouptodo_id: grouptodo_id},
             header:{"Content-Type":"application/json"},
             method: 'POST',
             success: function(res){
@@ -111,6 +114,7 @@ Page({
   },
   open_grouptodo: function(){
     var that = this;
+    var token = getApp().globalData.token;
     wx.showModal({
       title: "注意",
       content: '您确定要重启这个群请求吗？',
@@ -118,7 +122,7 @@ Page({
         if (res.confirm){
           wx.request({
             url: 'https://www.hopee.xyz/open_grouptodo',
-            data: {token: wx.getStorageSync('token'), grouptodo_id: grouptodo_id},
+            data: {token: token, grouptodo_id: grouptodo_id},
             header:{"Content-Type":"application/json"},
             method: 'POST',
             success: function(res){
@@ -159,6 +163,7 @@ Page({
         duration: 2000
       })
     }else{
+    var token = getApp().globalData.token;
       wx.showModal({
         title: "留言内容",
         content:  e.detail.value.content,
@@ -166,7 +171,7 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_group_discussion',
-              data: {token: wx.getStorageSync('token'), grouptodo_id: grouptodo_id, content: e.detail.value.content},
+              data: {token: token, grouptodo_id: grouptodo_id, content: e.detail.value.content},
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
@@ -208,6 +213,7 @@ Page({
   },
   close_helps: function(e){
     var that=this;
+    var token = getApp().globalData.token;
     if(e.detail.value.checkbox.length == 0){
       wx.showToast({
         title: '没有选择成员',
@@ -222,7 +228,7 @@ Page({
         if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/close_helps',
-              data: {token: wx.getStorageSync('token'), grouptodo_id: grouptodo_id, friends_id: e.detail.value.checkbox.join('_')},
+              data: {token: token, grouptodo_id: grouptodo_id, friends_id: e.detail.value.checkbox.join('_')},
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){

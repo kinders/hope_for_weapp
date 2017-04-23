@@ -10,10 +10,11 @@ Page({
   onShow:function(){
     // 页面显示
     // 到网站请求最新信息
-    var that = this
+    var that = this;
+    var token = getApp().globalData.token;
     wx.request({
       url: 'https://www.hopee.xyz/groups',
-      data: { token: wx.getStorageSync('token') },
+      data: { token: token },
       header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
@@ -44,6 +45,7 @@ Page({
   },
   showActionSheet:function(event){
     var that=this;
+    var token = getApp().globalData.token;
     var group_id = event.currentTarget.dataset.group_id;
     var name = event.currentTarget.dataset.name;
     var gdetail = '“' + name + '”群成员'
@@ -78,7 +80,7 @@ Page({
               if (res.confirm) {
                 wx.request({
                   url: 'https://www.hopee.xyz/delete_group',
-                  data: {token: wx.getStorageSync('token'), group_id: group_id},
+                  data: {token: token, group_id: group_id},
                   header:{"Content-Type":"application/json"},
                   method: 'POST',
                   success: function(res){

@@ -6,9 +6,11 @@ Page({
   onLoad: function () {
     // 请求网络数据
     var that=this;
+    var token = getApp().globalData.token;
+    var current_user = getApp().globalData.current_user;
     wx.request({
       url: 'https://www.hopee.xyz/other_todos',
-      data: { token: wx.getStorageSync('token') },
+      data: { token: token },
       header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
@@ -18,7 +20,7 @@ Page({
           that.setData({
             todos: res.data.other_todos,
             todos_length: res.data.other_todos.length,
-            current_user: wx.getStorageSync('current_user')
+            current_user: current_user
           })
           // 生成可供筛选的选项
           var todos_user_nicknames = ["全部"];

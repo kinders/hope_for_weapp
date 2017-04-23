@@ -54,10 +54,12 @@ Page({
   },
   showActionSheet:function(event){
     var that = this;
+    var token = getApp().globalData.token;
+    var current_user = getApp().globalData.current_user;
     var friend_id = event.currentTarget.dataset.friend_id;
     var nickname = event.currentTarget.dataset.nickname;
-    var ftodos = nickname.concat("的任务")
-    var fhelps = nickname.concat("的请求")
+    var ftodos = nickname.concat("的任务");
+    var fhelps = nickname.concat("的请求");
     wx.showActionSheet({
       itemList: ['发送请求', ftodos, fhelps, '修改昵称', '删除好友'],
       success: function(res) {
@@ -66,7 +68,7 @@ Page({
             url: "../new_help_to_friend/new_help_to_friend?friend_id=" + friend_id + "&nickname=" + nickname
           })
         } else if(res.tapIndex == 1){
-          if(friend_id == wx.getStorageSync('current_user').id){
+          if(friend_id == current_user.id){
             wx.switchTab({ url: '../todos/todos' })
           }else{
             wx.navigateTo({
@@ -74,7 +76,7 @@ Page({
             })
           }
         }else if(res.tapIndex == 2){
-          if(friend_id == wx.getStorageSync('current_user').id){
+          if(friend_id == current_user.id){
             wx.switchTab({ url: '../helps/helps' })
           }else{
             wx.navigateTo({
@@ -86,7 +88,7 @@ Page({
             url: "../new_nickname/new_nickname?friend_id=" + friend_id + "&nickname=" + nickname
           })
         }else if(res.tapIndex == 4){
-          if(friend_id == wx.getStorageSync('current_user').id){
+          if(friend_id == current_user.id){
             wx.showToast({
               title: '无法删除自己',
               icon: 'loading',
@@ -100,7 +102,7 @@ Page({
               if (res.confirm) {
                 wx.request({
                   url: 'https://www.hopee.xyz/delete_friend',
-                  data: {token: wx.getStorageSync('token'), friend_id: friend_id},
+                  data: {token: token, friend_id: friend_id},
                   header:{"Content-Type":"application/json"},
                   method: 'POST',
                   success: function(res){

@@ -6,7 +6,7 @@ Page({
   data:{},
   onLoad:function(options){
     // 分享界面登录
-    var token = wx.getStorageSync('token');
+    var token = getApp().globalData.token;
     if (token == '' ){
       getApp().getUserInfo()
       scene = 1
@@ -34,7 +34,9 @@ Page({
   },
   formSubmit:function(e){
     var that=this;
-    if (friend_id == getApp().globalData.current_user.id){
+    var token = getApp().globalData.token;
+    var current_user = getApp().globalData.current_user;
+    if (friend_id == current_user.id){
       wx.showToast({
         title: '你是自己最好的朋友！',
         icon: 'success',
@@ -48,7 +50,7 @@ Page({
           if (res.confirm) {
             wx.request({
               url: 'https://www.hopee.xyz/new_friend',
-              data: {token: wx.getStorageSync('token'), nickname: (e.detail.value.nickname || nickname), friend_id: friend_id, is_fiction: that.data.is_fiction},
+              data: {token: token, nickname: (e.detail.value.nickname || nickname), friend_id: friend_id, is_fiction: that.data.is_fiction},
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){

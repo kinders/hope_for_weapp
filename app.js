@@ -28,15 +28,11 @@ App({
                   that.globalData.is_use = 1
                   that.globalData.token = res.data.token
                   that.globalData.current_user = res.data.current_user
-                  wx.setStorageSync('token', res.data.token)
-                  wx.setStorageSync('current_user', res.data.current_user)
                 }else if(res.data.result_code == "expired"){
                   console.log('用户登录态过期！')
                   that.globalData.is_use = 2
                   that.globalData.token = res.data.token
                   that.globalData.current_user = res.data.current_user
-                  wx.setStorageSync('token', res.data.token)
-                  wx.setStorageSync('current_user', res.data.current_user)
                 }else{
                   that.globalData.is_use = 3
                   console.log('服务器不知用户登录态！')

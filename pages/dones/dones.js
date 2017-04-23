@@ -4,10 +4,12 @@ Page({
     onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     // 到网站请求最新信息
-    var that = this
+    var that = this;
+    var token = getApp().globalData.token;
+    var current_user = getApp().globalData.current_user;
     wx.request({
       url: 'https://www.hopee.xyz/dones',
-      data: { token: wx.getStorageSync('token') },
+      data: { token: token },
       header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
@@ -16,7 +18,7 @@ Page({
           that.setData({
             dones: res.data.dones,
             dones_length: res.data.dones.length,
-            current_user: wx.getStorageSync('current_user')
+            current_user: current_user
           })
           // 生成可供筛选的选项
           var dones_user_ids = [0];
@@ -90,9 +92,11 @@ Page({
       date: e.detail.value
     })
     var that=this; 
+    var token = getApp().globalData.token;
+    var current_user = getApp().globalData.current_user;
     wx.request({
       url: 'https://www.hopee.xyz/dones_in_date',
-      data: {token: wx.getStorageSync('token'), date: e.detail.value },
+      data: {token: token, date: e.detail.value },
       method: 'GET',
       header: {"Content-Type":"application/json"},
       success: function(res){
@@ -101,7 +105,7 @@ Page({
           that.setData({
             dones: res.data.dones,
             dones_length: res.data.dones.length,
-            current_user: wx.getStorageSync('current_user')
+            current_user: current_user
           })
           // 生成可供筛选的选项
           var dones_user_ids = [0];

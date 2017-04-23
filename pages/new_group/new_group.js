@@ -39,9 +39,10 @@ Page({
         content:  "人数：" + e.detail.value.checkbox.length,
         success: function(res) {
           if (res.confirm) {
+            var token = getApp().globalData.token;
             wx.request({
               url: 'https://www.hopee.xyz/new_group',
-              data: {token: wx.getStorageSync('token'), name: e.detail.value.name, friends_id: e.detail.value.checkbox.join('_')},
+              data: {token: token, name: e.detail.value.name, friends_id: e.detail.value.checkbox.join('_')},
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){

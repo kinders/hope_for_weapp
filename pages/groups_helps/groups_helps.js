@@ -10,10 +10,11 @@ Page({
   },
   onShow:function(){
     // 页面显示
-        var that = this
+    var that = this;
+    var token = getApp().globalData.token;
     wx.request({
       url: 'https://www.hopee.xyz/groups_helps',
-      data: { token: wx.getStorageSync('token') },
+      data: { token: token },
       header:{"Content-Type":"application/json"},
       method: 'GET',
       success: function(res){
