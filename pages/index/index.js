@@ -31,7 +31,7 @@ Page({
         }
       }else if (is_use == 2){
         that.setData({
-          current_user: current_user),
+          current_user: current_user,
           is_use: 2
         })
       } else {

@@ -6,7 +6,7 @@ App({
  },
 // 获取用户信息，在index.js中调用这个函数
   getUserInfo:function(cb){
-    var that = this
+    var that = this;
     if(this.globalData.userInfo){
       typeof cb == "function" && cb(this.globalData.userInfo)
     }else{
