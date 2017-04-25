@@ -4,7 +4,7 @@
   <text style="color: green;">群组({{groups_length}})</text>
   <text bindtap="moreFun">常用操作</text>
 </view>
-<scroll-view scroll-y="true"  style="height: 28rem;" class="list">
+<scroll-view scroll-y="true"  style="height: 27rem;" class="list">
   <block wx:for="{{groups}}" wx:key="id" wx:for-item="group">
     <view  class="item-value" bindtap="showActionSheet" data-group_id="{{group.id}}" data-name="{{group.name}}">
       <text>{{group.name}}</text>

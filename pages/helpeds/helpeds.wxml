@@ -22,7 +22,7 @@
     </view>
   </picker>
 </view>
-<scroll-view scroll-y="true"  style="height: 25rem;" class="list">
+<scroll-view scroll-y="true"  style="height: 24rem;" class="list">
   <block wx:for="{{helpeds}}" wx:key="id" wx:for-item="helped">
   <navigator url="../todo/todo?todo_id={{helped.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{helped.nickname}}&created_at={{helped.created_at}}&is_finish=true&content={{helped.content}}">
   <view class="{{is_hidden[index]}}">
