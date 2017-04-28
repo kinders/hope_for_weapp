@@ -1,10 +1,14 @@
 <!--pages/new_friend/new_friend.wxml-->
-<view  class="topbar" style="background-color:gray;">
+<view  class="topbar">
+  <text style="color: green;">添加朋友</text>
+  <text bindtap="formReset">返回</text>
+</view>
+<view  class="topbar" style="background-color:green;">
 <text>昵称：</text>
 <text style="margin: auto;">{{friend_nickname}}</text>
 </view>
 <view class="container">
-<form bindsubmit="formSubmit" bindreset="formReset">
+<form bindsubmit="formSubmit">
   <view class="section">
     <view class="section-title">为朋友设置昵称：</view>
     <view class="section-input" style="padding: 1rem 0 0 0">
@@ -14,9 +18,6 @@
   <view class="btn-area">
     <view style="padding: 1rem 0 0 0">
     <button formType="submit" type="primary">添加朋友</button>
-    </view>
-    <view style="padding: 1rem 0 0 0">
-    <button formType="reset" type="default">返回</button>
     </view>
   </view>
 </form>

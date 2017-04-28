@@ -1,7 +1,7 @@
 // pages/dones/dones.js
 Page({
   data:{},
-    onLoad:function(options){
+  onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     // 到网站请求最新信息
     var that = this;

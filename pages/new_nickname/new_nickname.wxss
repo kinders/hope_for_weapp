@@ -8,16 +8,15 @@
 
 .section-title {
     font-weight: bold;
-    padding: 10rpx;
-    /*background-color: darkgray;*/
+    padding: 10rpx 2rem;
 }
 
 .section-input {
-    padding: 0rpx;
-    margin: 10rpx;
+    padding: 10rpx 2rem;
+    margin: 10rpx 2rem;
     border-bottom: 0.1px solid green;
 }
 .btn-area {
-    margin: 10rpx;
+    margin: 10rpx 2rem;
     padding: 0rpx 20rpx;
 }

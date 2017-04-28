@@ -8,17 +8,16 @@ var is_finish;
 var todo;
 var discussions;
 var discussions_user_ids = [0];
-var just_finished;
 var scene=0;
 Page({
   data:{},
   onLoad:function(options){
-    // 从分享界面登录
+    // 从分享界面登录,讨论页面允许无需检查服务时限
     var that = this;
     var token = getApp().globalData.token;
-    if (token == ''){
+    if (token == undefined){
       scene = 1;
-      that.relogin()
+      getApp().getUserInfo()
     }
     // 页面初始化 options为页面跳转所带来的参数
     todo_id = options.todo_id;
@@ -36,30 +35,6 @@ Page({
       current_user: getApp().globalData.current_user
     })
   },
-  relogin:function(){
-      wx.login({
-        success: function (res) {
-          if (res.code) {
-            //发起网络请求
-            wx.request({
-              url: 'https://www.hopee.xyz/login',
-              data: { js_code: res.code },
-              header:{"Content-Type":"application/json"},
-              method: 'POST',
-              success: function(res){
-                //console.log(res)
-                if(res.data.result_code == "t"){
-                  getApp().globalData.token = res.data.token
-                  getApp().globalData.current_user = res.data.current_user
-                }else{
-                  wx.navigateTo({url: '../index/index'})
-                }
-              }
-            })
-          }
-        }
-      })
-  },
   onReady:function(){
     // 页面渲染完成
   },
@@ -67,7 +42,7 @@ Page({
     // 页面显示
     var that = this;
     var token = getApp().globalData.token;
-    if (token == ''){
+    if (token == undefined){
       wx.showToast({
         title: '正在载入...',
         icon: 'loading',
@@ -216,7 +191,6 @@ Page({
                   icon: 'success',
                   duration: 2000
                 })
-                //wx.setStorageSync(just_finished, false)
                 var new_todo = that.data.todo;
                 new_todo.is_finish = false;
                 that.setData({todo: new_todo})

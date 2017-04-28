@@ -1,6 +1,6 @@
 <!--pages/new_members/new_members.wxml-->
 <view  class="topbar">
-  <text>群称：{{group_name}}</text>
+  <text style="color: green;">群称：{{group_name}}</text>
   <navigator open-type="navigateBack">返回</navigator>
 </view>
 <form bindsubmit="formSubmit">

@@ -89,8 +89,5 @@ Page({
         }
       })     
     }
-  },
-  formReset: function(){
-    wx.navigateBack()
   }
 })

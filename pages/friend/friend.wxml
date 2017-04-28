@@ -1,10 +1,10 @@
 <!--pages/friend/friend.wxml-->
 <view  class="topbar">
-  <text>任务列表</text>
+  <text style="color: green;">任务</text>
   <text bindtap="moreFun">常用操作</text>
   <navigator open-type="navigateBack">返回</navigator>
 </view>
-<view  class="topbar" style="background-color:gray;">
+<view  class="topbar" style="background-color:green;">
 <text>昵称：</text>
 <text style="margin: auto;">{{friend.nickname}}</text>
 </view>

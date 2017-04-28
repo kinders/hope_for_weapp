@@ -12,13 +12,13 @@ Page({
     var group = "group_" + group_id;
     var group_members = wx.getStorageSync(group);
     var g_m_id = group_members.map(function(hash){return hash.user_id})
-    //console.log(g_m_id)
+    console.log(g_m_id)
     var friends = wx.getStorageSync('friendships');
     var others = [];
     others = friends.filter(function(hash){
-      return g_m_id.indexOf(hash.friend_id) == -1
+      return g_m_id.indexOf(hash.friend_id.toString()) == -1
     })
-    //console.log(others)
+    console.log(others)
     this.setData({
       group_members: group_members,
       others: others,

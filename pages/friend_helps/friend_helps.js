@@ -154,19 +154,23 @@ Page({
     var that=this;
     var friend = that.data.friend;
     var nickname = friend.nickname;
-    var ftodos = nickname.concat("的任务");
+    var sendto = '发送请求给：' + nickname;
     var is_friend = that.data.is_friendship;
     if(is_friend == 't'){
       wx.showActionSheet({
-        itemList: ['发送请求', ftodos, '修改昵称', '删除好友'],
+        itemList: [sendto, '未完任务', '已完任务', '修改昵称', '删除好友'],
         success: function(res){
           if(res.tapIndex == 0){
              wx.redirectTo({url: "../new_help_to_friend/new_help_to_friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
           }else if(res.tapIndex == 1){
             wx.redirectTo({url: "../friend/friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
           }else if(res.tapIndex == 2){
-             wx.redirectTo({url: "../new_nickname/new_nickname?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname })
+            wx.redirectTo({
+              url: "../friend_dones/friend_dones?friend_id=" + friend_id + "&nickname=" + nickname
+            })
           }else if(res.tapIndex == 3){
+             wx.redirectTo({url: "../new_nickname/new_nickname?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname })
+          }else if(res.tapIndex == 4){
             wx.showModal({
             title: '警告',
             content: "确定将要删除好友 " + friend.nickname + " ？",
@@ -209,13 +213,17 @@ Page({
       })
     }else{
       wx.showActionSheet({
-        itemList: ['发送请求', ftodos, '加为好友'],
+        itemList: [sendto, '未完任务', '已完任务', '加为好友'],
         success: function(res){
           if(res.tapIndex == 0){
              wx.redirectTo({url: "../new_help_to_friend/new_help_to_friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
           }else if(res.tapIndex == 1){
             wx.redirectTo({url: "../friend/friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
           }else if(res.tapIndex == 2){
+            wx.redirectTo({
+              url: "../friend_dones/friend_dones?friend_id=" + friend_id + "&nickname=" + nickname
+            })
+          }else if(res.tapIndex == 3){
              wx.redirectTo({url: "../new_friend/new_friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
           }
         }

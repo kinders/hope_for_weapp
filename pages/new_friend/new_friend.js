@@ -5,9 +5,9 @@ var scene=0;
 Page({
   data:{},
   onLoad:function(options){
-    // 分享界面登录
+    // 分享界面登录,添加朋友页面允许无需检查服务时限
     var token = getApp().globalData.token;
-    if (token == '' ){
+    if (token ==  undefined ){
       getApp().getUserInfo()
       scene = 1
     }

@@ -125,9 +125,7 @@ Page({
           })
         }
       },
-      fail: function(res) {
-        console.log(res.errMsg)
-      }
+      fail: function(res) {}
     })
   },
   moreFun: function(){

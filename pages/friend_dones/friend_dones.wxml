@@ -1,0 +1,37 @@
+<!--pages/friend_dones/friend_dones.wxml-->
+<view  class="topbar">
+  <text style="color: green;">已完任务</text>
+  <text bindtap="moreFun">常用操作</text>
+  <navigator open-type="navigateBack">返回</navigator>
+</view>
+<view  class="topbar" style="background-color:green;">
+<text>昵称：</text>
+<text style="margin: auto;">{{friend.nickname}}</text>
+</view>
+<view style="background-color: gray; color: white; font-size: 0.8rem">
+  <text>提示：为了节省您的流量，这里默认显示最近50个任务。如需查看更多请求，请选择特定日期进行筛查。</text>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker mode="date" value="{{date}}" start="2017-04-01" end="2022-12-31" bindchange="bindDateChange">
+    <view class="picker">
+      选择日期: 
+      <text>{{date}}</text>
+      <text style="float: right;">({{dones_length}})</text>
+    </view>
+  </picker>
+</view>
+<scroll-view scroll-y="true"  style="height: 24rem;" class="list">
+  <block wx:for="{{dones}}" wx:key="index" wx:for-item="done">
+  <navigator url="../todo/todo?todo_id={{done.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{done.nickname}}&created_at={{done.created_at}}&is_finish=t&content={{done.content}}">
+  <view>
+     <view  class="item-key">
+       <text>{{index + 1}}  </text>
+       <text>{{done.created_at}}</text>
+     </view>
+     <view class="item-value">
+       {{ done.content }}
+     </view>
+  </view>
+  </navigator> 
+  </block>
+</scroll-view>

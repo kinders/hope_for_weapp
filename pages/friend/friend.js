@@ -4,10 +4,10 @@ var friend_todos_user_ids = [0];
 Page({
   data:{},
   onLoad:function(options){
-    // 从分享界面登录
+    // 从分享界面登录，需要检查服务时限
     var that = this;
-    var token = getApp().globalData.token
-    if (token == ''){
+    var token = getApp().globalData.token;
+    if (token == undefined){
       that.relogin()
     }
     // 页面初始化 options为页面跳转所带来的参数
@@ -15,6 +15,10 @@ Page({
     friend_id = options.friend_id;
     var is_friendship = '';
     //判断该朋友是否好友
+    var current_user = getApp().globalData.current_user;
+    if (friend_id == current_user.id) {
+      wx.redirectTo({url: '../helpeds/helpeds'})
+    }
     (wx.getStorageSync("friendships") || []).map(function(friendship){
       if(friendship.friend_id == friend_id){
          is_friendship = 't'
@@ -104,7 +108,7 @@ Page({
     // 页面显示
     var that = this;
     var token = getApp().globalData.token;
-    if (token == ''){
+    if (token == undefined){
       wx.showToast({
         title: '正在载入...',
         icon: 'loading',
@@ -154,19 +158,23 @@ Page({
     var that=this;
     var friend = that.data.friend;
     var nickname = friend.nickname;
-    var fhelps = nickname.concat("的请求");
+    var sendto = '发送请求给：' + nickname;
     var is_friend = that.data.is_friendship;
     if(is_friend == 't'){
       wx.showActionSheet({
-        itemList: ['发送请求', fhelps, '修改昵称', '删除好友'],
+        itemList: [sendto, '未完请求', '已完任务', '修改昵称', '删除好友'],
         success: function(res){
           if(res.tapIndex == 0){
              wx.redirectTo({url: "../new_help_to_friend/new_help_to_friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
           }else if(res.tapIndex == 1){
             wx.redirectTo({url: "../friend_helps/friend_helps?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
           }else if(res.tapIndex == 2){
-             wx.redirectTo({url: "../new_nickname/new_nickname?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname })
+            wx.redirectTo({
+              url: "../friend_dones/friend_dones?friend_id=" + friend_id + "&nickname=" + nickname
+            })
           }else if(res.tapIndex == 3){
+             wx.redirectTo({url: "../new_nickname/new_nickname?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname })
+          }else if(res.tapIndex == 4){
             wx.showModal({
             title: '警告',
             content: "确定将要删除好友 " + friend.nickname + " ？",
@@ -209,13 +217,17 @@ Page({
       })
     }else{
       wx.showActionSheet({
-        itemList: ['发送请求', fhelps, '加为好友'],
+        itemList: [sendto, '未完请求', '已完任务', '加为好友'],
         success: function(res){
           if(res.tapIndex == 0){
              wx.redirectTo({url: "../new_help_to_friend/new_help_to_friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
           }else if(res.tapIndex == 1){
             wx.redirectTo({url: "../friend_helps/friend_helps?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
           }else if(res.tapIndex == 2){
+            wx.navigateTo({
+              url: "../friend_dones/friend_dones?friend_id=" + friend_id + "&nickname=" + nickname
+            })
+          }else if(res.tapIndex == 3){
              wx.redirectTo({url: "../new_friend/new_friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname})
           }
         }

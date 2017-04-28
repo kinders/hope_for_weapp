@@ -9,6 +9,7 @@
     "pages/friends/friends",
     "pages/friend/friend",
     "pages/friend_helps/friend_helps",
+    "pages/friend_dones/friend_dones",
     "pages/groups/groups",
     "pages/groups_helps/groups_helps",
     "pages/group/group",

@@ -1,10 +1,10 @@
 <!--pages/group_helps/group_helps.wxml-->
 <view  class="topbar">
-  <text>列表({{group_helps_length}})</text >
+  <text style="color: green;">列表({{group_helps_length}})</text >
   <text bindtap="moreFun">常用操作</text>
   <navigator open-type="navigateBack">返回</navigator>
 </view>
-<view class="topbar" style="background-color:gray;">
+<view class="topbar" style="background-color:green;">
 <text>群组名称：</text>
 <text style="margin: auto;">{{group.name}}</text>
 </view>

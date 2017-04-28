@@ -9,7 +9,6 @@
 .section-title {
     font-weight: bold;
     padding: 10rpx 2rem;
-    /*background-color: darkgray;*/
 }
 
 .section-input {
