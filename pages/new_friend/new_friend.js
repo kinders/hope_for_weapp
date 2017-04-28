@@ -7,7 +7,7 @@ Page({
   onLoad:function(options){
     // 分享界面登录,添加朋友页面允许无需检查服务时限
     var token = getApp().globalData.token;
-    if (token ==  undefined ){
+    if (token ==  undefined  || token == '' ){
       getApp().getUserInfo()
       scene = 1
     }
@@ -36,7 +36,13 @@ Page({
     var that=this;
     var token = getApp().globalData.token;
     var current_user = getApp().globalData.current_user;
-    if (friend_id == current_user.id){
+    if (token == undefined || token == '' ){
+      wx.showToast({
+        title: '网络繁忙，请稍等几秒',
+        icon: 'success',
+        duration: 2000
+      })
+    }else if (friend_id == current_user.id){
       wx.showToast({
         title: '你是自己最好的朋友！',
         icon: 'success',

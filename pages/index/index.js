@@ -20,8 +20,8 @@ Page({
     })
     var that=this;
     setTimeout(function(){
-      var is_use = getApp().globalData.is_use;
-      var current_user = getApp().globalData.current_user;
+      var is_use = app.globalData.is_use;
+      var current_user = app.globalData.current_user;
       if(is_use == 1){
         var is_num = /^\d+$/;
         if(is_num.test(current_user.nickname)){
@@ -32,7 +32,8 @@ Page({
       }else if (is_use == 2){
         that.setData({
           current_user: current_user,
-          is_use: 2
+          is_use: 2,
+          msg: app.globalData.msg
         })
       } else {
         that.setData({is_use: 0})

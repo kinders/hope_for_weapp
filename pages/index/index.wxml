@@ -1,26 +1,29 @@
 <!--index.wxml-->
 
 <view class="container">
-
   <view class="userinfo" bindtap="ChangeNickname">
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
   <view wx:if="{{is_use == 2}}">
-  <view class="usermotto">
-  <text>最后有效时间：{{ current_user.end_time }}</text>
-  </view>
-  <view class="usermotto">
-    <button bindtap="pay" type="primary">续费1元，使用7天</button>
-  </view>
+    <view class="usermotto">
+      <text>停止服务时间：{{ current_user.end_time }}</text>
+    </view>
+    <view class="usermotto">
+      <text>资费标准：</text>
+      <text style="font-weight: bold;">{{ msg }}</text>
+    </view>
+    <view class="usermotto">
+      <button bindtap="pay" type="primary">现在续费</button>
+    </view>
   </view>
   <view wx:elif="{{is_use == 0}}">
-  <view class="usermotto">
-    <text>网络连接不畅...</text>
-  </view>
-  <view class="usermotto" bindtap="reconnect">
-    <button>加速连接</button>
-  </view>
+    <view class="usermotto">
+      <text>网络连接不畅...</text>
+    </view>
+    <view class="usermotto" bindtap="reconnect">
+      <button>加速连接</button>
+    </view>
   </view>
   <view wx:elif="{{is_use == 1}}">
      <navigator url="../todos/todos" open-type='switchTab'>开始“希望”</navigator>

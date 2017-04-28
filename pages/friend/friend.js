@@ -7,7 +7,7 @@ Page({
     // 从分享界面登录，需要检查服务时限
     var that = this;
     var token = getApp().globalData.token;
-    if (token == undefined){
+    if (token == undefined || token == '' ){
       that.relogin()
     }
     // 页面初始化 options为页面跳转所带来的参数
@@ -47,7 +47,7 @@ Page({
                   getApp().globalData.token = res.data.token
                   getApp().globalData.current_user = res.data.current_user
                 }else{
-                  wx.navigateTo({url: '../index/index'})
+                  wx.redirectTo({url: '../index/index'})
                 }
               }
             })
@@ -108,7 +108,7 @@ Page({
     // 页面显示
     var that = this;
     var token = getApp().globalData.token;
-    if (token == undefined){
+    if (token == undefined || token == '' ){
       wx.showToast({
         title: '正在载入...',
         icon: 'loading',

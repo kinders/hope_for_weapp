@@ -15,7 +15,7 @@ Page({
     // 从分享界面登录,讨论页面允许无需检查服务时限
     var that = this;
     var token = getApp().globalData.token;
-    if (token == undefined){
+    if (token == undefined || token == '' ){
       scene = 1;
       getApp().getUserInfo()
     }
@@ -42,7 +42,7 @@ Page({
     // 页面显示
     var that = this;
     var token = getApp().globalData.token;
-    if (token == undefined){
+    if (token == undefined || token == ''  ){
       wx.showToast({
         title: '正在载入...',
         icon: 'loading',

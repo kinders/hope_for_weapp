@@ -31,6 +31,7 @@ App({
                 }else if(res.data.result_code == "expired"){
                   console.log('用户登录态过期！')
                   that.globalData.is_use = 2
+                  that.globalData.msg = res.data.msg
                   that.globalData.token = res.data.token
                   that.globalData.current_user = res.data.current_user
                 }else{
@@ -63,6 +64,7 @@ App({
    userInfo:null,
    is_use: 0,
    token: '',
-   current_user: {}
+   current_user: {},
+   msg: ''
   }
 })
