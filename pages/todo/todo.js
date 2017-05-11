@@ -240,7 +240,7 @@ Page({
                   var nowtime = new Date();
                   var new_discussion = {todo_id: todo.id, user_id: current_user.id, nickname: current_user.nickname, content: e.detail.value.content, created_at: nowtime.toLocaleString()};
                   var discussions_obj = wx.getStorageSync(discussions) || []
-                  discussions_obj.push(new_discussion)
+                  discussions_obj.unshift(new_discussion)
                   wx.setStorageSync(discussions, discussions_obj)
                   that.setData({
                     discussions: discussions_obj,
