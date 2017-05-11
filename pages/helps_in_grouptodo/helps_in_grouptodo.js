@@ -37,11 +37,15 @@ Page({
         if(res.data.helps_in_grouptodo){
           var h = res.data.helps_in_grouptodo;
           var is_hidden = 'hidden';
-          for(var i=0; i < h.length; i++){
-            if(h[i].is_finish == "false"){
-              is_hidden = ''
-              break
+          var unfinish_count = 0;
+          for (var i = 0; i < h.length; i++) {
+            if (h[i].is_finish == "false") {
+              unfinish_count += 1
             }
+          }
+          var finish_count = h.length - unfinish_count;
+          if (unfinish_count > 0){
+            is_hidden = ''
           }
           var a = h.map(function(hash, index){return hash.nickname.concat("^^+_-^^", index)})
 	        a.sort()
@@ -50,7 +54,9 @@ Page({
           that.setData({
             helps_in_grouptodo: helps,
             helps_in_grouptodo_length: helps.length,
-            is_hidden: is_hidden
+            is_hidden: is_hidden,
+            unfinish_count: unfinish_count,
+            finish_count: finish_count
           })
 
         }else{
@@ -92,7 +98,6 @@ Page({
                 var new_grouptodo = that.data.grouptodo;
                 new_grouptodo.is_finish = 't';
                 that.setData({grouptodo: new_grouptodo})
-                wx.navigateBack()
                 wx.navigateBack()
               }else{
                 console.log('fail: request close_grouptodo res')

@@ -1,6 +1,6 @@
 <!--pages/groups/groups.wxml-->
 <view  class="topbar">
-  <navigator url="../friends/friends"  open-type="switchTab">朋友</navigator>
+  <navigator url="../friends/friends"  open-type="switchTab">返回主页</navigator>
   <text style="color: green;">群组({{groups_length}})</text>
   <text bindtap="moreFun">常用操作</text>
 </view>

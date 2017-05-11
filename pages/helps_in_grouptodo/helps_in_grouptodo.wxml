@@ -21,28 +21,37 @@
 <view class="todo">
 <view class="send">
   <form bindsubmit="new_group_discussion">
-    <view style="display: flex;">
-       <textarea name="content" placeholder="在此输入留言，可发送给所有成员" style="width: 83%;  height: 4rem;  border: 1px solid green; border-radius: 5px; margin: 0 0 0 0.2rem; padding: 20rpx;"/>
-       <button formType="submit" type="primary" size="mini" style="float: right;width:13%;">留言</button>
-     </view>
+
+       <textarea name="content" style=" width: inherit; height: 4rem;  border: 1px solid green; border-radius: 5px; padding: 20rpx; margin: 0 0 5rpx 0;" />
+       <button formType="submit" type="primary" >群发留言</button>
+
   </form>
 </view>
 </view>
 <view class="todo" style="border-bottom: none;">
-  <text style="font-weight: bold">下面是群组所有成员完成情况</text>
   <form bindsubmit="close_helps">
+    <view>
+    <text style="font-weight: bold">所有成员的完成情况：</text>
+    </view>
+    <view class="btn-area {{is_hidden}}" style="float: right;">
+      <button bindtap="selectCheckbox" type="primary" size="mini"  >选择全部成员</button>
+    </view>
+    <view>
+    <text style="font-weight: bold">已完成：{{finish_count}}人</text>
+    </view>
+    <view>
+    <text style="font-weight: bold">未完成：{{unfinish_count}}人</text>
+    </view>
     <view class="list">
       <checkbox-group name="checkbox">
         <block wx:for="{{helps_in_grouptodo}}" wx:key="id" wx:for-item="help">
          <view wx:if="{{help.is_finish == 'true'}}"class="item-value">
-           <text style="color: gray;">{{index + 1}}    </text>
            <text wx:if="{{help.receiver_id == current_user_id}}" style="color: gray;">{{help.nickname}}</text>
            <navigator wx:else url="../todo/todo?todo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{grouptodo.time}}&is_finish={{help.is_finish}}&content={{grouptodo.content}}" style="display: inline-block">{{help.nickname}}</navigator>
            <text  style="padding: 0 0.5rem 0 0; float: right;">完成</text> 
          </view>
          <view  wx:else class="section-checkbox">
            <label>
-             <text style="color: gray;">{{index + 1}}    </text>
              <text wx:if="{{help.receiver_id == current_user_id}}" style="color: gray;">{{help.nickname}}</text>
               <checkbox value="{{help.receiver_id}}" style="float: right;" checked="{{is_checked}}" />
               <navigator url="../todo/todo?todo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{grouptodo.time}}&is_finish={{help.is_finish}}&content={{grouptodo.content}}" style="display: inline-block">{{help.nickname}}</navigator>
@@ -53,8 +62,7 @@
     </view>
     <view class="btn-area {{is_hidden}}">
       <view style="padding: 0.5rem 0 0 0">
-      <button bindtap="selectCheckbox" type="primary" size="mini"  style="width:47%;">选择全部</button>
-      <button formType="submit" type="primary"  size="mini"  style="width:47%; float: right;">关闭所选成员</button>
+      <button formType="submit" type="primary">关闭所选成员</button>
        </view>
     </view>
   </form>

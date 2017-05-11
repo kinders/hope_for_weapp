@@ -1,6 +1,6 @@
 <!--pages/dones/dones.wxml-->
 <view  class="topbar">
-  <navigator url="../todos/todos" open-type="switchTab">未完任务</navigator>
+  <navigator url="../todos/todos" open-type="switchTab">返回主页</navigator>
   <navigator url="../other_todos/other_todos" open-type="redirect">陌生人任务</navigator>
   <text style="color: green;">已完任务</text>
 </view>
