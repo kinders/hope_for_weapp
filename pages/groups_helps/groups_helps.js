@@ -12,6 +12,7 @@ Page({
     // 页面显示
     var that = this;
     var token = getApp().globalData.token;
+    if (getApp().globalData.need_update_groups_helps == true) {
     wx.request({
       url: 'https://www.hopee.xyz/groups_helps',
       data: { token: token },
@@ -20,6 +21,7 @@ Page({
       success: function(res){
         if(res.data.groups_helps){
           wx.setStorageSync('groups_helps', res.data.groups_helps)
+          getApp().globalData.need_update_groups_helps = false
           that.setData({
             groups_helps: res.data.groups_helps,
             groups_helps_length: res.data.groups_helps.length,
@@ -49,6 +51,31 @@ Page({
       fail: function() {console.log('fail: request groups_helps')},
       complete: function() {}
     }) 
+    } else {
+      //console.log('groups_helps from storage')
+      var groups_helps_in_storage = wx.getStorageSync('groups_helps');
+      that.setData({
+        groups_helps: groups_helps_in_storage,
+        groups_helps_length: groups_helps_in_storage.length,
+      })
+      // 生成可供筛选的选项
+      var groups_helps_group_names = ["全部"];
+      var is_hidden = [];
+      (groups_helps_in_storage || []).map(function (groups_help) {
+        if (groups_helps_group_ids.indexOf(groups_help.group_id) == -1) {
+          groups_helps_group_ids = groups_helps_group_ids.concat(groups_help.group_id)
+        }
+        if (groups_helps_group_names.indexOf(groups_help.name) == -1) {
+          groups_helps_group_names = groups_helps_group_names.concat(groups_help.name)
+        }
+        is_hidden = is_hidden.concat("item")
+      });
+      that.setData({
+        groups_helps_group_ids: groups_helps_group_ids,
+        groups_helps_group_names: groups_helps_group_names,
+        is_hidden: is_hidden
+      })
+     }
   },
   onHide:function(){
     // 页面隐藏

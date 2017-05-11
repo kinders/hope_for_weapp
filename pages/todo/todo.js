@@ -153,6 +153,8 @@ Page({
                 var new_todo = that.data.todo;
                 new_todo.is_finish = 'true';
                 that.setData({todo: new_todo})
+                getApp().globalData.need_update_helps = true
+                getApp().globalData.need_update_groups_helps = true
               }else{
                 console.log('fail: request close_help res')
                 console.log(res)
@@ -194,6 +196,8 @@ Page({
                 var new_todo = that.data.todo;
                 new_todo.is_finish = false;
                 that.setData({todo: new_todo})
+                getApp().globalData.need_update_helps = true
+                getApp().globalData.need_update_groups_helps = true
               }else{
                 console.log('fail: request rehelp res')
                 console.log(res)

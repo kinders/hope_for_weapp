@@ -11,7 +11,8 @@ Page({
     // 到网站请求最新信息
     var token = getApp().globalData.token;
     var current_user = getApp().globalData.current_user;
-    var that = this
+    var that = this;
+    if (getApp().globalData.need_update_friends == true){
     wx.request({
       url: 'https://www.hopee.xyz/friends',
       data: { token: token },
@@ -19,6 +20,7 @@ Page({
       method: 'GET',
       success: function(res){
         if(res.data.friendships){
+          getApp().globalData.need_update_friends = false
           var f = res.data.friendships;
           if (f.length == 0){
             wx.showToast({
@@ -45,6 +47,15 @@ Page({
       fail: function() {console.log('fail: request friend')},
       complete: function() {}
     })
+    } else { 
+      //console.log('friends from storage')
+      var friendships = wx.getStorageSync('friendships');
+      that.setData({
+        current_user_id: current_user.id,
+        friendships: friendships || [],
+        friendships_length: friendships.length || 0
+      })
+    }
   },
   onHide:function(){
     // 页面隐藏

@@ -61,6 +61,8 @@ Page({
                   groups.splice(group_index, 1, {id: group_id, name: e.detail.value.name})
                   wx.setStorageSync('groups', groups)
                   */
+                  getApp().globalData.need_update_groups_helps = true
+                  getApp().globalData.need_update_groups = true
                   // 提示修改成功。
                   wx.showToast({
                     title: '成功修改群称',

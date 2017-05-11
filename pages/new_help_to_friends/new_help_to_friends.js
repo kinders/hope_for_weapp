@@ -47,6 +47,7 @@ Page({
               method: 'POST',
               success: function(res){
                 if(res.data.result_code == 't'){
+                  getApp().globalData.need_update_helps = true
                   wx.showToast({
                     title: '成功群发',
                     icon: 'success',

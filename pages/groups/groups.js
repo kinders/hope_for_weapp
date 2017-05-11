@@ -12,6 +12,7 @@ Page({
     // 到网站请求最新信息
     var that = this;
     var token = getApp().globalData.token;
+    if (getApp().globalData.need_update_groups == true) {
     wx.request({
       url: 'https://www.hopee.xyz/groups',
       data: { token: token },
@@ -19,6 +20,7 @@ Page({
       method: 'GET',
       success: function(res){
         if(res.data.groups){
+          getApp().globalData.need_update_groups = false
           var g = res.data.groups;
           var a = g.map(function(hash, index){return hash.name.concat("^^+_-^^", index)})
 	        a.sort()
@@ -36,6 +38,14 @@ Page({
       fail: function() {console.log('fail: request groups')},
       complete: function() {}
     })
+    } else { 
+      //console.log('groups from storage')
+      var groups = wx.getStorageSync('groups');
+      that.setData({
+        groups: groups || [],
+        groups_length: groups.length || 0
+      })
+    }
   },
   onHide:function(){
     // 页面隐藏

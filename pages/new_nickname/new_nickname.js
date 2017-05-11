@@ -68,6 +68,7 @@ Page({
                 //console.log('new_nickname res')
                 //console.log(res)
                 if(res.data.result_code == 't'){
+                  getApp().globalData.need_update_friends = true
                   //* 将缓存里面原来的名称更改为新的名称。
                   // 如果是自己
                   if(friend_id == current_user.id){
@@ -87,6 +88,7 @@ Page({
                   wx.setStorageSync('friendships', friendships)
                   }
                   //*/
+                  getApp().globalData.need_update_helps = true
                   wx.showToast({
                     title: '成功修改昵称',
                     icon: 'success',

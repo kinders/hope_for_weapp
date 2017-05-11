@@ -61,6 +61,7 @@ Page({
               method: 'POST',
               success: function(res){
                 if(res.data.id >= 0){
+                  getApp().globalData.need_update_friends = true
                   wx.showToast({
                     title: '成功添加好友',
                     icon: 'success',

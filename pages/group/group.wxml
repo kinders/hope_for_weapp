@@ -10,6 +10,7 @@
 </view>
 <scroll-view scroll-y="true"  style="height: 28rem;" class="list">
   <block wx:for="{{group_friends}}" wx:key="id" wx:for-item="friend">
+    <text style="float: right;" wx:if="{{friend.helps_length > 0}}">{{friend.helps_length}}</text>
     <view wx:if="{{friend.user_id == current_user_id}}"  class="item-value" >
       <text style="color: gray;">{{friend.nickname}}</text>
     </view>

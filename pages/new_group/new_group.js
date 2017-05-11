@@ -47,6 +47,7 @@ Page({
               method: 'POST',
               success: function(res){
                 if(res.data.group_id >= 0){
+                  getApp().globalData.need_update_groups = true
                   wx.showToast({
                     title: '成功建立新群',
                     icon: 'success',

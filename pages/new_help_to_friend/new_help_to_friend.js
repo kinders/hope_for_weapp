@@ -56,6 +56,7 @@ Page({
                   helps.unshift(new_help)
                   wx.setStorageSync('helps',helps)
                   */
+                  getApp().globalData.need_update_helps = true
                   wx.showToast({
                     title: '成功提交请求',
                     icon: 'success',

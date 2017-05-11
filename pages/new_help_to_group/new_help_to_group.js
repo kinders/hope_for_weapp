@@ -51,6 +51,7 @@ Page({
                   groups_helps.unshift({id: res.data.id, content: e.detail.value.content, group_id: group_id, group_name: name, created_at: res.data.time})
                   wx.setStorageSync('groups_helps', groups_helps)
                   */
+                  getApp().globalData.need_update_groups_helps = true
                   wx.showToast({
                     title: '成功提交请求',
                     icon: 'success',

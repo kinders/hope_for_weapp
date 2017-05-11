@@ -65,6 +65,10 @@ App({
    is_use: 0,
    token: '',
    current_user: {},
-   msg: ''
+   msg: '',
+   need_update_helps: true,
+   need_update_groups_helps: true,
+   need_update_friends: true,
+   need_update_groups: true
   }
 })
