@@ -9,7 +9,7 @@
   <text>群组名称：</text>
   <text style="margin: auto;">{{group.name}}</text>
 </view>
-<scroll-view  scroll-y="true"  style="height: 27rem;" >
+<!--scroll-view  scroll-y="true"  style="height: 27rem;" -->
 <view class="todo">
   <view>
     <text>时间：{{grouptodo.time}}</text>
@@ -67,4 +67,4 @@
     </view>
   </form>
 </view>
-</scroll-view>
+<!--/scroll-view-->
