@@ -48,7 +48,7 @@ Page({
               header:{"Content-Type":"application/json"},
               method: 'POST',
               success: function(res){
-                console.log(res)
+                //console.log(res)
                 if(res.data.id >= 0){
                   /* 将信息插入helps
                   var new_help = {id: res.data.id, content: e.detail.value.content, receiver: nickname, created_at: res.data.created_at }
