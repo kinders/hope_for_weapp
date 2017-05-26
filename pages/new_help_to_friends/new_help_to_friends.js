@@ -6,6 +6,10 @@ Page({
     this.setData({
       friendships: (wx.getStorageSync('friendships') || [])
     })
+    wx.showModal({
+      title: '提示',
+      content: '如果您经常要向这些朋友发送请求，建议您将这些好友添加到一个群组里面'
+    })
   },
   onReady:function(){
     // 页面渲染完成

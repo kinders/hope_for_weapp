@@ -1,6 +1,6 @@
 // pages/friend/friend.js
 var friend_id;
-var friend_todos_user_ids = [0];
+
 Page({
   data:{},
   onLoad:function(options){
@@ -61,7 +61,7 @@ Page({
     var friend_id = that.data.friend.friend_id;
     var friend_todos = "friend_" + friend_id +"_todos";
     var friend = "friend_" + friend_id;
-    var friend_todos_user_ids = [0];
+    var friend_todos_user_ids = [];
     var token = getApp().globalData.token;
     wx.request({
       url: 'https://www.hopee.xyz/friend',
@@ -76,7 +76,7 @@ Page({
             friend_todos_length: res.data.friend_todos.length || 0,
           })
           // 生成可供筛选的选项
-          var friend_todos_user_nicknames = ["全部"];
+          var friend_todos_user_nicknames = [];
           var is_hidden = [];
           (res.data.friend_todos || []).map(function(todo){
             if (friend_todos_user_ids.indexOf(todo.user_id) == -1 ){
@@ -87,9 +87,15 @@ Page({
             }   
             is_hidden = is_hidden.concat("item")
           });
+          var a = friend_todos_user_nicknames.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+          a.sort()
+          var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+          var b = a.map(function (hash) { return friend_todos_user_ids[hash.split('^^+_-^^')[1]] })
+          c.unshift("全部")
+          b.unshift(0)
           that.setData({
-            friend_todos_user_ids: friend_todos_user_ids,
-            friend_todos_user_nicknames: friend_todos_user_nicknames,
+            friend_todos_user_ids: b,
+            friend_todos_user_nicknames: c,
             is_hidden: is_hidden
           })
         }else{

@@ -1,6 +1,6 @@
 //todos.js
 //获取应用实例
-var todos_user_ids = [0];
+
 Page({
   data: {},
   //事件处理函数
@@ -26,7 +26,8 @@ Page({
             current_user: current_user
           })
           // 生成可供筛选的选项
-          var todos_user_nicknames = ["全部"];
+          var todos_user_ids = [];
+          var todos_user_nicknames = [];
           var is_hidden = [];
           (wx.getStorageSync('todos') || []).map(function(todo){
             if (todos_user_ids.indexOf(todo.user_id) == -1 ){
@@ -37,10 +38,17 @@ Page({
             }   
             is_hidden = is_hidden.concat("item")
           });
+          var a = todos_user_nicknames.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+          a.sort()
+          var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+          var b = a.map(function (hash) { return todos_user_ids[hash.split('^^+_-^^')[1]] })
+          c.unshift("全部")
+          b.unshift(0)
           that.setData({
-            todos_user_ids: todos_user_ids,
-            todos_user_nicknames: todos_user_nicknames,
-            is_hidden: is_hidden
+            todos_user_ids: b,
+            todos_user_nicknames: c,
+            is_hidden: is_hidden,
+            index: null
           })
         }else{
           console.log('fail: request helps res')
@@ -52,6 +60,7 @@ Page({
     })
   },
   bindPickerChange: function(e) {
+    var that = this;
     this.setData({
       index: e.detail.value
     })
@@ -64,7 +73,7 @@ Page({
       })
     }else{
       (wx.getStorageSync('todos') || []).map(function(todo){
-        if(todo.user_id == todos_user_ids[e.detail.value]){
+        if(todo.user_id == that.data.todos_user_ids[e.detail.value]){
           is_hidden = is_hidden.concat("item")
           todos_length = todos_length + 1
         }else{

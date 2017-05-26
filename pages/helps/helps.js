@@ -50,7 +50,8 @@ Page({
           that.setData({
             helps_receiver_ids: b,
             helps_receiver_nicknames: c,
-            is_hidden: is_hidden
+            is_hidden: is_hidden,
+            index: null
           })
         }else{
           console.log('fail: request helps res')
@@ -91,7 +92,8 @@ Page({
       that.setData({
         helps_receiver_ids: b,
         helps_receiver_nicknames: c,
-        is_hidden: is_hidden
+        is_hidden: is_hidden,
+        index: null
       })
      }
   },

@@ -2,7 +2,7 @@
 
 Page({
   data:{
-    helpeds_receiver_ids: [0]
+    helpeds_receiver_ids: []
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
@@ -31,7 +31,7 @@ Page({
             current_user: current_user
           })
           // 生成可供筛选的选项
-          var helpeds_receiver_nicknames = ["全部"];
+          var helpeds_receiver_nicknames = [];
           var helpeds_receiver_ids = that.data.helpeds_receiver_ids;
           var is_hidden = [];
           (res.data.helpeds || []).map(function(helped){
@@ -43,9 +43,15 @@ Page({
             }   
             is_hidden = is_hidden.concat("item")
           });
+          var a = helpeds_receiver_nicknames.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+          a.sort()
+          var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+          var b = a.map(function (hash) { return helpeds_receiver_ids[hash.split('^^+_-^^')[1]] })
+          c.unshift("全部")
+          b.unshift(0)
           that.setData({
-            helpeds_receiver_ids: helpeds_receiver_ids,
-            helpeds_receiver_nicknames: helpeds_receiver_nicknames,
+            helpeds_receiver_ids: b,
+            helpeds_receiver_nicknames: c,
             is_hidden: is_hidden
           })
         } else {
@@ -105,7 +111,7 @@ Page({
       success: function(res){
         // 取得信息之后：缓存信息
         if (res.data.helpeds) {
-          console.log(res)
+          //console.log(res)
           wx.setStorageSync('helpeds', res.data.helpeds)
           that.setData({
             helpeds: res.data.helpeds,
@@ -113,8 +119,8 @@ Page({
             current_user: current_user
           })
           // 生成可供筛选的选项
-          var helpeds_receiver_nicknames = ["全部"];
-          var helpeds_receiver_ids = [0];
+          var helpeds_receiver_nicknames = [];
+          var helpeds_receiver_ids = [];
           var is_hidden = [];
           (res.data.helpeds || []).map(function(helped){
             if (helpeds_receiver_ids.indexOf(helped.receiver_id) == -1 ){
@@ -125,11 +131,17 @@ Page({
             }   
             is_hidden = is_hidden.concat("item")
           });
+          var a = helpeds_receiver_nicknames.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+          a.sort()
+          var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+          var b = a.map(function (hash) { return helpeds_receiver_ids[hash.split('^^+_-^^')[1]] })
+          c.unshift("全部")
+          b.unshift(0)
           that.setData({
-            helpeds_receiver_ids: helpeds_receiver_ids,
-            helpeds_receiver_nicknames: helpeds_receiver_nicknames,
+            helpeds_receiver_ids: b,
+            helpeds_receiver_nicknames: c,
             is_hidden: is_hidden,
-            index: 0
+            index: null
           })
         } else {
           console.log('fail: request helpeds in date res')

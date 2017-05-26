@@ -1,6 +1,6 @@
 // pages/friend_helps/friend_helps.js
 var friend_id;
-var friend_helps_receiver_ids = [0];
+
 Page({
   data:{},
   onLoad:function(options){
@@ -56,7 +56,7 @@ Page({
     var friend_id = that.data.friend.friend_id
     var friend_helps = "friend_" + friend_id +"_helps";
     var friend = "friend_" + friend_id;
-    var friend_helps_receiver_ids = [0];
+    var friend_helps_receiver_ids = [];
     var token = getApp().globalData.token;
     wx.request({
       url: 'https://www.hopee.xyz/friend_helps',
@@ -72,7 +72,7 @@ Page({
             friend_helps_length: res.data.friend_helps.length,
           })
           // 生成可供筛选的选项
-          var friend_helps_receiver_nicknames = ["全部"];
+          var friend_helps_receiver_nicknames = [];
           var is_hidden = [];
           (res.data.friend_helps|| []).map(function(help){
             if (friend_helps_receiver_ids.indexOf(help.receiver_id) == -1 ){
@@ -83,9 +83,15 @@ Page({
             }
             is_hidden = is_hidden.concat("item")
           });
+          var a = friend_helps_receiver_nicknames.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+          a.sort()
+          var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+          var b = a.map(function (hash) { return friend_helps_receiver_ids[hash.split('^^+_-^^')[1]] })
+          c.unshift("全部")
+          b.unshift(0)
           that.setData({
-            friend_helps_receiver_ids: friend_helps_receiver_ids,
-            friend_helps_receiver_nicknames: friend_helps_receiver_nicknames,
+            friend_helps_receiver_ids: b,
+            friend_helps_receiver_nicknames: c,
             is_hidden: is_hidden
           })
         }else{
@@ -123,6 +129,7 @@ Page({
     // 页面关闭
   },
   bindPickerChange: function(e) {
+    var that = this;
     this.setData({
       index: e.detail.value
     })
@@ -137,7 +144,7 @@ Page({
       })
     }else{
       (wx.getStorageSync(friend_helps) || []).map(function(help){
-        if(help.receiver_id == friend_helps_receiver_ids[e.detail.value]){
+        if(help.receiver_id == that.data.friend_helps_receiver_ids[e.detail.value]){
           is_hidden = is_hidden.concat("item")
           friend_helps_length = friend_helps_length + 1
         }else{

@@ -7,7 +7,6 @@ var receiver_nickname;
 var is_finish;
 var todo;
 var discussions;
-var discussions_user_ids = [0];
 var scene=0;
 Page({
   data:{},
@@ -72,7 +71,8 @@ Page({
             discussions_length: res.data.discussions.length || 0
           })
           // 生成可供筛选的选项
-          var discussions_user_nicknames = ["全部"];
+          var discussions_user_ids = [];
+          var discussions_user_nicknames = [];
           var is_hidden = [];
           res.data.discussions.map(function(discussion){
             if (discussions_user_ids.indexOf(discussion.user_id) == -1 ){
@@ -83,9 +83,15 @@ Page({
             }   
             is_hidden = is_hidden.concat("item")
           });
+          var a = discussions_user_nicknames.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+          a.sort()
+          var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+          var b = a.map(function (hash) { return discussions_user_ids[hash.split('^^+_-^^')[1]] })
+          c.unshift("全部")
+          b.unshift(0)
           that.setData({
-            discussions_user_ids: discussions_user_ids,
-            discussions_user_nicknames: discussions_user_nicknames,
+            discussions_user_ids: b,
+            discussions_user_nicknames: c,
             is_hidden: is_hidden
           })
         }else{
@@ -105,6 +111,7 @@ Page({
   },
   bindPickerChange: function(e) {
     // 筛选留言
+    var that = this;
     this.setData({
       index: e.detail.value
     })
@@ -117,7 +124,7 @@ Page({
       })
     }else{
       (wx.getStorageSync(discussions) || []).map(function(discussion){
-        if(discussion.user_id == discussions_user_ids[e.detail.value]){
+        if(discussion.user_id == that.data.discussions_user_ids[e.detail.value]){
           is_hidden = is_hidden.concat("item")
           discussions_length = discussions_length + 1
         }else{
@@ -252,23 +259,29 @@ Page({
                     empty: ""
                   })
                   // 生成可供筛选的选项
-                  var discussions_user_ids = [0];
-                  var discussions_user_nicknames = ["全部"];
+                  var discussions_user_ids = [];
+                  var discussions_user_nicknames = [];
                   var is_hidden = [];
                   discussions_obj.map(function(discussion){
-                  if (discussions_user_ids.indexOf(discussion.user_id) == -1 ){
+                    if (discussions_user_ids.indexOf(discussion.user_id) == -1 ){
                       discussions_user_ids = discussions_user_ids.concat(discussion.user_id)
-                  }
-                  if (discussions_user_nicknames.indexOf(discussion.nickname) == -1){
+                    }
+                    if (discussions_user_nicknames.indexOf(discussion.nickname) == -1){
                      discussions_user_nicknames = discussions_user_nicknames.concat(discussion.nickname)
-                  }   
-                  is_hidden = is_hidden.concat("item")
-                 });
-                 that.setData({
-                   discussions_user_ids: discussions_user_ids,
-                   discussions_user_nicknames: discussions_user_nicknames,
-                   is_hidden: is_hidden
-                 })
+                    }   
+                    is_hidden = is_hidden.concat("item")
+                  });
+                  var a = discussions_user_nicknames.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+                  a.sort()
+                  var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+                  var b = a.map(function (hash) { return discussions_user_ids[hash.split('^^+_-^^')[1]] })
+                  c.unshift("全部")
+                  b.unshift(0)
+                  that.setData({
+                    discussions_user_ids: b,
+                    discussions_user_nicknames: c,
+                    is_hidden: is_hidden
+                  })
                   wx.showToast({
                     title: '成功发表一条留言',
                     icon: 'success',

@@ -21,8 +21,8 @@ Page({
             current_user: current_user
           })
           // 生成可供筛选的选项
-          var dones_user_ids = [0];
-          var dones_user_nicknames = ["全部"];
+          var dones_user_ids = [];
+          var dones_user_nicknames = [];
           var is_hidden = [];
           (res.data.dones || []).map(function(done){
             if (dones_user_ids.indexOf(done.user_id) == -1 ){
@@ -33,9 +33,15 @@ Page({
             }   
             is_hidden = is_hidden.concat("item")
           });
+          var a = dones_user_nicknames.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+          a.sort()
+          var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+          var b = a.map(function (hash) { return dones_user_ids[hash.split('^^+_-^^')[1]] })
+          c.unshift("全部")
+          b.unshift(0)
           that.setData({
-            dones_user_ids: dones_user_ids,
-            dones_user_nicknames: dones_user_nicknames,
+            dones_user_ids: b,
+            dones_user_nicknames: c,
             is_hidden: is_hidden
           })
         }else{
@@ -108,8 +114,8 @@ Page({
             current_user: current_user
           })
           // 生成可供筛选的选项
-          var dones_user_ids = [0];
-          var dones_user_nicknames = ["全部"];
+          var dones_user_ids = [];
+          var dones_user_nicknames = [];
           var is_hidden = [];
           (res.data.dones || []).map(function(done){
             if (dones_user_ids.indexOf(done.user_id) == -1 ){
@@ -120,11 +126,17 @@ Page({
             }   
             is_hidden = is_hidden.concat("item")
           });
+          var a = dones_user_nicknames.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+          a.sort()
+          var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+          var b = a.map(function (hash) { return dones_user_ids[hash.split('^^+_-^^')[1]] })
+          c.unshift("全部")
+          b.unshift(0)
           that.setData({
-            dones_user_ids: dones_user_ids,
-            dones_user_nicknames: dones_user_nicknames,
+            dones_user_ids: b,
+            dones_user_nicknames: c,
             is_hidden: is_hidden,
-            index: 0
+            index: null
           })
         }else{
           console.log('fail: request dones in date res')

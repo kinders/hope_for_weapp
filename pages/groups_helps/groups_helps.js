@@ -1,5 +1,5 @@
 // pages/groups_groups_helps/groups_groups_helps.js
-var groups_helps_group_ids = [0];
+
 Page({
   data:{},
   onLoad:function(options){
@@ -12,6 +12,7 @@ Page({
     // 页面显示
     var that = this;
     var token = getApp().globalData.token;
+    var groups_helps_group_ids = [];
     if (getApp().globalData.need_update_groups_helps == true) {
     wx.request({
       url: 'https://www.hopee.xyz/groups_helps',
@@ -27,7 +28,7 @@ Page({
             groups_helps_length: res.data.groups_helps.length,
           })
           // 生成可供筛选的选项
-          var groups_helps_group_names = ["全部"];
+          var groups_helps_group_names = [];
           var is_hidden = [];
           (res.data.groups_helps || []).map(function(groups_help){
             if (groups_helps_group_ids.indexOf(groups_help.group_id) == -1 ){
@@ -38,9 +39,15 @@ Page({
             }   
             is_hidden = is_hidden.concat("item")
           });
+          var a = groups_helps_group_names.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+          a.sort()
+          var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+          var b = a.map(function (hash) { return groups_helps_group_ids[hash.split('^^+_-^^')[1]] })
+          c.unshift("全部")
+          b.unshift(0)
           that.setData({
-            groups_helps_group_ids: groups_helps_group_ids,
-            groups_helps_group_names: groups_helps_group_names,
+            groups_helps_group_ids: b,
+            groups_helps_group_names: c,
             is_hidden: is_hidden
           })
         }else{
@@ -59,7 +66,7 @@ Page({
         groups_helps_length: groups_helps_in_storage.length,
       })
       // 生成可供筛选的选项
-      var groups_helps_group_names = ["全部"];
+      var groups_helps_group_names = [];
       var is_hidden = [];
       (groups_helps_in_storage || []).map(function (groups_help) {
         if (groups_helps_group_ids.indexOf(groups_help.group_id) == -1) {
@@ -70,9 +77,15 @@ Page({
         }
         is_hidden = is_hidden.concat("item")
       });
+      var a = groups_helps_group_names.map(function (nickname, index) { return nickname.concat("^^+_-^^", index) })
+      a.sort()
+      var c = a.map(function (hash) { return hash.split('^^+_-^^')[0] })
+      var b = a.map(function (hash) { return groups_helps_group_ids[hash.split('^^+_-^^')[1]] })
+      c.unshift("全部")
+      b.unshift(0)
       that.setData({
-        groups_helps_group_ids: groups_helps_group_ids,
-        groups_helps_group_names: groups_helps_group_names,
+        groups_helps_group_ids: b,
+        groups_helps_group_names: c,
         is_hidden: is_hidden
       })
      }
@@ -84,6 +97,7 @@ Page({
     // 页面关闭
   },
   bindPickerChange: function(e) {
+    var that = this;
     this.setData({
       index: e.detail.value
     })
@@ -96,7 +110,7 @@ Page({
       })
     }else{
       (wx.getStorageSync('groups_helps') || []).map(function(groups_help){
-        if(groups_help.group_id == groups_helps_group_ids[e.detail.value]){
+        if(groups_help.group_id == that.data.groups_helps_group_ids[e.detail.value]){
           is_hidden = is_hidden.concat("item")
           groups_helps_length = groups_helps_length + 1
         }else{
