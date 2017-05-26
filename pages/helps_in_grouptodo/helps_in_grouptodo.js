@@ -95,6 +95,8 @@ Page({
                   icon: 'success',
                   duration: 2000
                 })
+                getApp().globalData.need_update_helps = true
+                getApp().globalData.need_update_groups_helps = true
                 var new_grouptodo = that.data.grouptodo;
                 new_grouptodo.is_finish = 't';
                 that.setData({grouptodo: new_grouptodo})
@@ -138,6 +140,7 @@ Page({
                   icon: 'success',
                   duration: 2000
                 })
+                getApp().globalData.need_update_groups_helps = true
                 var new_grouptodo = that.data.grouptodo;
                 new_grouptodo.is_finish = 'f';
                 that.setData({grouptodo: new_grouptodo})

@@ -17,7 +17,7 @@
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{helpeds_receiver_nicknames}}">
   <view class="picker">
-      2. 筛选朋友：{{helpeds_receiver_nicknames[index]}}
+      2. 筛选朋友:{{helpeds_receiver_nicknames[index]}}
       <text style="float: right;">({{helpeds_length}})</text>
     </view>
   </picker>

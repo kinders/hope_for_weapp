@@ -10,15 +10,14 @@
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker mode="date" value="{{date}}" start="2017-04-01" end="2022-12-31" bindchange="bindDateChange">
     <view class="picker">
-      1. 选择日期: 
-      <text style="float: right;">{{date}}</text>
+      1. 选择日期: {{date}}
     </view>
   </picker>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{dones_user_nicknames}}">
   <view class="picker">
-      2. 筛选朋友：{{dones_user_nicknames[index]}}
+      2. 筛选朋友:{{dones_user_nicknames[index]}}
       <text style="float: right;">({{dones_length}})</text>
     </view>
   </picker>
