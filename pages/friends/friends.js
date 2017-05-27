@@ -72,7 +72,7 @@ Page({
     var sendto = '发送请求给：' + nickname;
     if(current_user.id == friend_id){
       wx.showActionSheet({
-        itemList: ['给自己一个请求', '更改昵称'],
+        itemList: ['给自己一个请求', '更改昵称', '已完任务'],
         success: function(res) {
           if(res.tapIndex == 0){
             wx.navigateTo({
@@ -82,7 +82,11 @@ Page({
           wx.navigateTo({
             url: "../new_nickname/new_nickname?friend_id=" + current_user.id + "&nickname=" + current_user.nickname
           })
-        }
+          } else if (res.tapIndex == 2) {
+            wx.navigateTo({
+              url: "../friend_dones/friend_dones?friend_id=" + friend_id + "&nickname=" + nickname
+            })
+          }
         },
         fail: function(res) {}
       })

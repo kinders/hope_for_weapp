@@ -12,9 +12,16 @@ Page({
          is_friendship = 't'
       }
     })
+    var d = new Date();
+    var picker_end_day = d.toJSON().substring(0, 10); 
     this.setData({
       is_friendship: is_friendship,
       friend: {friend_id: friend_id, nickname: friend_nickname},
+      picker_end_day: picker_end_day
+    })
+    wx.showModal({
+      title: '提示',
+      content: '为了节省您的流量，这里默认显示最近完成的50个任务。如需查看更多，请选择特定日期进行筛查。',
     })
     // 到网站请求最新信息
     var that = this;
@@ -55,15 +62,40 @@ Page({
   onUnload:function(){
     // 页面关闭
   },
-  bindDateChange: function(e){
+  bindStartDateChange: function(e){
+    var end_picker_end_day = '';
+    var end_date_value = new Date(e.detail.value).valueOf() + 864000000
+
+    var end_date = new Date(end_date_value).toJSON().substring(0, 10);
+    var today = new Date().toJSON().substring(0, 10)
+    if (end_date > today){
+      end_picker_end_day = today
+    }else{
+      end_picker_end_day = end_date
+    }
     this.setData({
+      start_date: e.detail.value,
+      end_picker_begin_day: e.detail.value,
+      end_picker_end_day: end_picker_end_day
+    })
+  },
+  bindDateChange: function(e){
+    var that=this; 
+    var start_date = that.data.start_date;
+    var end_date = e.detail.value;
+    if (start_date == undefined ){
+      start_date = end_date
+    }
+    if (start_date > end_date){
+      end_date = start_date
+    }
+    that.setData({
       date: e.detail.value
     })
-    var that=this; 
     var token = getApp().globalData.token;
     wx.request({
       url: 'https://www.hopee.xyz/friend_dones_in_date',
-      data: {token: token, friend_id: that.data.friend.friend_id, date: e.detail.value },
+      data: { token: token, friend_id: that.data.friend.friend_id, date: end_date, start_date: start_date },
       method: 'GET',
       header: {"Content-Type":"application/json"},
       success: function(res){

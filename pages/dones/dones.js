@@ -2,6 +2,10 @@
 Page({
   data:{},
   onLoad:function(options){
+    wx.showModal({
+      title: '提示',
+      content: '为了节省您的流量，这里默认显示最近完成的50个任务。如需查看更多请求，请选择特定日期进行筛查。'
+    })
     // 页面初始化 options为页面跳转所带来的参数
     // 到网站请求最新信息
     var that = this;

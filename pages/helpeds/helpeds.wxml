@@ -4,9 +4,6 @@
   <navigator url="../groups_helps/groups_helps" open-type="redirect">未完群请求</navigator>
   <text style="color: green;">已完请求</text>
 </view>
-<view style="background-color: gray; color: white; font-size: 0.8rem">
-  <text>提示：为了节省您的流量，这里默认显示最近50个请求。如需查看更多请求，请选择特定日期进行筛查。</text>
-</view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker mode="date" value="{{date}}" start="2017-04-01" end="2022-12-31" bindchange="bindDateChange">
     <view class="picker">

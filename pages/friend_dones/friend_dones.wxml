@@ -7,20 +7,25 @@
 <view  class="topbar" style="background-color:green;">
 <text>昵称：</text>
 <text style="margin: auto;">{{friend.nickname}}</text>
-</view>
-<view style="background-color: gray; color: white; font-size: 0.8rem">
-  <text>提示：为了节省您的流量，这里默认显示最近50个任务。如需查看更多请求，请选择特定日期进行筛查。</text>
+<text style="float: right;">({{dones_length}})</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
-  <picker mode="date" value="{{date}}" start="2017-04-01" end="2022-12-31" bindchange="bindDateChange">
+  <picker mode="date" value="{{start_date}}" start="2017-04-01" end="{{picker_end_day}}" bindchange="bindStartDateChange">
     <view class="picker">
-      选择日期: 
-      <text>{{date}}</text>
-      <text style="float: right;">({{dones_length}})</text>
+      开始日期: 
+      <text>{{start_date}}</text>
     </view>
   </picker>
 </view>
-<scroll-view scroll-y="true"  style="height: 24rem;" class="list">
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker mode="date" value="{{date}}" start="{{end_picker_begin_day}}" end="{{end_picker_end_day}}" bindchange="bindDateChange">
+    <view class="picker">
+      结束日期: 
+      <text>{{date}}</text>
+    </view>
+  </picker>
+</view>
+<scroll-view scroll-y="true"  style="height: 23rem;" class="list">
   <block wx:for="{{dones}}" wx:key="index" wx:for-item="done">
   <navigator url="../todo/todo?todo_id={{done.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{done.nickname}}&created_at={{done.created_at}}&is_finish=t&content={{done.content}}">
   <view>
