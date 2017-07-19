@@ -1,0 +1,27 @@
+<!--pages/awards/awards.wxml-->
+<view class="container"style="padding: 60rpx 0; border-bottom: inset;">
+  <view class="userinfo" bindtap="ChangeNickname">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </view>
+  <view class="usermotto" style="margin-top: 80rpx;">
+    <text>共获得 {{ count || 0 }} 个鼓励</text>
+  </view>
+  <view class="usermotto" style="margin-top: 80rpx;">
+    <navigator url="../helps/helps" open-type="switchTab"><button size="mini" type="primary">点击这里，继续协作</button></navigator>
+  </view>
+</view>
+<scroll-view scroll-y="true"  style="height: 14rem;" class="list">
+  <block wx:for="{{awards}}" wx:key="id" wx:for-item="award">
+  <navigator url="../award/award?id={{award.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&sender_nickname={{award.nickname}}&sender_id={{award.sender_id}}&created_at={{award.created_at}}&content={{award.content}}">
+     <view class="item-key">
+       <text>{{index + 1}}    </text>
+       <text style="color: black; padding: 0.25rem;">{{award.nickname}}</text>
+       <text>{{award.created_at}}</text>
+     </view>
+     <view class="item-value">
+       <text>{{ award.content}}</text>
+     </view>
+  </navigator>
+  </block>
+</scroll-view>

@@ -1,0 +1,54 @@
+<!--pages/search/search.wxml-->
+<view class="topbar">
+  <text style="color: green;">搜索</text>
+  <navigator url="../friends/friends" open-type="switchTab">返回</navigator>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker bindchange="UserPick" value="{{user_index}}" range="{{search_user_nicknames}}">
+    <view class="picker">
+      1. 筛选朋友:{{search_user_nicknames[user_index]}}
+    </view>
+  </picker>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker bindchange="DirectionPick" value="{{direction_index}}" range="{{search_directions}}">
+    <view class="picker">
+      2. 筛选范围:{{search_directions[direction_index]}}
+    </view>
+  </picker>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker mode="date" value="{{start_date}}" start="2017-04-01" end="{{start_picker_end_day}}" bindchange="StartDateChange">
+    <view class="picker">
+      3. 选择开始日期: {{start_date}}
+    </view>
+  </picker>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker mode="date" value="{{end_date}}" start="{{end_picker_begin_day}}" end="{{end_picker_end_day}}" bindchange="EndDateChange">
+    <view class="picker">
+      4. 选择结束日期: {{end_date}}
+    </view>
+  </picker>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <input bindinput="SearchInput" placeholder="5. 输入要搜索的内容" />
+</view>
+<button type="primary" form-type="submit" bindtap="StartSearch">搜索</button>
+<scroll-view scroll-y="true" style="height: 14rem;" class="list">
+  <block wx:for="{{todos}}" wx:key="index" wx:for-item="todo">
+    <navigator url="../todo/todo?todo_id={{todo.id}}&user_id={{todo.user_id}}&user_nickname={{todo.user_nickname}}&receiver_nickname={{todo.receiver_nickname}}&created_at={{todo.created_at}}&is_finish={{todo.is_finish}}&content={{todo.content}}">
+      <view class="{{is_hidden[index]}}">
+        <view class="item-key">
+          <text>{{index + 1}}  </text>
+          <text wx:if="{{todo.user_id == current_user_id}}" style="color: gray; padding: 0.25rem;">{{todo.nickname}}</text>
+          <text wx:else style="color: black; padding: 0.25rem;">{{todo.nickname}}</text>
+          <text>{{todo.created_at}}</text>
+        </view>
+        <view class="item-value">
+          {{ todo.content }}
+        </view>
+      </view>
+    </navigator>
+  </block>
+</scroll-view>

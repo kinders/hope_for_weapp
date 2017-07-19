@@ -72,7 +72,7 @@ Page({
     var sendto = '发送请求给：' + nickname;
     if(current_user.id == friend_id){
       wx.showActionSheet({
-        itemList: ['给自己一个请求', '更改昵称', '已完任务'],
+        itemList: ['给自己一个请求', '更改昵称', '已完任务', '收获鼓励'],
         success: function(res) {
           if(res.tapIndex == 0){
             wx.navigateTo({
@@ -86,13 +86,17 @@ Page({
             wx.navigateTo({
               url: "../friend_dones/friend_dones?friend_id=" + friend_id + "&nickname=" + nickname
             })
+          } else if (res.tapIndex == 3) {
+            wx.navigateTo({
+              url: "../awards/awards"
+            })
           }
         },
         fail: function(res) {}
       })
     }else{
     wx.showActionSheet({
-      itemList: [sendto, '未完任务', '未完请求', '已完任务', '修改昵称', '删除好友'],
+      itemList: [sendto, '未完任务', '未完请求', '鼓励好友', '修改昵称', '删除好友'],
       success: function(res) {
         if(res.tapIndex == 0){
           wx.navigateTo({
@@ -108,7 +112,7 @@ Page({
             })
         }else  if(res.tapIndex == 3){
             wx.navigateTo({
-              url: "../friend_dones/friend_dones?friend_id=" + friend_id + "&nickname=" + nickname
+              url: "../new_award/new_award?friend_id=" + friend_id + "&nickname=" + nickname
             })
         }else if(res.tapIndex == 4){
           wx.navigateTo({
@@ -173,17 +177,18 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['添加朋友', '新建群组','临时群发', '添加虚拟用户'],
+      itemList: ['添加朋友', '新建群组','临时群发', '添加虚拟用户', '搜索'],
       success: function(res){
         if(res.tapIndex == 0){
           wx.redirectTo({url: '../strangers/strangers'})
         }else if (res.tapIndex == 1){
-          console.log('navigate to new group')
           wx.navigateTo({url: '../new_group/new_group'})
         }else if (res.tapIndex == 2){
           wx.navigateTo({url: '../new_help_to_friends/new_help_to_friends'})
         }else if (res.tapIndex == 3){
           wx.navigateTo({url: "../new_friend/new_friend?is_fiction=1&nickname=虚拟用户"})
+        } else if (res.tapIndex == 4) {
+          wx.navigateTo({ url: "../search/search" })
         }
       }
     })

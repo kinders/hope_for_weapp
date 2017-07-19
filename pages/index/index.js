@@ -27,7 +27,7 @@ Page({
         if(is_num.test(current_user.nickname)){
           wx.navigateTo({url: '../new_nickname/new_nickname?friend_id=' + current_user.id + '&nickname=' + current_user.nickname})
         }else{
-          wx.switchTab({url: '../helps/helps'})
+          wx.redirectTo({ url: '../awards/awards'})
         }
       }else if (is_use == 2){
         that.setData({
@@ -113,7 +113,7 @@ Page({
       if(is_num.test(current_user.nickname)){
         wx.navigateTo({url: '../new_nickname/new_nickname?friend_id=' + current_user.id + '&nickname=' + current_user.nickname})
       }else{
-        wx.switchTab({url: '../helps/helps'})
+        wx.redirectTo({ url: '../awards/awards'})
       }
     }else if (is_use == 2){
       wx.showToast({

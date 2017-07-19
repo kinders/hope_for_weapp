@@ -25,11 +25,15 @@
     "pages/new_help_to_friends/new_help_to_friends",
     "pages/new_help_to_group/new_help_to_group",
     "pages/todo/todo",
-    "pages/strangers/strangers"
+    "pages/strangers/strangers",
+    "pages/search/search",
+    "pages/awards/awards",
+    "pages/award/award",
+    "pages/new_award/new_award"
   ],
   "window":{
     "navigationBarBackgroundColor": "#000",
-    "navigationBarTitleText": "希望",
+    "navigationBarTitleText": "希望协作",
     "navigationBarTextStyle":"white",
     "backgroundColor": "#d3d3d3",
     "backgroundTextStyle":"light"
