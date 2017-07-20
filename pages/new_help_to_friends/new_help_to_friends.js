@@ -8,7 +8,7 @@ Page({
     })
     wx.showModal({
       title: '提示',
-      content: '如果您经常要向这些朋友发送请求，建议您将这些好友添加到一个群组里面'
+      content: '如果您经常要向这几个朋友发送请求，建议您将这些好友添加到一个类别里面'
     })
   },
   onReady:function(){
@@ -39,7 +39,7 @@ Page({
       })
     }else{
       wx.showModal({
-        title: "群发人数： " + e.detail.value.checkbox.length,
+        title: "统发人数： " + e.detail.value.checkbox.length,
         content:  "内容：" + e.detail.value.content,
         success: function(res) {
           if (res.confirm) {
@@ -53,7 +53,7 @@ Page({
                 if(res.data.result_code == 't'){
                   getApp().globalData.need_update_helps = true
                   wx.showToast({
-                    title: '成功群发',
+                    title: '成功统发',
                     icon: 'success',
                     duration: 2000
                   })
@@ -61,7 +61,7 @@ Page({
                   console.log('fail: request new_help_to_friends res')
                   console.log(res)
                   wx.showToast({
-                    title: '服务器无法群发该请求。您可在“请求”页面查看群发情况',
+                    title: '服务器无法统发该请求。您可在“请求”页面查看发送情况',
                     icon: 'loading',
                     duration: 2000
                   })

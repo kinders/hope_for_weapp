@@ -1,18 +1,18 @@
 <!--pages/new_members/new_members.wxml-->
 <view  class="topbar">
-  <text style="color: green;">群称：{{group_name}}</text>
+  <text style="color: green;">类名：{{group_name}}</text>
   <navigator open-type="navigateBack">返回</navigator>
 </view>
 <form bindsubmit="formSubmit">
   <scroll-view class="scroll-select" scroll-y="true"  style="height: 30rem;">
     <checkbox-group name="checkbox">
-      <view class="section-title">群成员：</view>
+      <view class="section-title">类别成员：</view>
       <block wx:for="{{group_members}}" wx:key="id">
         <view class="section-checkbox">
           <label><checkbox value="{{item.user_id}}" checked="true"style="float: right;"/>{{item.nickname}}</label>
         </view>
       </block>
-      <view class="section-title">未入群的朋友：</view>
+      <view class="section-title">未入类别的朋友：</view>
       <block wx:for="{{others}}" wx:key="id">
         <view class="section-checkbox">
           <label><checkbox value="{{item.friend_id}}" style="float: right;"/>{{item.nickname}}</label>

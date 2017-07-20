@@ -1,11 +1,11 @@
 <!--pages/new_group/new_group.wxml-->
 <form bindsubmit="formSubmit"  bindreset="formReset">
 <view  class="topbar">
-  <text style="color: green;">新建群组</text>
+  <text style="color: green;">新建类别</text>
   <text bindtap="formReset">返回</text>
 </view>
   <view class="section">
-    <view class="section-title">群名称：</view>
+    <view class="section-title">类别名称：</view>
     <view class="section-input">
         <input name="name" type="text" placeholder="在此输入" value="{{empty}}"/>
     </view>
@@ -22,7 +22,7 @@
   </scroll-view>
   <view class="btn-area">
     <view style="padding: 1rem 0 0 0">
-    <button formType="submit" type="primary">创建群组</button>
+    <button formType="submit" type="primary">创建类别</button>
     </view>
   </view>
 </form>

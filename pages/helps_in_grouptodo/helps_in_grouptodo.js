@@ -79,7 +79,7 @@ Page({
     var token = getApp().globalData.token;
     wx.showModal({
       title: "注意",
-      content: '您确定要关闭这个群组请求吗？',
+      content: '您确定要关闭这个类请求吗？',
       success: function(res){
         if (res.confirm){
           wx.request({
@@ -124,7 +124,7 @@ Page({
     var token = getApp().globalData.token;
     wx.showModal({
       title: "注意",
-      content: '您确定要重启这个群请求吗？',
+      content: '您确定要重启这个类请求吗？',
       success: function(res){
         if (res.confirm){
           wx.request({
@@ -242,7 +242,7 @@ Page({
               success: function(res){
                 if(res.data.result_code == 't'){
                   wx.showToast({
-                    title: '成功关闭指定群成员的责任',
+                    title: '成功关闭指定类别成员的责任',
                     icon: 'success',
                     duration: 2000
                   })

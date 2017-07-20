@@ -72,7 +72,7 @@ Page({
     var sendto = '发送请求给：' + nickname;
     if(current_user.id == friend_id){
       wx.showActionSheet({
-        itemList: ['给自己一个请求', '更改昵称', '已完任务', '收获鼓励'],
+        itemList: ['给自己一个请求', '更改昵称', '已完任务', '查看鼓励'],
         success: function(res) {
           if(res.tapIndex == 0){
             wx.navigateTo({
@@ -177,7 +177,7 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['添加朋友', '新建群组','临时群发', '添加虚拟用户', '搜索'],
+      itemList: ['添加朋友', '新建类别','发给多个朋友', '添加虚拟用户', '搜索'],
       success: function(res){
         if(res.tapIndex == 0){
           wx.redirectTo({url: '../strangers/strangers'})

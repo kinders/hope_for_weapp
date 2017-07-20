@@ -5,17 +5,17 @@
   <navigator open-type="navigateBack">返回</navigator>
 </view>
 <view class="topbar" style="background-color:green;">
-  <text>群组名称：</text>
+  <text>类别名称：</text>
   <text style="margin: auto;">{{group.name}}</text>
 </view>
 <scroll-view scroll-y="true"  style="height: 28rem;" class="list">
   <block wx:for="{{group_friends}}" wx:key="id" wx:for-item="friend">
-    <text style="float: right;" wx:if="{{friend.helps_length > 0}}">{{friend.helps_length}}</text>
+    <text selectable="true" style="float: right;" wx:if="{{friend.helps_length > 0}}">{{friend.helps_length}}</text>
     <view wx:if="{{friend.user_id == current_user_id}}"  class="item-value" >
-      <text style="color: gray;">{{friend.nickname}}</text>
+      <text selectable="true" style="color: gray;">{{friend.nickname}}</text>
     </view>
     <navigator wx:else url="../friend/friend?friend_id={{friend.user_id}}&nickname={{friend.nickname}}" open-type="redirect" class="item-value">
-      <text>{{friend.nickname}}</text>
+      <text selectable="true">{{friend.nickname}}</text>
     </navigator>
   </block>
 </scroll-view>

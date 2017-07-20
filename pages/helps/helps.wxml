@@ -1,7 +1,7 @@
 <!--pages/helps/helps.wxml-->
 <view  class="topbar">
   <text style="color: green;">未完请求</text>
-  <navigator url="../groups_helps/groups_helps">未完群请求</navigator>
+  <navigator url="../groups_helps/groups_helps">未完类请求</navigator>
   <navigator url="../helpeds/helpeds">已完请求</navigator>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">

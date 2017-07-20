@@ -24,7 +24,7 @@
   </view>
   <view style="padding: 0.2rem 0 0 0;">
     <text style="margin: 0 1rem 0 0;">详细内容</text>
-    <text style="font-size: 0.8rem;">{{todo.content}}</text>
+    <text selectable="true" style="font-size: 0.8rem;">{{todo.content}}</text>
   </view>
 </view>
 <view class="send">
@@ -54,7 +54,7 @@
      </view>
      <view class="item-value">
        <!--</navigator>-->
-       <text>{{ discussion.content}}</text>
+       <text selectable="true">{{ discussion.content}}</text>
      </view>
   </view>
   </block>

@@ -5,7 +5,7 @@
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
   <view class="usermotto" style="margin-top: 80rpx;">
-    <text>共获得 {{ count || 0 }} 个鼓励</text>
+    <text>已获得 {{ count || 0 }} 个鼓励</text>
   </view>
   <view class="usermotto" style="margin-top: 80rpx;">
     <navigator url="../helps/helps" open-type="switchTab"><button size="mini" type="primary">点击这里，继续协作</button></navigator>
