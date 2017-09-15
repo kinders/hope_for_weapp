@@ -65,7 +65,7 @@ Page({
                   getApp().globalData.need_update_groups = true
                   // 提示修改成功。
                   wx.showToast({
-                    title: '成功修改类别名称',
+                    title: '成功修改小组名称',
                     icon: 'success',
                     duration: 2000
                   })
@@ -74,7 +74,7 @@ Page({
                   console.log('fail: request new_groupname res')
                   console.log(res)
                   wx.showToast({
-                    title: "服务器无法修改类别名称",
+                    title: "服务器无法修改小组名称",
                     icon: 'loading',
                     duration: 2000
                   })

@@ -23,19 +23,19 @@ Page({
     var that=this;
     if(e.detail.value.name.replace(/\s/g, "") == ""){
       wx.showToast({
-        title: '类别名称不能为空',
+        title: '小组名称不能为空',
         icon: 'loading',
         duration: 1000
       })
     }else if(e.detail.value.checkbox.length < 2){
       wx.showToast({
-        title: '类别人数不能少于2人',
+        title: '小组人数不能少于2人',
         icon: 'loading',
         duration: 1000
       })
     }else{
       wx.showModal({
-        title: "类名： " + e.detail.value.name,
+        title: "组名： " + e.detail.value.name,
         content:  "人数：" + e.detail.value.checkbox.length,
         success: function(res) {
           if (res.confirm) {
@@ -49,7 +49,7 @@ Page({
                 if(res.data.group_id >= 0){
                   getApp().globalData.need_update_groups = true
                   wx.showToast({
-                    title: '成功建立新的类别',
+                    title: '成功建立新的小组',
                     icon: 'success',
                     duration: 2000
                   })
@@ -61,7 +61,7 @@ Page({
                   console.log('fail: request new_group res')
                   console.log(res)
                   wx.showToast({
-                    title: '服务器无法添加该类别',
+                    title: '服务器无法添加该小组',
                     icon: 'loading',
                     duration: 2000
                   })

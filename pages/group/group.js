@@ -62,7 +62,7 @@ Page({
     var group_id = that.data.group.group_id;
     var name = that.data.group.name;
     wx.showActionSheet({
-      itemList: ['增减成员', '发布类请求', '未满意的类请求', '已满意的类请求', '修改类别名称', '删除类别'],
+      itemList: ['增减成员', '发布组请求', '未满意的组请求', '已满意的组请求', '修改小组名称', '删除小组'],
       success: function(res) {
         if (res.tapIndex == 0 ){
           wx.redirectTo({
@@ -87,7 +87,7 @@ Page({
         } else if(res.tapIndex == 5){
           wx.showModal({
             title: '警告',
-            content: "确定将要删除类别 " + name + " ？",
+            content: "确定将要删除小组 " + name + " ？",
             success: function(res) {
               if (res.confirm) {
                 wx.request({
@@ -98,7 +98,7 @@ Page({
                   success: function(res){
                     // success
                     if(res.data.result_code == 't'){
-                      // 将类别从缓存中删除
+                      // 将小组从缓存中删除
                       var groups = wx.getStorageSync('groups') || [];
                       var group_index;
                       groups.forEach(function(item, index){
@@ -113,7 +113,7 @@ Page({
                         groups_length: groups.length || 0
                       })
                       wx.showToast({
-                        title: "成功将类别" + name + "删去",
+                        title: "成功将小组" + name + "删去",
                         icon: 'success',
                         duration: 2000
                       })
@@ -121,7 +121,7 @@ Page({
                       console.log('fail: request delete_group res')
                       console.log(res)
                       wx.showToast({
-                        title: "服务器无法删除类别" + name,
+                        title: "服务器无法删除小组" + name,
                         icon: 'loading',
                         duration: 2000
                       })

@@ -1,7 +1,7 @@
 <!--pages/helpeds/helpeds.wxml-->
 <view  class="topbar">
   <navigator url="../helps/helps" open-type="switchTab">返回主页</navigator>
-  <navigator url="../groups_helps/groups_helps" open-type="redirect">未完类请求</navigator>
+  <navigator url="../groups_helps/groups_helps" open-type="redirect">未完组请求</navigator>
   <text style="color: green;">已完请求</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">

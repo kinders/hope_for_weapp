@@ -34,7 +34,7 @@ Page({
       })
     }else {
       wx.showModal({
-        title: "向 " + name + " 类请求：",
+        title: "向 " + name + " 组请求：",
         content:  e.detail.value.content,
         success: function(res) {
           if (res.confirm) {
@@ -46,7 +46,7 @@ Page({
               method: 'POST',
               success: function(res){
                 if(res.data.id >= 0){
-                  /* 将新的类请求加入缓存。
+                  /* 将新的组请求加入缓存。
                   var groups_helps = wx.getStorageSync('groups_helps') || []
                   groups_helps.unshift({id: res.data.id, content: e.detail.value.content, group_id: group_id, group_name: name, created_at: res.data.time})
                   wx.setStorageSync('groups_helps', groups_helps)

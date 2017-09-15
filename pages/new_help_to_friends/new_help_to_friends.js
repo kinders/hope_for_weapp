@@ -8,7 +8,7 @@ Page({
     })
     wx.showModal({
       title: '提示',
-      content: '如果您经常要向这几个朋友发送请求，建议您将这些好友添加到一个类别里面'
+      content: '如果您经常要向这几个朋友发送请求，建议您将这些好友添加到一个小组里面'
     })
   },
   onReady:function(){

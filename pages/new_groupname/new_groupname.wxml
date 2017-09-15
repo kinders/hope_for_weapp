@@ -1,23 +1,23 @@
 <!--pages/new_groupname/new_groupname.wxml-->
 <view  class="topbar">
-  <text style="color: green;">更改类名</text>
+  <text style="color: green;">更改组名</text>
   <text bindtap="formReset">返回</text>
 </view>
 <view  class="topbar" style="background-color:green;">
-<text>原来的类名：</text>
+<text>原来的组名：</text>
 <text style="margin: auto;">{{group_name}}</text>
 </view>
 <view class="container">
 <form bindsubmit="formSubmit" bindreset="formReset">
   <view class="section">
-    <view class="section-title">请输入新的类名：</view>
+    <view class="section-title">请输入新的组名：</view>
     <view class="section-input" style="padding: 1rem 0 0 0">
         <input name="name" type="text" placeholder="在此输入" value="{{group_name}}"/>
     </view>
   </view>
   <view class="btn-area">
     <view style="padding: 1rem 0 0 0">
-    <button formType="submit" type="primary">提交类名</button>
+    <button formType="submit" type="primary">提交组名</button>
     </view>
   </view>
 </form>

@@ -16,7 +16,7 @@ Page({
     var friends = wx.getStorageSync('friendships');
     var others = [];
     others = friends.filter(function(hash){
-      return g_m_id.indexOf(hash.friend_id.toString()) == -1
+      return g_m_id.indexOf(hash.friend_id) == -1
     })
     //console.log(others)
     this.setData({
@@ -41,19 +41,19 @@ Page({
     var that = this;
     if(e.detail.value.checkbox.length < 2){
       wx.showToast({
-        title: '类别人数不能少于2人',
+        title: '小组人数不能少于2人',
         icon: 'loading',
         duration: 1000
       })
     }else if(e.detail.value.checkbox ==  that.data.g_m_id){
       wx.showToast({
-        title: '类别成员没有变动',
+        title: '小组成员没有变动',
         icon: 'loading',
         duration: 1000
       })
     }else{
       wx.showModal({
-        title: "变更类别成员",
+        title: "变更小组成员",
         content:  e.detail.value.checkbox.length.toString() + '人',
         success: function(res) {
           if (res.confirm) {
@@ -66,7 +66,7 @@ Page({
               success: function(res){
                 if(res.data.result_code == 't'){
                   wx.showToast({
-                    title: '成功变更类别成员',
+                    title: '成功变更小组成员',
                     icon: 'success',
                     duration: 2000
                   })
@@ -75,7 +75,7 @@ Page({
                   console.log('fail: request new_member res')
                   console.log(res)
                   wx.showToast({
-                    title: "服务器无法变更类别成员",
+                    title: "服务器无法变更小组成员",
                     icon: 'loading',
                     duration: 2000
                   })

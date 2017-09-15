@@ -177,7 +177,7 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['添加朋友', '新建类别','发给多个朋友', '添加虚拟用户', '搜索'],
+      itemList: ['添加朋友', '新建小组','发给多个朋友', '添加虚拟用户', '搜索'],
       success: function(res){
         if(res.tapIndex == 0){
           wx.redirectTo({url: '../strangers/strangers'})

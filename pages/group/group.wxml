@@ -5,7 +5,7 @@
   <navigator open-type="navigateBack">返回</navigator>
 </view>
 <view class="topbar" style="background-color:green;">
-  <text>类别名称：</text>
+  <text>小组名称：</text>
   <text style="margin: auto;">{{group.name}}</text>
 </view>
 <scroll-view scroll-y="true"  style="height: 28rem;" class="list">
