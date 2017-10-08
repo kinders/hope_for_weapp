@@ -281,5 +281,27 @@ Page({
     }else{
       that.setData({is_checked: false})
     }
+  },
+  setClipboard: function(){
+    var clipboraddata = '任务名称： \n';
+    clipboraddata = clipboraddata.concat(this.data.grouptodo.content, '\n布置时间：', this.data.grouptodo.time, '\n已完成： ', this.data.finish_count.toString(), ' 人。\n未完成： ', this.data.unfinish_count.toString(), '人。\n')
+    var finish_man = '\n已经完成了任务的：\n';
+    var unfinish_man = '\n还未完成任务的：\n';
+    this.data.helps_in_grouptodo.map(function(help){
+      if(help.is_finish == 'true'){
+        finish_man = finish_man.concat(help.nickname, '\n')
+      }else{
+        unfinish_man = unfinish_man.concat(help.nickname, '\n')
+      }
+    })
+    clipboraddata = clipboraddata.concat(unfinish_man, finish_man)
+    wx.setClipboardData({
+      data: clipboraddata,
+      success: function (res) {
+        wx.showToast({
+          title: '成功将信息复制到剪贴板！'
+        })
+      }
+    })
   }
 })

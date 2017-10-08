@@ -7,6 +7,7 @@
 <view class="topbar" style="background-color:green;">
   <text>小组名称：</text>
   <text style="margin: auto;">{{group.name}}</text>
+  <text bindtap='setClipboard'>复制</text>
 </view>
 <scroll-view scroll-y="true"  style="height: 28rem;" class="list">
   <block wx:for="{{group_friends}}" wx:key="id" wx:for-item="friend">

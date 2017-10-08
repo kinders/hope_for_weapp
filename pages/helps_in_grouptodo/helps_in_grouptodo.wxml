@@ -29,18 +29,23 @@
 </view>
 </view>
 <view class="todo" style="border-bottom: none;">
-  <form bindsubmit="close_helps">
     <view>
     <text style="font-weight: bold">所有成员的完成情况：</text>
     </view>
-    <view class="btn-area {{is_hidden}}" style="float: right;">
-      <button bindtap="selectCheckbox" type="primary" size="mini"  >选择全部成员</button>
+    <view class="btn-area" style="float: right;">
+      <button bindtap="setClipboard" type="default" size="mini">复制到剪贴板</button>
     </view>
     <view>
     <text style="font-weight: bold">已完成：{{finish_count}}人</text>
     </view>
     <view>
     <text style="font-weight: bold">未完成：{{unfinish_count}}人</text>
+    </view>
+</view>
+<view class="todo" style="border-bottom: none;">
+  <form bindsubmit="close_helps">
+    <view class="btn-area {{is_hidden}}">
+      <button bindtap="selectCheckbox" type="primary">选择全部成员</button>
     </view>
     <view class="list">
       <checkbox-group name="checkbox">

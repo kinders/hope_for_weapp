@@ -56,6 +56,24 @@ Page({
   onUnload:function(){
     // 页面关闭
   },
+  setClipboard: function(){
+    var clipboraddata = '未完成任务统计\n小组名称： ';
+    var total = 0;
+    clipboraddata = clipboraddata.concat(this.data.group.name, '\n')
+    this.data.group_friends.map(function (friend) {
+      clipboraddata = clipboraddata.concat(friend.nickname, '\t', friend.helps_length, '\n')
+      total = total + parseInt(friend.helps_length)
+    })
+    clipboraddata = clipboraddata.concat('合计：', total.toString())
+    wx.setClipboardData({
+      data: clipboraddata,
+      success: function (res) {
+        wx.showToast({
+          title: '成功将信息复制到剪贴板！'
+        })
+      }
+    })
+  },
   moreFun: function(){
     var that=this;
     var token = getApp().globalData.token;
