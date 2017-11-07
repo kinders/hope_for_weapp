@@ -11,7 +11,7 @@
     <navigator url="../helps/helps" open-type="switchTab"><button size="mini" type="primary">点击这里，继续协作</button></navigator>
   </view>
 </view>
-<scroll-view scroll-y="true"  style="height: 14rem;" class="list">
+<scroll-view scroll-y="true"  style="height: 15rem;" class="list">
   <block wx:for="{{awards}}" wx:key="id" wx:for-item="award">
   <navigator url="../award/award?id={{award.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&sender_nickname={{award.nickname}}&sender_id={{award.sender_id}}&created_at={{award.created_at}}&content={{award.content}}">
      <view class="item-key">

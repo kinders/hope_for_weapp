@@ -112,7 +112,7 @@ Page({
             })
         }else  if(res.tapIndex == 3){
             wx.navigateTo({
-              url: "../new_award/new_award?friend_id=" + friend_id + "&nickname=" + nickname
+              url: "../friend_awards/friend_awards?friend_id= " + friend_id + "&friend_nickname=" + nickname
             })
         }else if(res.tapIndex == 4){
           wx.navigateTo({

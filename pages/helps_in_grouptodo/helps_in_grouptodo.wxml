@@ -15,7 +15,7 @@
     <text>时间：{{grouptodo.time}}</text>
   </view>
   <view>
-    <text>内容：{{grouptodo.content}}</text>
+    <text  selectable="true">内容：{{grouptodo.content}}</text>
   </view>
 </view>
 <view class="todo">

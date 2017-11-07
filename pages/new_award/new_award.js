@@ -95,6 +95,18 @@ Page({
               success: function (res) {
                 //console.log(res)
                 if (res.data.id >= 0) {
+                  // 将信息插入friend_awards
+                  var d = new Date();
+                  var f = new Date(d.valueOf() + 28800000); //手动调多8个小时
+                  var now_time = f.toJSON().substr(0, 19).replace("T", " ")
+                  var new_award = { id: res.data.id, content: e.detail.value.content, created_at: now_time }
+                  var friend_awards = wx.getStorageSync('friend_awards') || []
+                  friend_awards.unshift(new_award)
+                  wx.setStorageSync('friend_awards', friend_awards)
+                  var friend_count = wx.getStorageSync('friend_count');
+                  friend_count = friend_count + 1;
+                  wx.setStorageSync('friend_count', friend_count)
+                  //*/
                   wx.showToast({
                     title: '成功发送鼓励',
                     icon: 'success',

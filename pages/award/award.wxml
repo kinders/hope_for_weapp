@@ -1,6 +1,6 @@
 <!--pages/award/award.wxml-->
 <view  class="topbar">
-  <text bindtap="deleteAward">拒绝</text>
+  <text wx:if="{{candelete}}" bindtap="deleteAward">删除</text>
   <navigator open-type="navigateBack">返回</navigator>
 </view>
 <view  class="topbar" style="background-color:green;">
@@ -13,7 +13,7 @@
   <text>{{award.user_nickname}}：</text>
 </view>
 <view style="padding: 1rem 0; background-color: #FFFF66; line-height:200%; text-indent:2rem;">
-  <text>{{award.content}}</text>
+  <text  selectable="true" >{{award.content}}</text>
 </view>
 <view  style="padding: 2rem 0 0 0; position:absolute; right: 2rem;">
   <view style="">

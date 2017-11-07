@@ -29,7 +29,8 @@
     "pages/search/search",
     "pages/awards/awards",
     "pages/award/award",
-    "pages/new_award/new_award"
+    "pages/new_award/new_award",
+    "pages/friend_awards/friend_awards"
   ],
   "window":{
     "navigationBarBackgroundColor": "#000",
