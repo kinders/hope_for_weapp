@@ -247,5 +247,60 @@ Page({
       title: '嗨，我要向您推荐这个朋友……',
       path: "/pages/friend/friend?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname
     }
+  },
+  close_help: function (event) {
+    var that = this;
+    var todo_id = event.currentTarget.dataset.todo_id;
+    var friend_id = that.data.friend.friend_id;
+    var friend_todos_name = "friend_" + friend_id + "_todos";
+    wx.showModal({
+      title: "注意",
+      content: '您确定要关闭这个请求吗？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: 'https://www.hopee.xyz/close_help',
+            data: { token: getApp().globalData.token, todo_id: todo_id },
+            header: { "Content-Type": "application/json" },
+            method: 'POST',
+            success: function (res) {
+              // success
+              if (res.data.result_code == "t") {
+                // 将请求从缓存中删除
+                var friend_todos = wx.getStorageSync(friend_todos_name) || []
+                var todo_index;
+                friend_todos.map(function (hash, index) {
+                  if (hash.id == todo_id) {
+                    todo_index = index
+                  }
+                })
+                friend_todos.splice(todo_index, 1)
+                wx.setStorageSync(friend_todos_name, friend_todos)
+                that.setData({
+                  friend_todos: friend_todos || [],
+                  friend_todos_length: friend_todos.length || 0
+                })
+                wx.showToast({
+                  title: '成功关闭这个请求',
+                  icon: 'success',
+                  duration: 2000
+                })
+              } else {
+                console.log('fail: request close_help res')
+                console.log(res)
+                wx.showToast({
+                  title: '服务器无法关闭这个请求',
+                  icon: 'loading',
+                  duration: 2000
+                })
+              }
+            },
+            fail: function () { console.log('fail: request close_help') },
+            complete: function () { }
+          })
+        }
+      },
+      fail: function () { }
+    })
   }
 })

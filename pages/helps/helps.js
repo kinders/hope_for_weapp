@@ -136,5 +136,58 @@ Page({
       title: '或许您可以帮我……',
       path: "/pages/new_friend/new_friend?friend_id=" + current_user.id + "&nickname=" + current_user.nickname
     }
+  },
+  close_help: function (event) {
+    var that = this;
+    var todo_id = event.currentTarget.dataset.todo_id;
+    wx.showModal({
+      title: "注意",
+      content: '您确定要关闭这个请求吗？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: 'https://www.hopee.xyz/close_help',
+            data: { token: getApp().globalData.token, todo_id: todo_id },
+            header: { "Content-Type": "application/json" },
+            method: 'POST',
+            success: function (res) {
+              // success
+              if (res.data.result_code == "t") {
+                // 将请求从缓存中删除
+                var helps = wx.getStorageSync('helps') || []
+                var todo_index;
+                helps.map(function (hash, index) {
+                  if (hash.id == todo_id) {
+                    todo_index = index
+                  }
+                })
+                helps.splice(todo_index, 1)
+                wx.setStorageSync('helps', helps)
+                that.setData({
+                  helps: helps || [],
+                  helps_length: helps.length || 0
+                })
+                wx.showToast({
+                  title: '成功关闭这个请求',
+                  icon: 'success',
+                  duration: 2000
+                })
+              } else {
+                console.log('fail: request close_help res')
+                console.log(res)
+                wx.showToast({
+                  title: '服务器无法关闭这个请求',
+                  icon: 'loading',
+                  duration: 2000
+                })
+              }
+            },
+            fail: function () { console.log('fail: request close_help') },
+            complete: function () { }
+          })
+        }
+      },
+      fail: function () { }
+    })
   }
 })

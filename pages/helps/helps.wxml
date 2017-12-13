@@ -14,7 +14,7 @@
 </view>
 <scroll-view scroll-y="true"  style="height: 25rem;" class="list">
   <block wx:for="{{helps}}" wx:key="id" wx:for-item="help">
-    <view class="{{is_hidden[index]}}">
+    <view class="{{is_hidden[index]}}" bindlongpress='close_help' data-todo_id="{{help.id}}">
       <navigator url="../todo/todo?todo_id={{help.id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&receiver_nickname={{help.nickname}}&created_at={{help.created_at}}&is_finish=f&content={{help.content}}">
         <view class="item-key">
          <text>{{index + 1}}    </text>
