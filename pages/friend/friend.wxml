@@ -18,19 +18,23 @@
 </view>
 <scroll-view scroll-y="true"  style="height: 27rem;" class="list">
   <block wx:for="{{friend_todos}}" wx:key="id" wx:for-item="friend_todo">
-  <view class="{{is_hidden[index]}}"  bindlongpress='close_help' data-todo_id="{{friend_todo.id}}">
-     <view class="item-key" wx:if="{{friend_todo.user_id == current_user_id}}">
-       <text>{{index + 1}}</text>
-       <text  style="color: gray; padding: 0.5rem;">{{friend_todo.nickname}}</text>
-       <text>{{friend_todo.created_at}}</text>
-     </view>
-     <navigator url="../friend/friend?friend_id={{friend_todo.user_id}}&nickname={{friend_todo.nickname}}" open-type="redirect" wx:else class="item-key">
-       <text>{{index + 1}}</text>
-       <text  style="color: black; padding: 0.5rem;">{{friend_todo.nickname}}</text>
-       <text>{{friend_todo.created_at}}</text>
-     </navigator>
-       <navigator url="../todo/todo?todo_id={{friend_todo.id}}&user_id={{friend_todo.user_id}}&user_nickname={{friend_todo.nickname}}&receiver_nickname={{friend.nickname}}&created_at={{friend_todo.created_at}}&is_finish=f&content={{friend_todo.content}}" class="item-value">{{ friend_todo.content}}</navigator>
-
+  <view class="{{is_hidden[index]}}">
+    <view class="item-key" wx:if="{{friend_todo.user_id == current_user_id}}">
+      <text>{{index + 1}}</text>
+      <text  style="color: gray; padding: 0.5rem;">{{friend_todo.nickname}}</text>
+      <text>{{friend_todo.created_at}}</text>
+    </view>
+    <navigator url="../friend/friend?friend_id={{friend_todo.user_id}}&nickname={{friend_todo.nickname}}" open-type="redirect" wx:else class="item-key">
+      <text>{{index + 1}}</text>
+      <text  style="color: black; padding: 0.5rem;">{{friend_todo.nickname}}</text>
+      <text>{{friend_todo.created_at}}</text>
+    </navigator>
+    <view  wx:if="{{friend_todo.user_id == current_user_id}}" bindlongpress='close_help' data-todo_id="{{friend_todo.id}}">
+      <navigator url="../todo/todo?todo_id={{friend_todo.id}}&user_id={{friend_todo.user_id}}&user_nickname={{friend_todo.nickname}}&receiver_nickname={{friend.nickname}}&created_at={{friend_todo.created_at}}&is_finish=f&content={{friend_todo.content}}" class="item-value">{{ friend_todo.content}}</navigator>
+    </view>
+    <view wx:else>
+      <navigator url="../todo/todo?todo_id={{friend_todo.id}}&user_id={{friend_todo.user_id}}&user_nickname={{friend_todo.nickname}}&receiver_nickname={{friend.nickname}}&created_at={{friend_todo.created_at}}&is_finish=f&content={{friend_todo.content}}" class="item-value">{{ friend_todo.content}}</navigator>
+    </view>
   </view>
   </block>
 </scroll-view>
