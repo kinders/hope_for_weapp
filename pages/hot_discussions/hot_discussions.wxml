@@ -1,0 +1,29 @@
+<!--pages/hot_discussions/hot_discussions.wxml-->
+<view  class="topbar">
+  <navigator url="../helps/helps" open-type="switchTab">返回主页</navigator>
+  <navigator url="../groups_helps/groups_helps" open-type="redirect">未完组请求</navigator>
+  <text style="color: green;">留言</text>
+</view>
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{hot_discussions_user_nicknames}}">
+  <view class="picker">
+      筛选：{{hot_discussions_user_nicknames[index]}}
+      <text style="float: right;">({{hot_discussions_length}})</text>
+    </view>
+  </picker>
+</view>
+<scroll-view scroll-y="true"  style="height: 28rem;" class="list">
+  <block wx:for="{{hot_discussions}}" wx:key="id" wx:for-item="hot_discussion">
+    <view class="{{is_hidden[index]}}" bindlongpress='close_help' data-todo_id="{{help.id}}">
+      <navigator url="../todo/todo?todo_id={{hot_discussion.todo_id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&is_finish=f">
+        <view class="item-key">
+         <text>{{index + 1}}    </text>
+         <text style="padding: 0.25rem;color: gray;" wx:if="{{help.receiver_id == current_user.id}}" >{{hot_discussion.nickname}}</text>
+         <text style="padding: 0.25rem;color: black;" wx:else>{{hot_discussion.nickname}}</text>
+         <text>{{hot_discussion.created_at}}</text>
+       </view>
+       <view class="item-value">{{ hot_discussion.content}}</view>
+     </navigator>
+  </view>
+  </block>
+</scroll-view>

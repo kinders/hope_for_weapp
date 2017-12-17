@@ -30,7 +30,8 @@
     "pages/awards/awards",
     "pages/award/award",
     "pages/new_award/new_award",
-    "pages/friend_awards/friend_awards"
+    "pages/friend_awards/friend_awards",
+    "pages/hot_discussions/hot_discussions"
   ],
   "window":{
     "navigationBarBackgroundColor": "#000",

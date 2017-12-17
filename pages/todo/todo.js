@@ -64,6 +64,17 @@ Page({
       method: 'GET',
       success: function(res){
         // 取得信息之后：缓存信息
+        if (res.data.todo) {
+          if(that.data.todo.content == null){
+            that.setData({
+              todo: { id: todo_id, user_id: user_id, user_nickname: user_nickname, receiver_nickname: res.data.todo.receiver_nickname, created_at: res.data.todo.created_at, is_finish: res.data.todo.is_finish, content: res.data.todo.content }
+            })
+          }
+
+        } else {
+          console.log('fail: request todo res')
+          console.log(res)
+        }
         if (res.data.discussions) {
           wx.setStorageSync(discussions, res.data.discussions)
           that.setData({
@@ -95,7 +106,7 @@ Page({
             is_hidden: is_hidden
           })
         }else{
-          console.log('fail: request todo res')
+          console.log('fail: request discussions res')
           console.log(res)
         }
       },

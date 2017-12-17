@@ -2,7 +2,7 @@
 <view  class="topbar">
   <text style="color: green;">未完请求</text>
   <navigator url="../groups_helps/groups_helps">未完组请求</navigator>
-  <navigator url="../helpeds/helpeds">已完请求</navigator>
+  <navigator url="../hot_discussions/hot_discussions">留言</navigator>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{helps_receiver_nicknames}}">
