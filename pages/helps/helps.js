@@ -130,13 +130,6 @@ Page({
       helps_length: helps_length
     })
   },
-  onShareAppMessage: function () {
-    var current_user = getApp().globalData.current_user;
-    return {
-      title: '或许您可以帮我……',
-      path: "/pages/new_friend/new_friend?friend_id=" + current_user.id + "&nickname=" + current_user.nickname
-    }
-  },
   close_help: function (event) {
     var that = this;
     var todo_id = event.currentTarget.dataset.todo_id;

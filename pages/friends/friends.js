@@ -22,11 +22,10 @@ Page({
         if(res.data.friendships){
           getApp().globalData.need_update_friends = false
           var f = res.data.friendships;
-          if (f.length == 0){
-            wx.showToast({
-              title: '点击右上角的三点，分享自己来增加朋友',
-              icon: 'loading',
-              duration: 5000
+          if (f.length < 3){
+            wx.showModal({
+              title: '提示',
+              content: '朋友太少？点击右上角的“更多”，选择“添加朋友”！还可以点击右上角的三点，转发卡片，来增加准朋友。'
             })
           }
           var a = f.map(function(hash, index){return hash.nickname.concat("^^+_-^^", index)})

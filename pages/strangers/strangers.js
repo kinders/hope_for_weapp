@@ -3,6 +3,10 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
+    wx.showModal({
+      title: '提示',
+      content: '点击右上角的三点，可以转发卡片，增加准朋友。'
+    })
   },
   onReady:function(){
     // 页面渲染完成
@@ -38,5 +42,12 @@ Page({
   },
   onUnload:function(){
     // 页面关闭
+  },
+  onShareAppMessage: function () {
+    var current_user = getApp().globalData.current_user
+    return {
+      title: '加我吧，朋友，我需要您的协作',
+      path: "/pages/new_friend/new_friend?friend_id=" + current_user.id + "&nickname=" + current_user.nickname
+    }
   }
 })

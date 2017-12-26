@@ -77,6 +77,15 @@ Page({
                       wx.navigateBack()
                     }
                   },2000);
+                } else if(res.data.result_code == 'f'){
+                  wx.showToast({
+                    title: "已是您的好友",
+                    icon: 'loading',
+                    duration: 2000
+                  })
+                  setTimeout(function () {
+                    wx.redirectTo({url: '../index/index'})
+                  }, 2000);
                 }else{
                   console.log('fail: request new_friend res')
                   console.log(res)
