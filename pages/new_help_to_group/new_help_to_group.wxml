@@ -1,7 +1,7 @@
 <!--pages/new_help_to_group/new_help_to_group.wxml-->
 <view  class="topbar">
-  <text style="color: green;">发布组请求</text>
   <navigator open-type="navigateBack">返回</navigator>
+  <text style="color: green;">发布组请求</text>
 </view>
 <view class="topbar" style="background-color:green;">
 <text>组名：</text>

@@ -1,8 +1,8 @@
 <!--pages/helps/helps.wxml-->
 <view  class="topbar">
-  <text style="color: green;">未完请求</text>
-  <navigator url="../groups_helps/groups_helps">未完组请求</navigator>
-  <navigator url="../hot_discussions/hot_discussions">留言</navigator>
+  <text style="color: green;">请求</text>
+  <navigator url="../groups_helps/groups_helps" open-type="redirect">组请求</navigator>
+  <navigator url="../helpeds/helpeds" open-type="redirect">已满意</navigator>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{helps_receiver_nicknames}}">

@@ -1,7 +1,7 @@
 <!--pages/search/search.wxml-->
 <view class="topbar">
-  <text style="color: green;">搜索</text>
   <navigator url="../friends/friends" open-type="switchTab">返回</navigator>
+  <text style="color: green;">搜索</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="UserPick" value="{{user_index}}" range="{{search_user_nicknames}}">

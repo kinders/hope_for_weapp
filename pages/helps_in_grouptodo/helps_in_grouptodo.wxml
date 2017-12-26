@@ -1,9 +1,10 @@
 <!--pages/helps_in_grouptodo/helps_in_grouptodo.wxml-->
 <view  class="topbar">
-  <text style="color: green;">列表</text >
-  <text type="warn" bindtap="close_grouptodo"wx:if="{{grouptodo.is_finish == 'f'}}">结束组请求</text>
-  <text type="warn" bindtap="open_grouptodo"wx:if="{{grouptodo.is_finish == 't'}}">重启组请求</text>
-  <navigator  open-type="navigateBack">返回</navigator >
+  <navigator  open-type="navigateBack">返回</navigator>
+  <text style="color: green;">详情</text >
+  <text type="warn" bindtap="close_grouptodo"wx:if="{{grouptodo.is_finish == 'f'}}">结束</text>
+  <text type="warn" bindtap="open_grouptodo"wx:if="{{grouptodo.is_finish == 't'}}">重启</text>
+
 </view>
 <view class="topbar" style="background-color:green;">
   <text>小组名称：</text>

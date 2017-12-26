@@ -1,7 +1,6 @@
 <!--pages/hot_discussions/hot_discussions.wxml-->
 <view  class="topbar">
-  <navigator url="../helps/helps" open-type="switchTab">返回主页</navigator>
-  <navigator url="../groups_helps/groups_helps" open-type="redirect">未完组请求</navigator>
+  <navigator url="../friends/friends" open-type="switchTab">返回</navigator>
   <text style="color: green;">留言</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">

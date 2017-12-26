@@ -1,8 +1,8 @@
 <!--pages/new_help_to_friends/new_help_to_friends.wxml-->
 <form bindsubmit="formSubmit"  bindreset="formReset">
 <view  class="topbar">
-  <text style="color: green;">发送请求给多个朋友</text>
   <navigator open-type="navigateBack">返回</navigator>
+  <text style="color: green;">发送请求给多个朋友</text>
 </view>
   <view class="section">
     <view class="section-title">请求内容：</view>

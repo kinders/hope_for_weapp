@@ -1,8 +1,8 @@
 <!--todos.wxml-->
 <view  class="topbar">
-  <text style="color: green;">未完任务</text>
-  <navigator url="../other_todos/other_todos">陌生人任务</navigator>
-  <navigator url="../dones/dones">已完任务</navigator>
+  <text style="color: green;">来自朋友</text>
+  <navigator url="../other_todos/other_todos">来自陌生</navigator>
+  <navigator url="../dones/dones">已完成</navigator>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{todos_user_nicknames}}">

@@ -1,7 +1,7 @@
 <!--pages/strangers/strangers.wxml-->
 <view  class="topbar">
-  <text style="color: green;">列表({{strangers_length}})</text>
   <navigator url="../friends/friends"  open-type="switchTab">返回</navigator>
+  <text style="color: green;">准朋友({{strangers_length}})</text>
 </view>
 <scroll-view scroll-y="true"  style="height: 30rem;" class="list">
   <block wx:for="{{strangers}}" wx:key="id" wx:for-item="friendship">

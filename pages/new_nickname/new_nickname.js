@@ -5,19 +5,25 @@ Page({
   data:{},
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    friend_id = options.friend_id
-    nickname = options.nickname
-    this.setData({
-      friend_nickname: nickname
-    })
-    var current_user = getApp().globalData.current_user
+    friend_id = options.friend_id;
+    nickname = options.nickname;
+    var new_nickname = options.nickname;
+    var current_user = getApp().globalData.current_user;
     if (friend_id == current_user.id){
       wx.showToast({
-        title: '下面将为自己设置昵称',
+        title: '为自己设置昵称',
         icon: 'loading',
         duration: 5000
       })
+      var is_num = /^\d+$/;
+      if (is_num.test(nickname)) {
+        new_nickname = getApp().globalData.userInfo.nickName
+      }
     }
+    this.setData({
+      friend_nickname: nickname,
+      new_nickname: new_nickname
+    })
   },
   onReady:function(){
     // 页面渲染完成

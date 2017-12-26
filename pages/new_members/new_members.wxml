@@ -1,7 +1,7 @@
 <!--pages/new_members/new_members.wxml-->
 <view  class="topbar">
-  <text style="color: green;">组名：{{group_name}}</text>
   <navigator open-type="navigateBack">返回</navigator>
+  <text style="color: green;">增减成员：{{group_name}}</text>
 </view>
 <form bindsubmit="formSubmit">
   <scroll-view class="scroll-select" scroll-y="true"  style="height: 30rem;">

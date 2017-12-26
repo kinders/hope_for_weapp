@@ -1,8 +1,8 @@
 <!--pages/friend_helps/friend_helps.wxml-->
 <view  class="topbar">
-  <text style="color: green;">请求</text>
-  <text bindtap="moreFun">常用操作</text>
   <navigator open-type="navigateBack">返回</navigator>
+  <text style="color: green;">请求</text>
+  <text bindtap="moreFun">更多</text>
 </view>
 <view  class="topbar" style="background-color:green;">
 <text>昵称：</text>

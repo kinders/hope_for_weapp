@@ -1,13 +1,11 @@
 //index.js
-//获取应用实例
-var app = getApp();
 Page({
   data: {},
   //事件处理函数
   onLoad: function () {
     var that = this
     //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
+    getApp().getUserInfo(function(userInfo){
       //取出用户
       that.setData({
         userInfo:userInfo
@@ -20,8 +18,8 @@ Page({
     })
     var that=this;
     setTimeout(function(){
-      var is_use = app.globalData.is_use;
-      var current_user = app.globalData.current_user;
+      var is_use = getApp().globalData.is_use;
+      var current_user = getApp().globalData.current_user;
       if(is_use == 1){
         var is_num = /^\d+$/;
         if(is_num.test(current_user.nickname)){
@@ -33,7 +31,7 @@ Page({
         that.setData({
           current_user: current_user,
           is_use: 2,
-          msg: app.globalData.msg
+          msg: getApp().globalData.msg
         })
       } else {
         that.setData({is_use: 0})
@@ -132,7 +130,7 @@ Page({
         duration: 2000
       })
     } else {
-      app.getUserInfo()
+      getApp().getUserInfo()
       wx.showToast({
         title: '网络故障。可先退出小程序，稍后重新进入',
         icon: 'loading',

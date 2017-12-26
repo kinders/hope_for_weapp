@@ -1,7 +1,7 @@
 <!--pages/new_nickname/new_nickname.wxml-->
 <view  class="topbar">
-  <text style="color: green;">更改昵称</text>
   <navigator open-type="navigateBack">返回</navigator>
+  <text style="color: green;">更改昵称</text>
 </view>
 <view  class="topbar" style="background-color:green;">
 <text>原来的昵称：</text>
@@ -12,7 +12,7 @@
   <view class="section">
     <view class="section-title">请输入新的昵称：</view>
     <view class="section-input" style="padding: 1rem 0 0 0">
-        <input name="name" type="text" placeholder="在此输入" value="{{friend_nickname}}"/>
+        <input name="name" type="text" placeholder="在此输入" value="{{new_nickname}}"/>
     </view>
   </view>
   <view class="btn-area">

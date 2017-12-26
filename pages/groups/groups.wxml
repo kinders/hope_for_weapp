@@ -1,8 +1,8 @@
 <!--pages/groups/groups.wxml-->
 <view  class="topbar">
-  <navigator url="../friends/friends"  open-type="switchTab">返回主页</navigator>
+  <navigator url="../friends/friends"  open-type="switchTab">返回</navigator>
   <text style="color: green;">小组({{groups_length}})</text>
-  <text bindtap="moreFun">常用操作</text>
+  <text bindtap="moreFun">更多</text>
 </view>
 <scroll-view scroll-y="true"  style="height: 27rem;" class="list">
   <block wx:for="{{groups}}" wx:key="id" wx:for-item="group">

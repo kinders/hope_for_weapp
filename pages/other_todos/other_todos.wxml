@@ -1,9 +1,7 @@
 <!--other_todos.wxml-->
 <view  class="topbar">
-  <navigator url="../todos/todos" open-type="switchTab">返回主页</navigator>
-  <text style="color: green;">陌生人任务</text>
-  <navigator url="../dones/dones" open-type="redirect">已完任务</navigator>
-  
+  <navigator url="../todos/todos" open-type="switchTab">返回</navigator>
+  <text style="color: green;">陌生人给的任务</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{todos_user_nicknames}}">

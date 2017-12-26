@@ -1,7 +1,7 @@
 <!--pages/new_friend/new_friend.wxml-->
 <view  class="topbar">
-  <text style="color: green;">添加朋友</text>
   <text bindtap="formReset">返回</text>
+  <text style="color: green;">添加朋友</text>
 </view>
 <view  class="topbar" style="background-color:green;">
 <text>昵称：</text>

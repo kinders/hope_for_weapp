@@ -1,8 +1,8 @@
 <!--pages/helpeds/helpeds.wxml-->
 <view  class="topbar">
-  <navigator url="../helps/helps" open-type="switchTab">返回主页</navigator>
-  <navigator url="../groups_helps/groups_helps" open-type="redirect">未完组请求</navigator>
-  <text style="color: green;">已完请求</text>
+  <navigator url="../helps/helps" open-type="switchTab">返回</navigator>
+  <navigator url="../groups_helps/groups_helps" open-type="redirect">组请求</navigator>
+  <text style="color: green;">已满意</text>
 </view>
 <view style="padding: 0.5rem; border-bottom: inset;">
   <picker mode="date" value="{{date}}" start="2017-04-01" end="2022-12-31" bindchange="bindDateChange">
