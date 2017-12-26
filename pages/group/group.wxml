@@ -16,7 +16,7 @@
     <view wx:if="{{friend.user_id == current_user_id}}"  class="item-value" >
       <text selectable="true" style="color: gray;">{{friend.nickname}}</text>
     </view>
-    <navigator wx:else url="../friend/friend?friend_id={{friend.user_id}}&nickname={{friend.nickname}}" open-type="redirect" class="item-value">
+    <navigator wx:else url="../friend/friend?friend_id={{friend.user_id}}&nickname={{friend.nickname}}" class="item-value">
       <text selectable="true">{{friend.nickname}}</text>
     </navigator>
   </block>

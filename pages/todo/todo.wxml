@@ -2,8 +2,8 @@
 <view  class="topbar" wx:if="{{todo.user_id == current_user.id}}">
   <text bindtap="turnBack">返回</text>
   <text style="color: green;">详情</text>
-  <text bindtap="rehelp"  wx:if="{{ todo.is_finish == 'true'}}">重启任务</text>
-  <text bindtap="close_help"  wx:else >结束任务</text>
+  <text bindtap="rehelp"  wx:if="{{ todo.is_finish == 'true'}}">重启</text>
+  <text bindtap="close_help"  wx:else >结束</text>
 </view>
 <view  class="topbar" wx:else>
   <text style="color: green;">详情</text>

@@ -72,7 +72,7 @@ Page({
     var sendto = '发送请求给：' + nickname;
     if(current_user.id == friend_id){
       wx.showActionSheet({
-        itemList: ['给自己一个请求', '更改昵称', '已完任务', '查看鼓励'],
+        itemList: ['给自己一个请求', '更改昵称', '已完成的任务', '查看鼓励'],
         success: function(res) {
           if(res.tapIndex == 0){
             wx.navigateTo({
@@ -96,7 +96,7 @@ Page({
       })
     }else{
     wx.showActionSheet({
-      itemList: [sendto, '未完任务', '未完请求', '鼓励好友', '修改昵称', '删除好友'],
+      itemList: [sendto, '未完成的任务', '未满意的请求', '鼓励好友', '修改昵称', '删除好友'],
       success: function(res) {
         if(res.tapIndex == 0){
           wx.navigateTo({

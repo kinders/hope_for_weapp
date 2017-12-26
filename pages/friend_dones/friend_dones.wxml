@@ -1,7 +1,7 @@
 <!--pages/friend_dones/friend_dones.wxml-->
 <view  class="topbar">
   <navigator open-type="navigateBack">返回</navigator>
-  <text style="color: green;">已完任务</text>
+  <text style="color: green;">已完成的任务</text>
   <text bindtap="moreFun">更多</text>
 </view>
 <view  class="topbar" style="background-color:green;">
