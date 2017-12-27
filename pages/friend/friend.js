@@ -46,6 +46,10 @@ Page({
                 if(res.data.result_code == "t"){
                   getApp().globalData.token = res.data.token
                   getApp().globalData.current_user = res.data.current_user
+                  wx.showModal({
+                    title: '提示',
+                    content: '喜欢这个朋友吗？点击右上角的“更多”，选择“加为好友”——以后就可以在“朋友”列表中看到这个朋友了。'
+                  })
                 }else{
                   wx.redirectTo({url: '../index/index'})
                 }

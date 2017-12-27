@@ -46,8 +46,9 @@ Page({
   onShareAppMessage: function () {
     var current_user = getApp().globalData.current_user
     return {
-      title: '加我吧，朋友，我需要您的协作',
-      path: "/pages/new_friend/new_friend?friend_id=" + current_user.id + "&nickname=" + current_user.nickname
+      title: current_user.nickname + "：朋友，加我吧，我需要您的协作",
+      path: "/pages/new_friend/new_friend?friend_id=" + current_user.id + "&nickname=" + current_user.nickname,
+      imageUrl: "../../icons/shake_hands.jpg"
     }
   }
 })
