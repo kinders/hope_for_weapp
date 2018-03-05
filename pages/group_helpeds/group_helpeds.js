@@ -130,5 +130,26 @@ Page({
         console.log(res.errMsg)
       }
     })
+  },
+  search_lists: function (e) {
+    var that = this;
+    var is_hidden = [];
+    var group_helpeds_length = 0;
+    var group_id = that.data.group.group_id;
+    var group_helpeds = "group_" + group_id + "_helpeds";
+    (wx.getStorageSync(group_helpeds) || []).map(function (help) {
+      if (help.content.indexOf(e.detail.value) >= 0) {
+        is_hidden = is_hidden.concat("item"),
+          group_helpeds_length = group_helpeds_length + 1
+      } else {
+        is_hidden = is_hidden.concat("hidden")
+      }
+      that.setData({
+        is_hidden: is_hidden,
+        index: 0,
+        group_helpeds_length: group_helpeds_length
+      })
+      //console.log("search done")
+    })
   }
 })

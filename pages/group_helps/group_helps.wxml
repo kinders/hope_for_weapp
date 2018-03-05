@@ -9,9 +9,12 @@
 <text>小组名称：</text>
 <text style="margin: auto;">{{group.name}}</text>
 </view>
-<scroll-view scroll-y="true"  style="height: 28rem;" class="list">
+<view style="padding: 0.5rem; border-bottom: inset;">
+  <input bindinput="SearchInput" placeholder="搜索" bindconfirm="search_lists" confirm-type="search"/>
+</view>
+<scroll-view scroll-y="true"  style="height: 27rem;" class="list">
   <block wx:for="{{group_helps}}" wx:key="id" wx:for-item="group_help">
-    <navigator url="../helps_in_grouptodo/helps_in_grouptodo?id={{group_help.id}}&time={{group_help.created_at}}&content={{group_help.content}}&is_finish=f&group_id={{group.group_id}}&name={{group.name}}">
+    <navigator class="{{is_hidden[index]}}" url="../helps_in_grouptodo/helps_in_grouptodo?id={{group_help.id}}&time={{group_help.created_at}}&content={{group_help.content}}&is_finish=f&group_id={{group.group_id}}&name={{group.name}}">
     <view class="item-key">
       <text>{{index + 1}}    </text>
       <text>{{group_help.created_at}}</text>

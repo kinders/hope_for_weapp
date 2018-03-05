@@ -122,5 +122,24 @@ Page({
       is_hidden: is_hidden,
       groups_helps_length: groups_helps_length
     })
+  },
+  search_lists: function (e) {
+    var that = this;
+    var is_hidden = [];
+    var groups_helps_length = 0;
+    (wx.getStorageSync('groups_helps') || []).map(function (help) {
+      if (help.content.indexOf(e.detail.value) >= 0) {
+        is_hidden = is_hidden.concat("item")
+        groups_helps_length = groups_helps_length + 1
+      } else {
+        is_hidden = is_hidden.concat("hidden")
+      }
+      that.setData({
+        is_hidden: is_hidden,
+        index: 0,
+        groups_helps_length: groups_helps_length
+      })
+      //console.log("search done")
+    })
   }
 })

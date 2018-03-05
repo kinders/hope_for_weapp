@@ -244,5 +244,26 @@ Page({
       title: '嗨，我要向您推荐这个朋友……',
       path: "/pages/friend_helps/friend_helps?friend_id=" + friend.friend_id + "&nickname=" + friend.nickname
     }
+  },
+  search_lists: function (e) {
+    var that = this;
+    var is_hidden = [];
+    var friend_helps_length = 0;
+    var friend_id = that.data.friend.friend_id
+    var friend_helps = "friend_" + friend_id + "_helps";
+    (wx.getStorageSync(friend_helps) || []).map(function (help) {
+      if (help.content.indexOf(e.detail.value) >= 0) {
+        is_hidden = is_hidden.concat("item"),
+          friend_helps_length = friend_helps_length + 1
+      } else {
+        is_hidden = is_hidden.concat("hidden")
+      }
+      that.setData({
+        is_hidden: is_hidden,
+        index: 0,
+        friend_helps_length: friend_helps_length
+      })
+      //console.log("search done")
+    })
   }
 })

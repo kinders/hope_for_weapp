@@ -136,7 +136,7 @@ Page({
                 wx.navigateBack()
               } else {
                 wx.showToast({
-                  title: "服务器无法拒绝这个鼓励，请您稍后再试",
+                  title: "服务器无法拒绝",
                   icon: 'loading',
                   duration: 2000
                 })

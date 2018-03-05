@@ -9,6 +9,7 @@
   <text style="color: green;">详情</text>
   <text bindtap="turnBack">返回</text>
 </view>
+
 <view class="todo">
   <view style="padding: 0.2rem 0 0 0;">
      <text style="margin: 0 1rem 0 0;">时间</text>
@@ -58,4 +59,8 @@
      </view>
   </view>
   </block>
+  <view class="todo">
+   <text  style="font-weight: bold; margin: 0 1rem 0 0;">提示</text>
+   <text style="font-size: 0.8rem;">问题无解？点击右上角的三点，可以将这个问题转发给朋友，一起来解决！</text>
+  </view>
 </scroll-view>

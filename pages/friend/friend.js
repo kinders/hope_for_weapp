@@ -306,5 +306,26 @@ Page({
       },
       fail: function () { }
     })
+  },
+  search_lists: function (e) {
+    var that = this;
+    var is_hidden = [];
+    var friend_todos_length = 0;
+    var friend_id = that.data.friend.friend_id;
+    var friend_todos = "friend_" + friend_id + "_todos";
+    (wx.getStorageSync(friend_todos) || []).map(function (help) {
+      if (help.content.indexOf(e.detail.value) >= 0) {
+        is_hidden = is_hidden.concat("item"),
+          friend_todos_length = friend_todos_length + 1
+      } else {
+        is_hidden = is_hidden.concat("hidden")
+      }
+      that.setData({
+        is_hidden: is_hidden,
+        index: 0,
+        friend_todos_length: friend_todos_length
+      })
+      //console.log("search done")
+    })
   }
 })

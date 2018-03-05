@@ -1,20 +1,24 @@
 <!--pages/friend/friend.wxml-->
 <view  class="topbar">
   <navigator open-type="navigateBack">返回</navigator>
-  <text style="color: green;">任务</text>
+  <text style="color: green;">任务({{friend_todos_length}})</text>
   <text bindtap="moreFun">更多</text>
 </view>
 <view  class="topbar" style="background-color:green;">
 <text>昵称：</text>
 <text style="margin: auto;">{{friend.nickname}}</text>
 </view>
-<view style="padding: 0.5rem; border-bottom: inset;">
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{friend_todos_user_nicknames}}">
-  <view class="picker">
-      筛选：{{friend_todos_user_nicknames[index]}}
-      <text style="float: right;">({{friend_todos_length}})</text>
-    </view>
-  </picker>
+<view style="padding: 0.5rem; border-bottom: inset; display: flex;">
+  <view style="width: 50%">
+    <input bindinput="SearchInput" placeholder="搜索" bindconfirm="search_lists" confirm-type="search"/>
+  </view>
+  <view style="width: 50%" >
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{friend_todos_user_nicknames}}">
+      <view class="picker">
+        筛选：{{friend_todos_user_nicknames[index]}}
+      </view>
+    </picker>
+  </view>
 </view>
 <scroll-view scroll-y="true"  style="height: 27rem;" class="list">
   <block wx:for="{{friend_todos}}" wx:key="id" wx:for-item="friend_todo">

@@ -5,7 +5,7 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     wx.showModal({
       title: '提示',
-      content: '点击右上角的三点，可以转发卡片，增加准朋友。'
+      content: '点击右上角的三点，转发给你的朋友，准朋友就会越来越多！'
     })
   },
   onReady:function(){

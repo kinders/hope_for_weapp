@@ -81,5 +81,24 @@ Page({
       is_hidden: is_hidden,
       todos_length: todos_length
     })
+  },
+  search_lists: function (e) {
+    var that = this;
+    var is_hidden = [];
+    var todos_length = 0;
+    (wx.getStorageSync('other_todos') || []).map(function (help) {
+      if (help.content.indexOf(e.detail.value) >= 0) {
+        is_hidden = is_hidden.concat("item"),
+          todos_length = todos_length + 1
+      } else {
+        is_hidden = is_hidden.concat("hidden")
+      }
+      that.setData({
+        is_hidden: is_hidden,
+        index: 0,
+        todos_length: todos_length
+      })
+      //console.log("search done")
+    })
   }
 })

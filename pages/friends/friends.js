@@ -25,7 +25,7 @@ Page({
           if (f.length < 3){
             wx.showModal({
               title: '提示',
-              content: '朋友太少？点击右上角的“更多”，选择“添加朋友”！还可以点击右上角的三点，转发卡片，来增加准朋友。'
+              content: '朋友太少？点击右上角的“更多”，选择“添加朋友”！还可以点击右上角的三点，转发卡片，来增加一些准朋友。'
             })
           }
           var a = f.map(function(hash, index){return hash.nickname.concat("^^+_-^^", index)})
@@ -176,7 +176,7 @@ Page({
   },
   moreFun: function(){
     wx.showActionSheet({
-      itemList: ['添加朋友', '新建小组','发给多个朋友', '添加虚拟用户', '搜索'],
+      itemList: ['添加朋友', '新建小组','发送请求给多个朋友', '添加虚拟用户', '高级搜索'],
       success: function(res){
         if(res.tapIndex == 0){
           wx.redirectTo({url: '../strangers/strangers'})
