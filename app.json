@@ -31,7 +31,8 @@
     "pages/award/award",
     "pages/new_award/new_award",
     "pages/friend_awards/friend_awards",
-    "pages/hot_discussions/hot_discussions"
+    "pages/hot_discussions/hot_discussions",
+    "pages/add_friends_to_grouptodo/add_friends_to_grouptodo"
   ],
   "window":{
     "navigationBarBackgroundColor": "#000",

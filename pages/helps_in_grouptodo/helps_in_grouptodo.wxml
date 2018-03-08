@@ -10,7 +10,6 @@
   <text>小组名称：</text>
   <text style="margin: auto;">{{group.name}}</text>
 </view>
-<!--scroll-view  scroll-y="true"  style="height: 27rem;" -->
 <view class="todo">
   <view>
     <text>时间：{{grouptodo.time}}</text>
@@ -20,14 +19,12 @@
   </view>
 </view>
 <view class="todo">
-<view class="send">
-  <form bindsubmit="new_group_discussion">
-
-       <textarea name="content" style=" width: inherit; height: 4rem;  border: 1px solid green; border-radius: 5px; padding: 20rpx; margin: 0 0 5rpx 0;" />
-       <button formType="submit" type="primary" >发送留言</button>
-
-  </form>
-</view>
+ <view class="send">
+    <form bindsubmit="new_group_discussion">
+      <textarea name="content" style=" width: inherit; height: 4rem;  border: 1px solid green; border-radius: 5px; padding: 20rpx; margin: 0 0 5rpx 0;" />
+      <button formType="submit" type="primary" >发送留言</button>
+    </form>
+ </view>
 </view>
 <view class="todo" style="border-bottom: none;">
     <view>
@@ -73,4 +70,6 @@
     </view>
   </form>
 </view>
-<!--/scroll-view-->
+<view class="todo" style="border-bottom: none;">
+<navigator url="../add_friends_to_grouptodo/add_friends_to_grouptodo?id={{grouptodo.id}}&time={{grouptodo.time}}&content={{grouptodo.content}}&is_finish={{grouptodo.is_finish}}&group_id={{group.group_id}}&name={{group.name}}" style="margin: auto; text-align: center;">添加更多成员</navigator>
+</view>

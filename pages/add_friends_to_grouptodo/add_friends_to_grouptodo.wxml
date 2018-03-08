@@ -1,0 +1,34 @@
+<!--pages/add_friends_to_grouptodo/add_friends_to_grouptodo.wxml-->
+<view  class="topbar">
+  <navigator  open-type="navigateBack">返回</navigator>
+  <text style="color: green;">为 组请求 添加成员</text >
+</view>
+<view class="topbar" style="background-color:green;">
+  <text>小组名称：</text>
+  <text style="margin: auto;">{{group.name}}</text>
+</view>
+<view class="todo">
+  <view>
+    <text>时间：{{grouptodo.time}}</text>
+  </view>
+  <view>
+    <text  selectable="true">内容：{{grouptodo.content}}</text>
+  </view>
+</view>
+<form bindsubmit="formSubmit">
+  <scroll-view class="scroll-select" scroll-y="true"  style="height: 30rem;">
+    <checkbox-group name="checkbox">
+      <view class="section-title">可添加的朋友：</view>
+      <block wx:for="{{others}}" wx:key="id">
+        <view class="section-checkbox">
+          <label><checkbox value="{{item.friend_id}}" style="float: right;"/>{{item.nickname}}</label>
+        </view>
+      </block>
+    </checkbox-group>
+    <view class="btn-area">
+      <view>
+        <button formType="submit" type="primary">添加成员</button>
+      </view>
+    </view>
+  </scroll-view>
+</form>

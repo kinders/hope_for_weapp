@@ -1,0 +1,20 @@
+/* pages/add_friends_to_grouptodo/add_friends_to_grouptodo.wxss */
+.section-title {
+    font-weight: bold;
+    padding: 10rpx;
+    background-color: darkgray;
+}
+.scroll-select {
+  height: 800rpx;
+}
+.section-checkbox {
+    padding: 20rpx 2rem;
+    border-bottom: 0.1px solid lightgray;
+}
+.section-input {
+    padding: 10rpx;
+    margin: 10rpx;
+}
+.btn-area {
+    padding: 0rpx 20rpx;
+}
