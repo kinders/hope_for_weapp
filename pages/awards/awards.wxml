@@ -5,6 +5,9 @@
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
   <view class="usermotto" style="margin-top: 80rpx;">
+    <view>
+    <text>已完成 {{ count_finished || 0 }} 个任务</text>
+    </view>
     <text>已获得 {{ count || 0 }} 个鼓励</text>
   </view>
   <view class="usermotto" style="margin-top: 80rpx;">

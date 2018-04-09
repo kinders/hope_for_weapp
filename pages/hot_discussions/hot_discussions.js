@@ -74,7 +74,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    var hot_discussions = wx.getStorageSync('hot_discussions')
+    this.setData({
+      hot_discussions: hot_discussions,
+      hot_discussions_length: hot_discussions.length
+    })
   },
 
   /**

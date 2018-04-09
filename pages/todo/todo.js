@@ -8,6 +8,7 @@ var is_finish;
 var todo;
 var discussions;
 var scene=0;
+var from_discussion = 0;
 Page({
   data:{},
   onLoad:function(options){
@@ -19,6 +20,7 @@ Page({
       getApp().getUserInfo()
     }
     // 页面初始化 options为页面跳转所带来的参数
+    from_discussion = options.discussion_id;
     todo_id = options.todo_id;
     user_id = options.user_id;
     user_nickname = options.user_nickname;
@@ -168,9 +170,22 @@ Page({
                   icon: 'success',
                   duration: 2000
                 })
+                // 更新任务的结束状态
                 var new_todo = that.data.todo;
                 new_todo.is_finish = 'true';
                 that.setData({todo: new_todo})
+                //如果页面来自留言，则删去所有这个todo的留言
+                if (from_discussion > 0){
+                  var hot_discussions = wx.getStorageSync('hot_discussions') || [];
+                  for (var i = 0; i < hot_discussions.length; i++){
+                    if (hot_discussions[i].todo_id == todo_id){
+                      hot_discussions.splice(i, 1);
+                      i--;
+                    }
+                  }
+                  wx.setStorageSync('hot_discussions', hot_discussions)
+                }
+                // 指示其他页面更新信息
                 getApp().globalData.need_update_helps = true
                 getApp().globalData.need_update_groups_helps = true
               }else{

@@ -14,7 +14,7 @@
 <scroll-view scroll-y="true"  style="height: 28rem;" class="list">
   <block wx:for="{{hot_discussions}}" wx:key="id" wx:for-item="hot_discussion">
     <view class="{{is_hidden[index]}}" bindlongpress='close_help' data-todo_id="{{help.id}}">
-      <navigator url="../todo/todo?todo_id={{hot_discussion.todo_id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&is_finish=f">
+      <navigator url="../todo/todo?todo_id={{hot_discussion.todo_id}}&user_id={{current_user.id}}&user_nickname={{current_user.nickname}}&is_finish=f&discussion_id={{hot_discussion.id}}">
         <view class="item-key">
          <text>{{index + 1}}    </text>
          <text style="padding: 0.25rem;color: gray;" wx:if="{{help.receiver_id == current_user.id}}" >{{hot_discussion.nickname}}</text>

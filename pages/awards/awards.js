@@ -32,7 +32,9 @@ Page({
         if (res.data.awards) {
           wx.setStorageSync('awards', res.data.awards)
           wx.setStorageSync('count', res.data.count)
+          wx.setStorageSync('count_finished', res.data.count_finished)
           that.setData({
+            count_finished: res.data.count_finished,
             awards: res.data.awards,
             count: res.data.count,
             current_user: current_user
@@ -60,7 +62,8 @@ Page({
   onShow: function () {
     this.setData({
       awards: wx.getStorageSync('awards'),
-      count: wx.getStorageSync('count')
+      count: wx.getStorageSync('count'),
+      count_finished: wx.getStorageSync('count_finished')
     })
   },
 

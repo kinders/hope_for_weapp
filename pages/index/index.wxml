@@ -19,13 +19,13 @@
   </view>
   <view wx:elif="{{is_use == 0}}">
     <view class="usermotto">
-      <text>网络连接不畅...</text>
+      <text>...正在连接网络...</text>
     </view>
     <view class="usermotto" bindtap="reconnect">
-      <button>加速连接</button>
+      <button size="mini" type="primary">加速连接</button>
     </view>
   </view>
   <view wx:elif="{{is_use == 1}}">
-     <navigator url="../todos/todos" open-type='switchTab'>开始“希望”</navigator>
+     <navigator url="../todos/todos" open-type='switchTab'>开启“希望”</navigator>
   </view>
 </view>
