@@ -40,19 +40,21 @@ Page({
   },
   onShow: function(){
     var that = this;
-    var is_use = this.data.is_use;
-    if(is_use == undefined){
-      that.setData({
-        is_use: getApp().globalData.is_use
-      })
-    }
+    setTimeout(function () {
+      var is_use = this.data.is_use;
+      if(is_use == undefined){
+        that.setData({
+          is_use: getApp().globalData.is_use
+        })
+      }
+    }, 3000);
   },
   pay: function(){
     var that = this;
     var token = getApp().globalData.token;
     if(token == undefined){
       wx.showToast({
-        title: '程序还未准备好，请您重试',
+        title: '请您重试',
         icon: 'loading',
         duration: 5000
       })
@@ -115,7 +117,7 @@ Page({
       }
     }else if (is_use == 2){
       wx.showToast({
-        title: '需要续费才能继续使用',
+        title: '需要续费',
         icon: 'loading',
         duration: 2000
       }),
@@ -124,17 +126,15 @@ Page({
         is_use: 2
       })
     } else if (is_use == 3){
-      wx.showToast({
-        title: '服务端无法让用户登录。可先退出小程序，稍后重新进入',
-        icon: 'loading',
-        duration: 2000
+      wx.showModal({
+        title: '提示',
+        content: '服务端无法让用户登录。可先退出小程序，等服务端恢复正常，再重新进入'
       })
     } else {
       getApp().getUserInfo()
-      wx.showToast({
-        title: '网络故障。可先退出小程序，稍后重新进入',
-        icon: 'loading',
-        duration: 2000
+      wx.showModal({
+        title: '提示',
+        content: '网络故障。可先退出小程序，连接网络之后重新进入'
       })
     }
   }

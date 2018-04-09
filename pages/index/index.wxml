@@ -19,10 +19,10 @@
   </view>
   <view wx:elif="{{is_use == 0}}">
     <view class="usermotto">
-      <text>...正在连接网络...</text>
+      <text style='font-size: 1.3rem;'>...正在连接网络...</text>
     </view>
     <view class="usermotto" bindtap="reconnect">
-      <button size="mini" type="primary">加速连接</button>
+      <button type="primary">加速连接</button>
     </view>
   </view>
   <view wx:elif="{{is_use == 1}}">
