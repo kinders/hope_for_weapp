@@ -6,12 +6,14 @@
   </view>
   <view class="usermotto" style="margin-top: 80rpx;">
     <view>
-    <text>已完成 {{ count_finished || 0 }} 个任务</text>
+    <text>已收到 {{ count || 0 }} 个鼓励！</text>
     </view>
-    <text>已获得 {{ count || 0 }} 个鼓励</text>
-  </view>
-  <view class="usermotto" style="margin-top: 80rpx;">
-    <navigator url="../friends/friends" open-type="switchTab"><button size="mini" type="primary">点击这里，继续协作</button></navigator>
+    <view>
+    <text>已完成 {{ count_finished || 0 }} 个任务！</text>
+    </view>
+    <view class="usermotto" style="margin-top: 60rpx;">
+    <navigator url="../todos/todos" open-type="switchTab"><button size="mini" type="primary">还有 {{ count_unfinish || 0 }} 个任务</button></navigator>
+    </view>
   </view>
 </view>
 <scroll-view scroll-y="true"  style="height: 15rem;" class="list">

@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/todos/todos",
     "pages/other_todos/other_todos",
@@ -34,34 +34,38 @@
     "pages/hot_discussions/hot_discussions",
     "pages/add_friends_to_grouptodo/add_friends_to_grouptodo"
   ],
-  "window":{
+  "window": {
     "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "希望协作",
-    "navigationBarTextStyle":"white",
+    "navigationBarTextStyle": "white",
     "backgroundColor": "#d3d3d3",
-    "backgroundTextStyle":"light"
+    "backgroundTextStyle": "light"
   },
   "tabBar": {
     "color": "white",
     "selectedColor": "green",
     "backgroundColor": "black",
-    "borderStyle": "black", 
-    "list": [{
-      "pagePath": "pages/helps/helps",
-      "text": "请求",
-      "iconPath": "icons/like.png",
-      "selectedIconPath": "icons/like_green.png"
-    }, {
-      "pagePath": "pages/todos/todos",
-      "text": "任务",
-      "iconPath": "icons/good.png",
-      "selectedIconPath": "icons/good_green.png"
-    },{
-      "pagePath": "pages/friends/friends",
-      "text": "朋友",
-      "iconPath": "icons/people.png",
-      "selectedIconPath": "icons/people_green.png"
-    }]
-  }
-
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/helps/helps",
+        "text": "请求",
+        "iconPath": "icons/like.png",
+        "selectedIconPath": "icons/like_green.png"
+      },
+      {
+        "pagePath": "pages/todos/todos",
+        "text": "任务",
+        "iconPath": "icons/good.png",
+        "selectedIconPath": "icons/good_green.png"
+      },
+      {
+        "pagePath": "pages/friends/friends",
+        "text": "朋友",
+        "iconPath": "icons/people.png",
+        "selectedIconPath": "icons/people_green.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
 }

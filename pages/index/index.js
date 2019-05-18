@@ -3,7 +3,7 @@ Page({
   data: {},
   //事件处理函数
   onLoad: function () {
-    var that = this
+    var that = this;
     //调用应用实例的方法获取全局数据
     getApp().getUserInfo(function(userInfo){
       //取出用户
@@ -16,7 +16,6 @@ Page({
         icon: 'loading',
         duration: 3000
     })
-    var that=this;
     setTimeout(function(){
       var is_use = getApp().globalData.is_use;
       var current_user = getApp().globalData.current_user;
@@ -33,6 +32,12 @@ Page({
           is_use: 2,
           msg: getApp().globalData.msg
         })
+      } else if (is_use == 3) {
+        that.setData({
+          current_user: current_user,
+          is_use: 3,
+          msg: getApp().globalData.msg
+        })
       } else {
         that.setData({is_use: 0})
       }     
@@ -41,7 +46,7 @@ Page({
   onShow: function(){
     var that = this;
     setTimeout(function () {
-      var is_use = this.data.is_use;
+      var is_use = that.data.is_use;
       if(is_use == undefined){
         that.setData({
           is_use: getApp().globalData.is_use
@@ -106,6 +111,12 @@ Page({
   },
   reconnect: function(){
     var that=this;
+    wx.showToast({
+      title: '正在重新连接',
+      icon: 'loading',
+      duration: 3000
+    })
+    setTimeout(function () {
     var is_use = getApp().globalData.is_use
     var current_user = getApp().globalData.current_user;
     if(is_use == 1){
@@ -128,14 +139,15 @@ Page({
     } else if (is_use == 3){
       wx.showModal({
         title: '提示',
-        content: '服务端无法让用户登录。可先退出小程序，等服务端恢复正常，再重新进入'
+        content: '服务故障。请耐心等服务恢复正常……'
       })
     } else {
       getApp().getUserInfo()
       wx.showModal({
         title: '提示',
-        content: '网络故障。可先退出小程序，连接网络之后重新进入'
+        content: '网络故障。请检查网络连接。'
       })
     }
+  }, 3000);
   }
 })

@@ -33,8 +33,10 @@ Page({
           wx.setStorageSync('awards', res.data.awards)
           wx.setStorageSync('count', res.data.count)
           wx.setStorageSync('count_finished', res.data.count_finished)
+          wx.setStorageSync('count_unfinish', res.data.count_unfinish)
           that.setData({
             count_finished: res.data.count_finished,
+            count_unfinish: res.data.count_unfinish,
             awards: res.data.awards,
             count: res.data.count,
             current_user: current_user
@@ -63,6 +65,7 @@ Page({
     this.setData({
       awards: wx.getStorageSync('awards'),
       count: wx.getStorageSync('count'),
+      count_unfinish: wx.getStorageSync('count_unfinish'),
       count_finished: wx.getStorageSync('count_finished')
     })
   },
